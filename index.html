@@ -10,26 +10,46 @@
   <style>
     /* ─── DESIGN TOKENS ─────────────────────────────────────────── */
     :root {
-      --ink:         #0d0f1a;
-      --ink-soft:    #1a1d2e;
-      --surface:     #13162a;
-      --card:        #1c2040;
-      --card-hover:  #222748;
-      --border:      rgba(255,255,255,0.07);
-      --text:        #d4d8f0;
-      --text-muted:  #7a80a8;
-      --gold:        #f0a84a;
-      --gold-light:  #ffd280;
-      --amber:       #e87d2a;
-      --sky:         #4a9eff;
-      --sky-soft:    #2a5fa8;
-      --violet:      #a78bfa;
-      --green-soft:  #34d399;
-      --red-soft:    #f87171;
-      --glow-gold:   rgba(240,168,74,0.15);
-      --glow-sky:    rgba(74,158,255,0.12);
-      --radius:      12px;
-      --radius-lg:   20px;
+      /* Base — near-black with a warm purple undertone, not cold navy */
+      --ink:         #0e0b1a;
+      --ink-soft:    #160f28;
+      --surface:     #1a1230;
+      --card:        #221640;
+      --card-hover:  #2c1e52;
+
+      /* Borders — visible but subtle */
+      --border:      rgba(200,170,255,0.10);
+      --border-bold: rgba(200,170,255,0.22);
+
+      /* Text */
+      --text:        #ede8ff;
+      --text-muted:  #9588bb;
+
+      /* PRIMARY accent — electric yellow-green. Energetic, bold, readable */
+      --lime:        #c8f135;
+      --lime-light:  #deff6e;
+      --lime-dim:    rgba(200,241,53,0.14);
+      --lime-glow:   rgba(200,241,53,0.28);
+
+      /* SECONDARY accent — hot magenta/pink for Chapter 10 */
+      --magenta:     #ff3eac;
+      --magenta-light:#ff80cc;
+      --magenta-dim: rgba(255,62,172,0.13);
+      --magenta-glow:rgba(255,62,172,0.25);
+
+      /* TERTIARY — electric cyan for interactive elements */
+      --cyan:        #00e5ff;
+      --cyan-dim:    rgba(0,229,255,0.11);
+      --cyan-glow:   rgba(0,229,255,0.22);
+
+      /* Semantic colours */
+      --green-soft:  #39ffa0;
+      --red-soft:    #ff5e7a;
+      --violet:      #b794ff;
+      --orange:      #ff8c42;
+
+      --radius:      14px;
+      --radius-lg:   22px;
     }
 
     /* ─── RESET & BASE ──────────────────────────────────────────── */
@@ -46,22 +66,35 @@
       overflow-x: hidden;
     }
 
-    ::selection { background: var(--gold); color: var(--ink); }
+    /* Subtle grain texture for depth */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.35;
+    }
+
+    ::selection { background: var(--lime); color: var(--ink); }
 
     /* ─── SCROLLBAR ─────────────────────────────────────────────── */
     ::-webkit-scrollbar { width: 5px; }
     ::-webkit-scrollbar-track { background: var(--ink); }
-    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb { background: var(--lime); border-radius: 3px; }
 
     /* ─── PROGRESS BAR ──────────────────────────────────────────── */
     #progress-bar {
       position: fixed;
       top: 0; left: 0;
-      height: 3px;
+      height: 4px;
       width: 0%;
-      background: linear-gradient(90deg, var(--gold), var(--sky));
+      background: linear-gradient(90deg, var(--lime), var(--cyan), var(--magenta));
       z-index: 999;
       transition: width 0.1s linear;
+      box-shadow: 0 0 12px var(--lime-glow);
     }
 
     /* ─── NAV ───────────────────────────────────────────────────── */
@@ -74,7 +107,7 @@
       justify-content: space-between;
       padding: 16px 48px;
       backdrop-filter: blur(20px);
-      background: rgba(13,15,26,0.85);
+      background: rgba(14,11,26,0.88);
       border-bottom: 1px solid var(--border);
       transition: padding 0.3s;
     }
@@ -82,7 +115,7 @@
       font-family: 'Playfair Display', serif;
       font-weight: 700;
       font-size: 18px;
-      color: var(--gold);
+      color: var(--lime);
       letter-spacing: 0.02em;
       text-decoration: none;
     }
@@ -100,7 +133,7 @@
       text-transform: uppercase;
       transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover { color: var(--lime); }
 
     /* ─── HERO ──────────────────────────────────────────────────── */
     .hero {
@@ -118,25 +151,28 @@
     .hero-bg {
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(74,158,255,0.08) 0%, transparent 60%),
-                  radial-gradient(ellipse 60% 40% at 20% 80%, rgba(240,168,74,0.06) 0%, transparent 50%),
-                  radial-gradient(ellipse 50% 50% at 80% 20%, rgba(167,139,250,0.05) 0%, transparent 50%);
+      background: 
+        radial-gradient(ellipse 70% 55% at 50% 30%, rgba(200,241,53,0.07) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 15% 75%, rgba(255,62,172,0.08) 0%, transparent 55%),
+        radial-gradient(ellipse 45% 45% at 85% 20%, rgba(0,229,255,0.06) 0%, transparent 55%),
+        radial-gradient(ellipse 60% 60% at 50% 100%, rgba(183,148,255,0.05) 0%, transparent 50%);
       z-index: 0;
     }
 
     /* Animated light rays */
     .light-ray {
       position: absolute;
-      width: 1px;
-      background: linear-gradient(to bottom, transparent, rgba(240,168,74,0.3), transparent);
+      width: 2px;
+      background: linear-gradient(to bottom, transparent, rgba(200,241,53,0.5), transparent);
       animation: ray-fall 8s ease-in-out infinite;
       opacity: 0;
+      border-radius: 2px;
     }
-    .light-ray:nth-child(1) { left: 15%; height: 60%; top: -10%; animation-delay: 0s; }
-    .light-ray:nth-child(2) { left: 35%; height: 40%; top: 5%; animation-delay: 2s; }
-    .light-ray:nth-child(3) { left: 55%; height: 70%; top: -20%; animation-delay: 4s; }
-    .light-ray:nth-child(4) { left: 75%; height: 50%; top: 10%; animation-delay: 1s; }
-    .light-ray:nth-child(5) { left: 90%; height: 45%; top: 0%; animation-delay: 3s; }
+    .light-ray:nth-child(1) { left: 15%; height: 60%; top: -10%; animation-delay: 0s; background: linear-gradient(to bottom, transparent, rgba(200,241,53,0.4), transparent); }
+    .light-ray:nth-child(2) { left: 35%; height: 40%; top: 5%; animation-delay: 2s; background: linear-gradient(to bottom, transparent, rgba(0,229,255,0.4), transparent); }
+    .light-ray:nth-child(3) { left: 55%; height: 70%; top: -20%; animation-delay: 4s; background: linear-gradient(to bottom, transparent, rgba(255,62,172,0.35), transparent); }
+    .light-ray:nth-child(4) { left: 75%; height: 50%; top: 10%; animation-delay: 1s; background: linear-gradient(to bottom, transparent, rgba(183,148,255,0.4), transparent); }
+    .light-ray:nth-child(5) { left: 90%; height: 45%; top: 0%; animation-delay: 3s; background: linear-gradient(to bottom, transparent, rgba(200,241,53,0.35), transparent); }
 
     @keyframes ray-fall {
       0%   { opacity: 0; transform: translateY(-20px); }
@@ -150,7 +186,7 @@
       font-weight: 500;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--lime);
       margin-bottom: 24px;
       position: relative;
       z-index: 1;
@@ -170,7 +206,10 @@
     }
     .hero-title em {
       font-style: italic;
-      color: var(--gold);
+      background: linear-gradient(135deg, var(--lime), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
     .hero-subtitle {
       max-width: 580px;
@@ -206,32 +245,34 @@
       animation: fade-up 0.8s ease forwards 1s;
     }
     .chapter-pill {
-      padding: 10px 24px;
+      padding: 12px 28px;
       border-radius: 100px;
       font-size: 14px;
-      font-weight: 500;
+      font-weight: 600;
       cursor: pointer;
       text-decoration: none;
       transition: all 0.25s;
+      letter-spacing: 0.02em;
     }
     .chapter-pill.primary {
-      background: var(--gold);
+      background: var(--lime);
       color: var(--ink);
     }
     .chapter-pill.primary:hover {
-      background: var(--gold-light);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(240,168,74,0.3);
+      background: var(--lime-light);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 36px var(--lime-glow);
     }
     .chapter-pill.secondary {
       background: transparent;
       color: var(--text);
-      border: 1px solid var(--border);
+      border: 1px solid var(--border-bold);
     }
     .chapter-pill.secondary:hover {
-      border-color: var(--sky);
-      color: var(--sky);
-      transform: translateY(-2px);
+      border-color: var(--magenta);
+      color: var(--magenta);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px var(--magenta-glow);
     }
 
     .scroll-hint {
@@ -243,7 +284,7 @@
       flex-direction: column;
       align-items: center;
       gap: 8px;
-      color: var(--text-muted);
+      color: var(--lime);
       font-size: 11px;
       letter-spacing: 0.15em;
       text-transform: uppercase;
@@ -254,8 +295,8 @@
     .scroll-arrow {
       width: 20px;
       height: 20px;
-      border-right: 2px solid var(--text-muted);
-      border-bottom: 2px solid var(--text-muted);
+      border-right: 2px solid var(--lime);
+      border-bottom: 2px solid var(--lime);
       transform: rotate(45deg);
     }
 
@@ -283,18 +324,43 @@
       align-items: center;
       gap: 10px;
       font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.2em;
+      font-weight: 600;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--lime);
       margin-bottom: 20px;
     }
     .section-label::before {
       content: '';
       display: block;
       width: 28px;
-      height: 1px;
-      background: var(--gold);
+      height: 2px;
+      background: var(--lime);
+      border-radius: 2px;
+    }
+
+    /* ─── CHAPTER ZONE BACKGROUNDS ──────────────────────────────── */
+    #ch9 {
+      position: relative;
+    }
+    #ch9::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 400px;
+      background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(200,241,53,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    #ch10 {
+      position: relative;
+    }
+    #ch10::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 400px;
+      background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(255,62,172,0.07) 0%, transparent 70%);
+      pointer-events: none;
     }
 
     /* ─── CHAPTER DIVIDERS ──────────────────────────────────────── */
@@ -327,8 +393,8 @@
       text-transform: uppercase;
       margin-bottom: 20px;
     }
-    .chapter-tag.gold { background: rgba(240,168,74,0.12); color: var(--gold); border: 1px solid rgba(240,168,74,0.3); }
-    .chapter-tag.blue { background: rgba(74,158,255,0.1); color: var(--sky); border: 1px solid rgba(74,158,255,0.25); }
+    .chapter-tag.gold { background: var(--lime-dim); color: var(--lime); border: 1px solid rgba(200,241,53,0.35); }
+    .chapter-tag.blue { background: var(--magenta-dim); color: var(--magenta); border: 1px solid rgba(255,62,172,0.30); }
     .chapter-title {
       font-family: 'Playfair Display', serif;
       font-size: clamp(32px, 5vw, 58px);
@@ -358,16 +424,16 @@
     }
     .prose h3 {
       font-size: 20px;
-      font-weight: 500;
-      color: var(--gold);
+      font-weight: 600;
+      color: var(--cyan);
       margin: 40px 0 14px;
     }
     .prose p {
       margin-bottom: 20px;
       color: var(--text);
     }
-    .prose strong { color: #fff; font-weight: 500; }
-    .prose em { color: var(--gold-light); font-style: italic; }
+    .prose strong { color: #fff; font-weight: 600; }
+    .prose em { color: var(--lime); font-style: italic; }
 
     /* ─── DIVIDER ───────────────────────────────────────────────── */
     .divider {
@@ -389,32 +455,44 @@
       top: 50%;
       width: 40%;
       height: 1px;
-      background: var(--border);
+      background: var(--border-bold);
     }
     .divider-fancy::before { left: 0; }
     .divider-fancy::after { right: 0; }
 
     /* ─── CALLOUT / HIGHLIGHT BOX ───────────────────────────────── */
     .callout {
-      border-left: 3px solid var(--gold);
+      border-left: 4px solid var(--lime);
       padding: 20px 28px;
       background: var(--card);
       border-radius: 0 var(--radius) var(--radius) 0;
       margin: 32px 0;
+      position: relative;
+      overflow: hidden;
     }
-    .callout.blue { border-color: var(--sky); }
-    .callout.violet { border-color: var(--violet); }
+    .callout::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--lime-dim);
+      pointer-events: none;
+    }
+    .callout.blue { border-color: var(--cyan); }
+    .callout.blue::before { background: var(--cyan-dim); }
+    .callout.violet { border-color: var(--magenta); }
+    .callout.violet::before { background: var(--magenta-dim); }
     .callout-title {
       font-size: 12px;
-      font-weight: 500;
+      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.15em;
-      color: var(--gold);
+      color: var(--lime);
       margin-bottom: 8px;
+      position: relative;
     }
-    .callout.blue .callout-title { color: var(--sky); }
-    .callout.violet .callout-title { color: var(--violet); }
-    .callout p { margin: 0; font-size: 16px; }
+    .callout.blue .callout-title { color: var(--cyan); }
+    .callout.violet .callout-title { color: var(--magenta); }
+    .callout p { margin: 0; font-size: 16px; position: relative; }
 
     /* ─── FORMULA CARDS ─────────────────────────────────────────── */
     .formula-grid {
@@ -436,15 +514,15 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: var(--glow-gold);
+      background: var(--lime-dim);
       opacity: 0;
       transition: opacity 0.25s;
     }
-    .formula-card:hover { border-color: rgba(240,168,74,0.4); transform: translateY(-3px); }
+    .formula-card:hover { border-color: rgba(200,241,53,0.45); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(200,241,53,0.1); }
     .formula-card:hover::before { opacity: 1; }
     .formula-card .label {
       font-size: 11px;
-      font-weight: 500;
+      font-weight: 600;
       letter-spacing: 0.15em;
       text-transform: uppercase;
       color: var(--text-muted);
@@ -453,7 +531,7 @@
     .formula-card .formula {
       font-family: 'DM Mono', monospace;
       font-size: 20px;
-      color: var(--gold);
+      color: var(--lime);
       font-weight: 500;
       line-height: 1.3;
     }
@@ -475,12 +553,12 @@
       text-align: left;
       padding: 12px 16px;
       background: var(--surface);
-      color: var(--text-muted);
-      font-weight: 500;
+      color: var(--lime);
+      font-weight: 600;
       font-size: 12px;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--border-bold);
     }
     .data-table td {
       padding: 14px 16px;
@@ -492,8 +570,8 @@
     .data-table td code {
       font-family: 'DM Mono', monospace;
       font-size: 14px;
-      color: var(--gold);
-      background: rgba(240,168,74,0.08);
+      color: var(--lime);
+      background: var(--lime-dim);
       padding: 2px 7px;
       border-radius: 4px;
     }
@@ -510,14 +588,15 @@
       min-width: 540px;
     }
     .image-table th {
-      background: rgba(240,168,74,0.08);
-      color: var(--gold);
+      background: var(--lime-dim);
+      color: var(--lime);
       padding: 12px 14px;
       text-align: left;
       font-size: 12px;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      border-bottom: 1px solid rgba(240,168,74,0.2);
+      border-bottom: 1px solid rgba(200,241,53,0.25);
+      font-weight: 700;
     }
     .image-table td {
       padding: 12px 14px;
@@ -532,10 +611,10 @@
       font-size: 11px;
       font-weight: 500;
     }
-    .badge.real    { background: rgba(248,113,113,0.15); color: var(--red-soft); }
-    .badge.virtual { background: rgba(52,211,153,0.12); color: var(--green-soft); }
-    .badge.erect   { background: rgba(74,158,255,0.12); color: var(--sky); }
-    .badge.inverted{ background: rgba(167,139,250,0.12); color: var(--violet); }
+    .badge.real    { background: rgba(255,94,122,0.18); color: #ff8fa3; border: 1px solid rgba(255,94,122,0.3); }
+    .badge.virtual { background: rgba(57,255,160,0.14); color: var(--green-soft); border: 1px solid rgba(57,255,160,0.28); }
+    .badge.erect   { background: var(--cyan-dim); color: var(--cyan); border: 1px solid rgba(0,229,255,0.25); }
+    .badge.inverted{ background: rgba(183,148,255,0.14); color: var(--violet); border: 1px solid rgba(183,148,255,0.28); }
 
     /* ─── INTERACTIVE DEMOS ─────────────────────────────────────── */
     .demo-box {
@@ -600,7 +679,7 @@
       width: 18px;
       height: 18px;
       border-radius: 50%;
-      background: var(--gold);
+      background: var(--lime);
       cursor: pointer;
       transition: transform 0.15s;
     }
@@ -622,7 +701,7 @@
       padding: 16px 20px;
       font-family: 'DM Mono', monospace;
       font-size: 14px;
-      color: var(--gold);
+      color: var(--lime);
       margin-top: 16px;
       min-height: 50px;
     }
@@ -683,8 +762,9 @@
       width: 20px;
       height: 20px;
       border-radius: 50%;
-      background: var(--gold);
+      background: var(--lime);
       cursor: pointer;
+      box-shadow: 0 0 8px var(--lime-glow);
     }
 
     /* Lens calculator */
@@ -717,25 +797,26 @@
       outline: none;
       transition: border-color 0.2s;
     }
-    .calc-input input:focus { border-color: var(--gold); }
+    .calc-input input:focus { border-color: var(--lime); box-shadow: 0 0 0 3px var(--lime-dim); }
     .calc-btn {
       width: 100%;
       padding: 14px;
-      background: var(--gold);
+      background: linear-gradient(135deg, var(--lime), #a8d400);
       color: var(--ink);
       border: none;
       border-radius: var(--radius);
       font-family: inherit;
       font-size: 15px;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
       transition: all 0.2s;
       margin-bottom: 16px;
+      letter-spacing: 0.03em;
     }
     .calc-btn:hover {
-      background: var(--gold-light);
+      background: linear-gradient(135deg, var(--lime-light), var(--lime));
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(240,168,74,0.25);
+      box-shadow: 0 10px 28px var(--lime-glow);
     }
     .calc-result {
       background: var(--ink);
@@ -743,12 +824,13 @@
       padding: 20px;
       font-size: 15px;
       line-height: 1.8;
+      border: 1px solid var(--border);
     }
     .calc-result .r-label { color: var(--text-muted); font-size: 13px; }
     .calc-result .r-value {
       font-family: 'DM Mono', monospace;
       font-size: 18px;
-      color: var(--gold);
+      color: var(--lime);
       font-weight: 500;
     }
     .calc-result .r-verdict {
@@ -773,23 +855,23 @@
       align-items: center;
       gap: 16px;
       padding: 20px 28px;
-      background: rgba(240,168,74,0.06);
+      background: var(--lime-dim);
       border-bottom: 1px solid var(--border);
       cursor: pointer;
       user-select: none;
       transition: background 0.2s;
     }
-    .example-header:hover { background: rgba(240,168,74,0.1); }
+    .example-header:hover { background: rgba(200,241,53,0.18); }
     .example-num {
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      background: var(--gold);
+      background: var(--lime);
       color: var(--ink);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 700;
+      font-weight: 800;
       font-size: 14px;
       flex-shrink: 0;
     }
@@ -833,23 +915,24 @@
     .step-content .eq {
       font-family: 'DM Mono', monospace;
       font-size: 15px;
-      color: var(--gold);
-      background: rgba(240,168,74,0.08);
+      color: var(--lime);
+      background: var(--lime-dim);
+      border: 1px solid rgba(200,241,53,0.2);
       padding: 10px 16px;
       border-radius: 8px;
       margin-top: 8px;
       display: inline-block;
     }
     .answer-box {
-      background: var(--card);
-      border: 1px solid rgba(52,211,153,0.25);
+      background: rgba(57,255,160,0.06);
+      border: 1px solid rgba(57,255,160,0.3);
       border-radius: var(--radius);
       padding: 16px 20px;
       margin-top: 20px;
     }
     .answer-box .ans-label {
       font-size: 11px;
-      font-weight: 500;
+      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.15em;
       color: var(--green-soft);
@@ -871,8 +954,8 @@
       padding: 28px;
       transition: all 0.25s;
     }
-    .defect-card:hover { border-color: rgba(74,158,255,0.4); transform: translateY(-3px); }
-    .defect-icon { font-size: 36px; margin-bottom: 16px; }
+    .defect-card:hover { border-color: rgba(0,229,255,0.4); transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,229,255,0.08); }
+    .defect-icon { font-size: 40px; margin-bottom: 16px; }
     .defect-name {
       font-family: 'Playfair Display', serif;
       font-size: 22px;
@@ -886,17 +969,18 @@
       font-style: italic;
       margin-bottom: 14px;
     }
-    .defect-card p { font-size: 14px; color: var(--text-muted); margin-bottom: 14px; }
+    .defect-card p { font-size: 14px; color: var(--text-muted); margin-bottom: 14px; line-height: 1.65; }
     .defect-correction {
       display: flex;
       align-items: center;
-      gap: 8px;
-      background: rgba(74,158,255,0.08);
-      border: 1px solid rgba(74,158,255,0.2);
-      border-radius: 8px;
-      padding: 10px 14px;
+      gap: 10px;
+      background: var(--cyan-dim);
+      border: 1px solid rgba(0,229,255,0.25);
+      border-radius: 10px;
+      padding: 11px 14px;
       font-size: 13px;
-      color: var(--sky);
+      color: var(--cyan);
+      font-weight: 500;
     }
 
     /* ─── PHENOMENON CARDS (SCATTERING/RAINBOW) ─────────────────── */
@@ -919,14 +1003,14 @@
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0;
-      height: 3px;
-      border-radius: 3px 3px 0 0;
+      height: 4px;
+      border-radius: 4px 4px 0 0;
     }
-    .phenomenon-card.blue-sky::after { background: linear-gradient(90deg, var(--sky), var(--violet)); }
-    .phenomenon-card.red-sun::after { background: linear-gradient(90deg, var(--amber), var(--red-soft)); }
-    .phenomenon-card.rainbow::after { background: linear-gradient(90deg, #f87171, #fbbf24, #34d399, #60a5fa, #a78bfa); }
-    .phenomenon-card.stars::after { background: linear-gradient(90deg, var(--violet), var(--sky)); }
-    .phenomenon-card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.15); }
+    .phenomenon-card.blue-sky::after  { background: linear-gradient(90deg, var(--cyan), var(--violet)); }
+    .phenomenon-card.red-sun::after   { background: linear-gradient(90deg, #ff8c42, var(--magenta)); }
+    .phenomenon-card.rainbow::after   { background: linear-gradient(90deg, #ff5e7a, #ffcc00, #39ffa0, var(--cyan), var(--violet)); }
+    .phenomenon-card.stars::after     { background: linear-gradient(90deg, var(--violet), var(--cyan)); }
+    .phenomenon-card:hover { transform: translateY(-5px); border-color: var(--border-bold); box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
     .phen-icon { font-size: 42px; margin-bottom: 16px; }
     .phen-title {
       font-family: 'Playfair Display', serif;
@@ -962,13 +1046,52 @@
       gap: 14px;
       align-items: flex-start;
     }
+    /* ─── KEY POINTS SUMMARY ────────────────────────────────────── */
+    .summary-section {
+      background: linear-gradient(135deg, var(--surface) 0%, var(--card) 100%);
+      border: 1px solid var(--border-bold);
+      border-radius: var(--radius-lg);
+      padding: 48px;
+      margin: 60px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .summary-section::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--lime-dim) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .summary-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 30px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 32px;
+      position: relative;
+    }
+    .key-points {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      position: relative;
+    }
+    .key-point {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
     .kp-dot {
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background: var(--gold);
+      background: var(--lime);
       flex-shrink: 0;
       margin-top: 8px;
+      box-shadow: 0 0 8px var(--lime-glow);
     }
     .key-point p {
       font-size: 14px;
@@ -980,13 +1103,21 @@
 
     /* ─── RAINBOW SVG SECTION ───────────────────────────────────── */
     .rainbow-viz {
-      background: linear-gradient(to bottom, #0a1628, #1a0a2e);
+      background: linear-gradient(160deg, #0e0b1a 0%, #160827 50%, #0a1220 100%);
+      border: 1px solid var(--border-bold);
       border-radius: var(--radius-lg);
       padding: 48px;
       text-align: center;
       margin: 40px 0;
       overflow: hidden;
       position: relative;
+    }
+    .rainbow-viz::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 80%; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--magenta), transparent);
     }
     .rainbow-arc {
       width: 100%;
@@ -1005,7 +1136,10 @@
       font-family: 'Playfair Display', serif;
       font-size: 28px;
       font-weight: 700;
-      color: var(--gold);
+      background: linear-gradient(135deg, var(--lime), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
       margin-bottom: 12px;
     }
     footer p {
@@ -1025,13 +1159,13 @@
     .footer-chip {
       padding: 8px 18px;
       border-radius: 100px;
-      border: 1px solid var(--border);
+      border: 1px solid var(--border-bold);
       font-size: 13px;
       color: var(--text-muted);
       text-decoration: none;
       transition: all 0.2s;
     }
-    .footer-chip:hover { border-color: var(--gold); color: var(--gold); }
+    .footer-chip:hover { border-color: var(--lime); color: var(--lime); box-shadow: 0 0 16px var(--lime-dim); }
 
     /* ─── ANIMATIONS ────────────────────────────────────────────── */
     @keyframes fade-up {
@@ -1072,7 +1206,7 @@
       margin-bottom: 14px;
       line-height: 1.55;
     }
-    .quiz-q span { color: var(--gold); font-weight: 500; }
+    .quiz-q span { color: var(--lime); font-weight: 700; }
     .quiz-options {
       display: flex;
       flex-direction: column;
@@ -1082,7 +1216,7 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 12px 16px;
+      padding: 13px 16px;
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: var(--radius);
@@ -1092,67 +1226,78 @@
       transition: all 0.2s;
       user-select: none;
     }
-    .quiz-opt:hover { border-color: rgba(240,168,74,0.4); }
-    .quiz-opt.correct { background: rgba(52,211,153,0.1); border-color: var(--green-soft); color: var(--green-soft); }
-    .quiz-opt.wrong   { background: rgba(248,113,113,0.1); border-color: var(--red-soft); color: var(--red-soft); }
+    .quiz-opt:hover { border-color: var(--lime); background: var(--lime-dim); }
+    .quiz-opt.correct { background: rgba(57,255,160,0.1); border-color: var(--green-soft); color: var(--green-soft); }
+    .quiz-opt.wrong   { background: rgba(255,94,122,0.1); border-color: var(--red-soft); color: var(--red-soft); }
     .quiz-opt .opt-letter {
       width: 26px;
       height: 26px;
       border-radius: 50%;
-      border: 1px solid var(--border);
+      border: 1px solid var(--border-bold);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 700;
       flex-shrink: 0;
       color: var(--text-muted);
     }
     .quiz-opt.correct .opt-letter { background: var(--green-soft); border-color: var(--green-soft); color: var(--ink); }
     .quiz-opt.wrong   .opt-letter { background: var(--red-soft); border-color: var(--red-soft); color: var(--ink); }
     .quiz-feedback {
-      margin-top: 8px;
+      margin-top: 10px;
       font-size: 13px;
       color: var(--text-muted);
-      padding-left: 16px;
+      padding: 10px 16px;
+      background: var(--surface);
+      border-left: 2px solid var(--cyan);
+      border-radius: 0 8px 8px 0;
       display: none;
+      line-height: 1.6;
     }
     .quiz-score {
       text-align: center;
-      padding: 28px;
+      padding: 36px 28px;
       background: var(--card);
-      border-radius: var(--radius);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-bold);
       display: none;
+      margin-top: 24px;
     }
     .score-num {
       font-family: 'Playfair Display', serif;
-      font-size: 64px;
+      font-size: 72px;
       font-weight: 900;
-      color: var(--gold);
+      background: linear-gradient(135deg, var(--lime), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
       line-height: 1;
     }
-    .score-label { font-size: 16px; color: var(--text-muted); margin-top: 8px; }
+    .score-label { font-size: 16px; color: var(--text-muted); margin-top: 10px; }
     .quiz-submit {
-      padding: 14px 32px;
-      background: var(--sky);
-      color: var(--ink);
+      padding: 13px 28px;
+      background: linear-gradient(135deg, var(--magenta), #cc00aa);
+      color: #fff;
       border: none;
       border-radius: var(--radius);
       font-family: inherit;
       font-size: 15px;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
       transition: all 0.2s;
+      letter-spacing: 0.02em;
     }
-    .quiz-submit:hover { opacity: 0.9; transform: translateY(-2px); }
+    .quiz-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 24px var(--magenta-glow); }
 
     /* ─── SPECTRUM BAR ──────────────────────────────────────────── */
     .spectrum-bar {
-      height: 20px;
+      height: 24px;
       border-radius: 100px;
-      background: linear-gradient(to right, #8b00ff, #4b0082, #0000ff, #00c000, #ffff00, #ff7f00, #ff0000);
+      background: linear-gradient(to right, #9400ff, #5500ee, #0044ff, #00cc44, #ffee00, #ff8800, #ff1100);
       margin: 24px 0;
       position: relative;
+      box-shadow: 0 4px 24px rgba(100,0,255,0.2), 0 4px 24px rgba(255,100,0,0.2);
     }
     .spectrum-labels {
       display: flex;
@@ -1172,6 +1317,262 @@
       .hero-chapters { flex-direction: column; align-items: center; }
       .summary-section { padding: 28px; }
     }
+
+    /* ─── ANIMATED GRADIENT BORDER ON DEMO BOXES ────────────────── */
+    .demo-box {
+      position: relative;
+      background: var(--card);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      margin: 40px 0;
+      border: none;
+    }
+    .demo-box::before {
+      content: '';
+      position: absolute;
+      inset: -1.5px;
+      border-radius: calc(var(--radius-lg) + 2px);
+      background: linear-gradient(135deg, var(--lime), var(--cyan), var(--magenta), var(--lime));
+      background-size: 300% 300%;
+      animation: border-spin 6s linear infinite;
+      z-index: -1;
+    }
+    .demo-box::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: var(--radius-lg);
+      background: var(--card);
+      z-index: -1;
+    }
+    @keyframes border-spin {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* ─── CHAPTER TRANSITION BANNER ─────────────────────────────── */
+    .chapter-banner {
+      width: 100%;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      overflow: hidden;
+      position: relative;
+    }
+    .chapter-banner.ch9-banner {
+      background: linear-gradient(90deg, transparent, rgba(200,241,53,0.08), rgba(200,241,53,0.14), rgba(200,241,53,0.08), transparent);
+      color: var(--lime);
+      border-top: 1px solid rgba(200,241,53,0.2);
+      border-bottom: 1px solid rgba(200,241,53,0.2);
+    }
+    .chapter-banner.ch10-banner {
+      background: linear-gradient(90deg, transparent, rgba(255,62,172,0.08), rgba(255,62,172,0.14), rgba(255,62,172,0.08), transparent);
+      color: var(--magenta);
+      border-top: 1px solid rgba(255,62,172,0.2);
+      border-bottom: 1px solid rgba(255,62,172,0.2);
+    }
+    .banner-glow {
+      position: absolute;
+      inset: 0;
+      background: inherit;
+      filter: blur(20px);
+      opacity: 0.4;
+    }
+    .banner-content { position: relative; z-index: 1; display: flex; align-items: center; gap: 12px; }
+    .banner-line { width: 40px; height: 1px; }
+    .ch9-banner .banner-line { background: var(--lime); }
+    .ch10-banner .banner-line { background: var(--magenta); }
+
+    /* ─── FLOATING FUN FACT ──────────────────────────────────────── */
+    .fun-fact {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: linear-gradient(135deg, rgba(0,229,255,0.08), rgba(200,241,53,0.05));
+      border: 1px solid rgba(0,229,255,0.22);
+      border-radius: var(--radius-lg);
+      padding: 22px 26px;
+      margin: 32px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .fun-fact::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: linear-gradient(to bottom, var(--cyan), var(--lime));
+    }
+    .fun-fact-icon {
+      font-size: 28px;
+      flex-shrink: 0;
+      animation: pulse-icon 3s ease-in-out infinite;
+    }
+    @keyframes pulse-icon {
+      0%, 100% { transform: scale(1); }
+      50%       { transform: scale(1.15); }
+    }
+    .fun-fact-body { flex: 1; }
+    .fun-fact-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--cyan);
+      margin-bottom: 6px;
+    }
+    .fun-fact-body p { font-size: 15px; color: var(--text); margin: 0; line-height: 1.65; }
+    .fun-fact-body p strong { color: var(--lime); }
+
+    /* ─── CONCEPT CHIP ROW ───────────────────────────────────────── */
+    .concept-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 28px 0;
+    }
+    .concept-chip {
+      padding: 7px 16px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 500;
+      border: 1px solid var(--border-bold);
+      color: var(--text-muted);
+      cursor: default;
+      transition: all 0.2s;
+      background: var(--surface);
+    }
+    .concept-chip:hover {
+      border-color: var(--lime);
+      color: var(--lime);
+      background: var(--lime-dim);
+      transform: translateY(-2px);
+    }
+    .concept-chip.active {
+      background: var(--lime-dim);
+      border-color: var(--lime);
+      color: var(--lime);
+    }
+
+    /* ─── QUIZ SECTION HEADER ACCENT ────────────────────────────── */
+    .quiz-header-accent {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--magenta-dim);
+      border: 1px solid rgba(255,62,172,0.3);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--magenta);
+      margin-bottom: 16px;
+    }
+    .quiz-header-accent::before {
+      content: '';
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--magenta);
+      animation: blink 1.5s ease-in-out infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.3; }
+    }
+
+    /* ─── STEP NUMBER GLOW ───────────────────────────────────────── */
+    .step-number {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 1px solid rgba(200,241,53,0.3);
+      background: var(--lime-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--lime);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* ─── HIGHLIGHT TEXT GRADIENT ────────────────────────────────── */
+    .text-lime {
+      background: linear-gradient(90deg, var(--lime), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .text-magenta {
+      background: linear-gradient(90deg, var(--magenta), var(--violet));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ─── FORMULA CARD COLOURED VARIANTS ────────────────────────── */
+    .formula-card.cyan  .formula { color: var(--cyan); }
+    .formula-card.cyan:hover  { border-color: rgba(0,229,255,0.4); }
+    .formula-card.cyan::before  { background: var(--cyan-dim); }
+    .formula-card.magenta .formula { color: var(--magenta-light); }
+    .formula-card.magenta:hover { border-color: rgba(255,62,172,0.35); }
+    .formula-card.magenta::before { background: var(--magenta-dim); }
+
+    /* ─── TABLE ROW HOVER COLOUR ─────────────────────────────────── */
+    .image-table tr:hover td { background: rgba(200,241,53,0.05); }
+
+    /* ─── MOBILE HAMBURGER ───────────────────────────────────────── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--lime);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 56px; left: 0; right: 0;
+      background: rgba(14,11,26,0.97);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-bold);
+      padding: 20px 24px;
+      z-index: 99;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 500;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--lime); }
+    @media (max-width: 720px) {
+      .hamburger { display: flex; }
+    }
   </style>
 </head>
 <body>
@@ -1181,13 +1582,21 @@
 
   <!-- NAV -->
   <nav>
-    <a class="nav-brand" href="#">Light & Vision</a>
+    <a class="nav-brand" href="#">Light &amp; Vision</a>
     <ul class="nav-links">
       <li><a href="#ch9">Ch. 9 — Optics</a></li>
       <li><a href="#ch10">Ch. 10 — Human Eye</a></li>
       <li><a href="#quiz">Quiz</a></li>
     </ul>
+    <div class="hamburger" onclick="toggleMenu()" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
   </nav>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#ch9"  onclick="closeMenu()">Ch. 9 — Light &amp; Optics</a>
+    <a href="#ch10" onclick="closeMenu()">Ch. 10 — Human Eye</a>
+    <a href="#quiz" onclick="closeMenu()">Take the Quiz</a>
+  </div>
 
   <!-- HERO -->
   <header class="hero">
@@ -1229,6 +1638,14 @@
        CHAPTER 9
   ═══════════════════════════════════════════════════════════════ -->
   <div id="ch9">
+    <div class="chapter-banner ch9-banner reveal">
+      <div class="banner-glow"></div>
+      <div class="banner-content">
+        <div class="banner-line"></div>
+        <span>Chapter 9 · Light — Reflection &amp; Refraction</span>
+        <div class="banner-line"></div>
+      </div>
+    </div>
     <div class="chapter-header container">
       <div class="chapter-number">09</div>
       <div class="chapter-tag gold">Chapter 9</div>
@@ -1250,6 +1667,14 @@
         </div>
 
         <p class="reveal">The plane mirror you use every morning forms an image that is <strong>virtual, erect, same-sized</strong>, and placed exactly as far behind the mirror as you are in front of it. That slightly unreal quality — where you can never actually reach through and touch the image — is exactly what "virtual" means in optics.</p>
+
+        <div class="fun-fact reveal">
+          <div class="fun-fact-icon">⚡</div>
+          <div class="fun-fact-body">
+            <div class="fun-fact-label">Did You Know?</div>
+            <p>Light travels at <strong>3 × 10⁸ m/s</strong> — fast enough to circle the entire Earth <strong>7.5 times in a single second</strong>. Yet the moment it enters glass or water, it slows down — and that slowdown is exactly what makes lenses and prisms work.</p>
+          </div>
+        </div>
 
         <div class="divider-fancy reveal">✦</div>
 
@@ -1281,6 +1706,13 @@
         </div>
 
         <h3 class="reveal">Image Formation by Concave Mirror</h3>
+        <div class="concept-chips reveal">
+          <span class="concept-chip active">∞ → At F</span>
+          <span class="concept-chip">Beyond C → Between F&C</span>
+          <span class="concept-chip">At C → At C</span>
+          <span class="concept-chip">F&lt;u&lt;C → Beyond C</span>
+          <span class="concept-chip">P&lt;u&lt;F → Virtual ✨</span>
+        </div>
         <div class="image-table-wrap reveal">
           <table class="image-table">
             <thead>
@@ -1434,6 +1866,14 @@
         </table>
         <p class="reveal" style="font-size:14px;color:var(--text-muted);">Diamond's refractive index of 2.42 means light travels 2.42× slower inside it than in air — which is why diamonds sparkle so spectacularly.</p>
 
+        <div class="fun-fact reveal">
+          <div class="fun-fact-icon">💎</div>
+          <div class="fun-fact-body">
+            <div class="fun-fact-label">Real World Connection</div>
+            <p>The <strong>total internal reflection</strong> of light in optical fibre cables is the same Snell's Law principle — light trapped inside glass fibres carries your internet data across continents at nearly the speed of light.</p>
+          </div>
+        </div>
+
         <div class="divider-fancy reveal">✦</div>
 
         <div class="section-label reveal">Lenses</div>
@@ -1529,6 +1969,14 @@
        CHAPTER 10
   ═══════════════════════════════════════════════════════════════ -->
   <div id="ch10">
+    <div class="chapter-banner ch10-banner reveal">
+      <div class="banner-glow"></div>
+      <div class="banner-content">
+        <div class="banner-line"></div>
+        <span>Chapter 10 · The Human Eye &amp; The Colourful World</span>
+        <div class="banner-line"></div>
+      </div>
+    </div>
     <div class="chapter-header container">
       <div class="chapter-number">10</div>
       <div class="chapter-tag blue">Chapter 10</div>
@@ -1551,13 +1999,21 @@
         <h3 class="reveal">Power of Accommodation</h3>
         <p class="reveal">The eye's killer feature: <em>accommodation</em>. Unlike a camera lens that moves back and forth to focus, your eye lens <strong>changes its own shape</strong>. Ciliary muscles contract to make the lens thicker (more powerful) for near objects, and relax to make it thinner (less powerful) for distant ones.</p>
 
+        <div class="fun-fact reveal">
+          <div class="fun-fact-icon">👁️</div>
+          <div class="fun-fact-body">
+            <div class="fun-fact-label">Mind-Blowing Fact</div>
+            <p>Your eye can distinguish roughly <strong>10 million different colours</strong>. The retina has ~120 million rod cells for low-light vision and ~6 million cone cells for colour — and the entire image-processing happens in real time, continuously, without any effort from you.</p>
+          </div>
+        </div>
+
         <div class="formula-grid reveal">
-          <div class="formula-card">
+          <div class="formula-card cyan">
             <div class="label">Near Point (Normal)</div>
             <div class="formula">25 cm</div>
             <div class="formula-desc">Closest distance for comfortable clear vision. Also called least distance of distinct vision.</div>
           </div>
-          <div class="formula-card">
+          <div class="formula-card magenta">
             <div class="label">Far Point (Normal)</div>
             <div class="formula">∞ (Infinity)</div>
             <div class="formula-desc">Farthest distance the eye can see clearly without strain.</div>
@@ -1731,27 +2187,27 @@
           <div class="summary-title">Chapter 10 — Key Takeaways</div>
           <div class="key-points">
             <div class="key-point">
-              <div class="kp-dot" style="background:var(--sky);"></div>
+              <div class="kp-dot" style="background:var(--magenta);box-shadow:0 0 8px var(--magenta-glow);"></div>
               <p><strong>Near point</strong> = 25 cm; <strong>Far point</strong> = ∞ for a normal eye.</p>
             </div>
             <div class="key-point">
-              <div class="kp-dot" style="background:var(--sky);"></div>
+              <div class="kp-dot" style="background:var(--magenta);box-shadow:0 0 8px var(--magenta-glow);"></div>
               <p><strong>Accommodation:</strong> ciliary muscles change lens curvature to focus at different distances.</p>
             </div>
             <div class="key-point">
-              <div class="kp-dot" style="background:var(--sky);"></div>
+              <div class="kp-dot" style="background:var(--magenta);box-shadow:0 0 8px var(--magenta-glow);"></div>
               <p><strong>Myopia</strong> → concave lens. <strong>Hypermetropia</strong> → convex lens. <strong>Presbyopia</strong> → bifocals.</p>
             </div>
             <div class="key-point">
-              <div class="kp-dot" style="background:var(--sky);"></div>
+              <div class="kp-dot" style="background:var(--magenta);box-shadow:0 0 8px var(--magenta-glow);"></div>
               <p><strong>Dispersion:</strong> white light splits into VIBGYOR; violet bends most, red bends least.</p>
             </div>
             <div class="key-point">
-              <div class="kp-dot" style="background:var(--sky);"></div>
+              <div class="kp-dot" style="background:var(--magenta);box-shadow:0 0 8px var(--magenta-glow);"></div>
               <p><strong>Blue sky:</strong> Rayleigh scattering — blue (~450nm) scattered ~10× more than red.</p>
             </div>
             <div class="key-point">
-              <div class="kp-dot" style="background:var(--sky);"></div>
+              <div class="kp-dot" style="background:var(--magenta);box-shadow:0 0 8px var(--magenta-glow);"></div>
               <p><strong>Twinkling:</strong> point-source stars vs disc-source planets — only points twinkle.</p>
             </div>
           </div>
@@ -1767,6 +2223,7 @@
     <div class="container">
       <div class="section-label reveal">Test Yourself</div>
       <div class="quiz-section reveal">
+        <div class="quiz-header-accent">Live Quiz</div>
         <div class="quiz-title">Quick Quiz — Chapters 9 &amp; 10</div>
         <div class="quiz-sub">8 questions. No tricks, just physics. Click an answer to see the explanation.</div>
 
@@ -1802,6 +2259,23 @@
       const total = document.body.scrollHeight - window.innerHeight;
       const pct = (window.scrollY / total) * 100;
       document.getElementById('progress-bar').style.width = pct + '%';
+    });
+
+    /* ── Mobile menu ──────────────────────────────────────────── */
+    function toggleMenu() {
+      document.getElementById('mobile-menu').classList.toggle('open');
+    }
+    function closeMenu() {
+      document.getElementById('mobile-menu').classList.remove('open');
+    }
+
+    /* ── Concept chips ────────────────────────────────────────── */
+    document.querySelectorAll('.concept-chip').forEach((chip, i) => {
+      chip.addEventListener('click', function() {
+        const siblings = this.parentElement.querySelectorAll('.concept-chip');
+        siblings.forEach(s => s.classList.remove('active'));
+        this.classList.add('active');
+      });
     });
 
     /* ── Scroll reveal ────────────────────────────────────────── */
@@ -1877,7 +2351,8 @@
       res.style.display = 'none';
       btn.style.display = 'block';
       if (mode === 'myopia') {
-        document.getElementById('btn-myopia').style.background = 'var(--sky)';
+        document.getElementById('btn-myopia').style.background = 'linear-gradient(135deg, #c8f135, #a8d400)';
+        document.getElementById('btn-myopia').style.color = '#0e0b1a';
         document.getElementById('btn-hyper').style.background  = 'var(--card)';
         document.getElementById('btn-hyper').style.color = 'var(--text)';
         wrap.innerHTML = `
@@ -1888,8 +2363,8 @@
             </div>
           </div>`;
       } else {
-        document.getElementById('btn-hyper').style.background = 'var(--violet)';
-        document.getElementById('btn-hyper').style.color = 'var(--ink)';
+        document.getElementById('btn-hyper').style.background = 'linear-gradient(135deg, #ff3eac, #cc00aa)';
+        document.getElementById('btn-hyper').style.color = '#fff';
         document.getElementById('btn-myopia').style.background = 'var(--card)';
         document.getElementById('btn-myopia').style.color = 'var(--text)';
         wrap.innerHTML = `
