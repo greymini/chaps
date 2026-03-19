@@ -1,0 +1,2083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Light & Vision — Class 10 Physics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── DESIGN TOKENS ─────────────────────────────────────────── */
+    :root {
+      --ink:         #0d0f1a;
+      --ink-soft:    #1a1d2e;
+      --surface:     #13162a;
+      --card:        #1c2040;
+      --card-hover:  #222748;
+      --border:      rgba(255,255,255,0.07);
+      --text:        #d4d8f0;
+      --text-muted:  #7a80a8;
+      --gold:        #f0a84a;
+      --gold-light:  #ffd280;
+      --amber:       #e87d2a;
+      --sky:         #4a9eff;
+      --sky-soft:    #2a5fa8;
+      --violet:      #a78bfa;
+      --green-soft:  #34d399;
+      --red-soft:    #f87171;
+      --glow-gold:   rgba(240,168,74,0.15);
+      --glow-sky:    rgba(74,158,255,0.12);
+      --radius:      12px;
+      --radius-lg:   20px;
+    }
+
+    /* ─── RESET & BASE ──────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--ink);
+      color: var(--text);
+      line-height: 1.75;
+      font-size: 17px;
+      overflow-x: hidden;
+    }
+
+    ::selection { background: var(--gold); color: var(--ink); }
+
+    /* ─── SCROLLBAR ─────────────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--ink); }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+    /* ─── PROGRESS BAR ──────────────────────────────────────────── */
+    #progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--gold), var(--sky));
+      z-index: 999;
+      transition: width 0.1s linear;
+    }
+
+    /* ─── NAV ───────────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 48px;
+      backdrop-filter: blur(20px);
+      background: rgba(13,15,26,0.85);
+      border-bottom: 1px solid var(--border);
+      transition: padding 0.3s;
+    }
+    .nav-brand {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--gold);
+      letter-spacing: 0.02em;
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ─── HERO ──────────────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(74,158,255,0.08) 0%, transparent 60%),
+                  radial-gradient(ellipse 60% 40% at 20% 80%, rgba(240,168,74,0.06) 0%, transparent 50%),
+                  radial-gradient(ellipse 50% 50% at 80% 20%, rgba(167,139,250,0.05) 0%, transparent 50%);
+      z-index: 0;
+    }
+
+    /* Animated light rays */
+    .light-ray {
+      position: absolute;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(240,168,74,0.3), transparent);
+      animation: ray-fall 8s ease-in-out infinite;
+      opacity: 0;
+    }
+    .light-ray:nth-child(1) { left: 15%; height: 60%; top: -10%; animation-delay: 0s; }
+    .light-ray:nth-child(2) { left: 35%; height: 40%; top: 5%; animation-delay: 2s; }
+    .light-ray:nth-child(3) { left: 55%; height: 70%; top: -20%; animation-delay: 4s; }
+    .light-ray:nth-child(4) { left: 75%; height: 50%; top: 10%; animation-delay: 1s; }
+    .light-ray:nth-child(5) { left: 90%; height: 45%; top: 0%; animation-delay: 3s; }
+
+    @keyframes ray-fall {
+      0%   { opacity: 0; transform: translateY(-20px); }
+      30%  { opacity: 1; }
+      70%  { opacity: 0.5; }
+      100% { opacity: 0; transform: translateY(40px); }
+    }
+
+    .hero-eyebrow {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      animation: fade-up 0.8s ease forwards 0.2s;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(42px, 7vw, 96px);
+      font-weight: 900;
+      line-height: 1.05;
+      color: #fff;
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      animation: fade-up 0.8s ease forwards 0.4s;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .hero-subtitle {
+      max-width: 580px;
+      margin: 28px auto 0;
+      font-size: 19px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      animation: fade-up 0.8s ease forwards 0.6s;
+    }
+    .hero-meta {
+      margin-top: 40px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      font-size: 13px;
+      color: var(--text-muted);
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      animation: fade-up 0.8s ease forwards 0.8s;
+    }
+    .hero-meta .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--border); }
+    .hero-chapters {
+      margin-top: 64px;
+      display: flex;
+      gap: 16px;
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      animation: fade-up 0.8s ease forwards 1s;
+    }
+    .chapter-pill {
+      padding: 10px 24px;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.25s;
+    }
+    .chapter-pill.primary {
+      background: var(--gold);
+      color: var(--ink);
+    }
+    .chapter-pill.primary:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(240,168,74,0.3);
+    }
+    .chapter-pill.secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .chapter-pill.secondary:hover {
+      border-color: var(--sky);
+      color: var(--sky);
+      transform: translateY(-2px);
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      z-index: 1;
+      animation: fade-up 1s ease forwards 1.5s, bounce 2s ease-in-out infinite 2.5s;
+      opacity: 0;
+    }
+    .scroll-arrow {
+      width: 20px;
+      height: 20px;
+      border-right: 2px solid var(--text-muted);
+      border-bottom: 2px solid var(--text-muted);
+      transform: rotate(45deg);
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ─── SECTION LAYOUT ────────────────────────────────────────── */
+    section {
+      padding: 100px 24px;
+    }
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .container-wide {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* ─── SECTION LABELS ────────────────────────────────────────── */
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 28px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    /* ─── CHAPTER DIVIDERS ──────────────────────────────────────── */
+    .chapter-header {
+      text-align: center;
+      padding: 80px 24px 60px;
+      position: relative;
+    }
+    .chapter-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 140px;
+      font-weight: 900;
+      color: rgba(255,255,255,0.03);
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+      white-space: nowrap;
+    }
+    .chapter-tag {
+      display: inline-block;
+      padding: 6px 18px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .chapter-tag.gold { background: rgba(240,168,74,0.12); color: var(--gold); border: 1px solid rgba(240,168,74,0.3); }
+    .chapter-tag.blue { background: rgba(74,158,255,0.1); color: var(--sky); border: 1px solid rgba(74,158,255,0.25); }
+    .chapter-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 5vw, 58px);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.1;
+      position: relative;
+      z-index: 1;
+    }
+    .chapter-desc {
+      max-width: 540px;
+      margin: 20px auto 0;
+      color: var(--text-muted);
+      font-size: 17px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ─── PROSE ─────────────────────────────────────────────────── */
+    .prose h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(26px, 3.5vw, 38px);
+      font-weight: 700;
+      color: #fff;
+      margin: 56px 0 20px;
+      line-height: 1.2;
+    }
+    .prose h3 {
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--gold);
+      margin: 40px 0 14px;
+    }
+    .prose p {
+      margin-bottom: 20px;
+      color: var(--text);
+    }
+    .prose strong { color: #fff; font-weight: 500; }
+    .prose em { color: var(--gold-light); font-style: italic; }
+
+    /* ─── DIVIDER ───────────────────────────────────────────────── */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      margin: 60px 0;
+    }
+    .divider-fancy {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 20px;
+      margin: 60px 0;
+      position: relative;
+    }
+    .divider-fancy::before, .divider-fancy::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 40%;
+      height: 1px;
+      background: var(--border);
+    }
+    .divider-fancy::before { left: 0; }
+    .divider-fancy::after { right: 0; }
+
+    /* ─── CALLOUT / HIGHLIGHT BOX ───────────────────────────────── */
+    .callout {
+      border-left: 3px solid var(--gold);
+      padding: 20px 28px;
+      background: var(--card);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      margin: 32px 0;
+    }
+    .callout.blue { border-color: var(--sky); }
+    .callout.violet { border-color: var(--violet); }
+    .callout-title {
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .callout.blue .callout-title { color: var(--sky); }
+    .callout.violet .callout-title { color: var(--violet); }
+    .callout p { margin: 0; font-size: 16px; }
+
+    /* ─── FORMULA CARDS ─────────────────────────────────────────── */
+    .formula-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin: 32px 0;
+    }
+    .formula-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      transition: all 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .formula-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--glow-gold);
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+    .formula-card:hover { border-color: rgba(240,168,74,0.4); transform: translateY(-3px); }
+    .formula-card:hover::before { opacity: 1; }
+    .formula-card .label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .formula-card .formula {
+      font-family: 'DM Mono', monospace;
+      font-size: 20px;
+      color: var(--gold);
+      font-weight: 500;
+      line-height: 1.3;
+    }
+    .formula-card .formula-desc {
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ─── TABLE ─────────────────────────────────────────────────── */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 32px 0;
+      font-size: 15px;
+    }
+    .data-table th {
+      text-align: left;
+      padding: 12px 16px;
+      background: var(--surface);
+      color: var(--text-muted);
+      font-weight: 500;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+    }
+    .data-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+    }
+    .data-table tr:hover td { background: var(--card); }
+    .data-table td:first-child { color: #fff; font-weight: 500; }
+    .data-table td code {
+      font-family: 'DM Mono', monospace;
+      font-size: 14px;
+      color: var(--gold);
+      background: rgba(240,168,74,0.08);
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+
+    /* ─── IMAGE FORMATION TABLE (CUSTOM) ────────────────────────── */
+    .image-table-wrap {
+      overflow-x: auto;
+      margin: 32px 0;
+    }
+    .image-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      min-width: 540px;
+    }
+    .image-table th {
+      background: rgba(240,168,74,0.08);
+      color: var(--gold);
+      padding: 12px 14px;
+      text-align: left;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-bottom: 1px solid rgba(240,168,74,0.2);
+    }
+    .image-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+    }
+    .image-table tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+    .badge {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+    .badge.real    { background: rgba(248,113,113,0.15); color: var(--red-soft); }
+    .badge.virtual { background: rgba(52,211,153,0.12); color: var(--green-soft); }
+    .badge.erect   { background: rgba(74,158,255,0.12); color: var(--sky); }
+    .badge.inverted{ background: rgba(167,139,250,0.12); color: var(--violet); }
+
+    /* ─── INTERACTIVE DEMOS ─────────────────────────────────────── */
+    .demo-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      margin: 40px 0;
+    }
+    .demo-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .demo-subtitle {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 28px;
+    }
+
+    /* Mirror simulator */
+    .mirror-canvas {
+      background: var(--ink-soft);
+      border-radius: var(--radius);
+      width: 100%;
+      height: 280px;
+      margin-bottom: 20px;
+    }
+    .mirror-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: center;
+    }
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+      min-width: 160px;
+    }
+    .control-group label {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .control-group input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 4px;
+      background: var(--ink);
+      border-radius: 2px;
+      outline: none;
+    }
+    .control-group input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--gold);
+      cursor: pointer;
+      transition: transform 0.15s;
+    }
+    .control-group input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+    .control-group select {
+      background: var(--ink);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-family: inherit;
+      font-size: 14px;
+      outline: none;
+      cursor: pointer;
+    }
+    .result-display {
+      background: var(--ink);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      font-family: 'DM Mono', monospace;
+      font-size: 14px;
+      color: var(--gold);
+      margin-top: 16px;
+      min-height: 50px;
+    }
+
+    /* Sky scattering demo */
+    .sky-demo {
+      border-radius: var(--radius);
+      overflow: hidden;
+      height: 200px;
+      position: relative;
+      margin-bottom: 20px;
+      transition: background 0.5s ease;
+    }
+    .sky-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .sky-text {
+      text-align: center;
+    }
+    .sky-label {
+      font-size: 28px;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      color: rgba(255,255,255,0.9);
+      text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+    }
+    .sky-sublabel {
+      font-size: 13px;
+      color: rgba(255,255,255,0.65);
+      margin-top: 4px;
+    }
+    .sun {
+      position: absolute;
+      border-radius: 50%;
+      transition: all 0.5s ease;
+    }
+    .time-slider-wrap {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .time-icon { font-size: 20px; }
+    .time-slider-wrap input[type="range"] {
+      flex: 1;
+      -webkit-appearance: none;
+      appearance: none;
+      height: 4px;
+      background: var(--ink);
+      border-radius: 2px;
+      outline: none;
+    }
+    .time-slider-wrap input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--gold);
+      cursor: pointer;
+    }
+
+    /* Lens calculator */
+    .calc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .calc-input {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .calc-input label {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .calc-input input {
+      background: var(--ink);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-family: 'DM Mono', monospace;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .calc-input input:focus { border-color: var(--gold); }
+    .calc-btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--gold);
+      color: var(--ink);
+      border: none;
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-bottom: 16px;
+    }
+    .calc-btn:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(240,168,74,0.25);
+    }
+    .calc-result {
+      background: var(--ink);
+      border-radius: var(--radius);
+      padding: 20px;
+      font-size: 15px;
+      line-height: 1.8;
+    }
+    .calc-result .r-label { color: var(--text-muted); font-size: 13px; }
+    .calc-result .r-value {
+      font-family: 'DM Mono', monospace;
+      font-size: 18px;
+      color: var(--gold);
+      font-weight: 500;
+    }
+    .calc-result .r-verdict {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+    .calc-result .r-verdict strong { color: var(--text); }
+
+    /* ─── WORKED EXAMPLE CARDS ──────────────────────────────────── */
+    .example-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin: 32px 0;
+    }
+    .example-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 28px;
+      background: rgba(240,168,74,0.06);
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.2s;
+    }
+    .example-header:hover { background: rgba(240,168,74,0.1); }
+    .example-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .example-q {
+      flex: 1;
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .example-toggle {
+      color: var(--text-muted);
+      transition: transform 0.3s;
+      font-size: 20px;
+    }
+    .example-toggle.open { transform: rotate(180deg); }
+    .example-body {
+      padding: 28px;
+      display: none;
+    }
+    .example-body.open { display: block; }
+    .solution-step {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .step-number {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .step-content { flex: 1; }
+    .step-content p { margin: 0; font-size: 15px; }
+    .step-content .eq {
+      font-family: 'DM Mono', monospace;
+      font-size: 15px;
+      color: var(--gold);
+      background: rgba(240,168,74,0.08);
+      padding: 10px 16px;
+      border-radius: 8px;
+      margin-top: 8px;
+      display: inline-block;
+    }
+    .answer-box {
+      background: var(--card);
+      border: 1px solid rgba(52,211,153,0.25);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      margin-top: 20px;
+    }
+    .answer-box .ans-label {
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--green-soft);
+      margin-bottom: 6px;
+    }
+    .answer-box p { margin: 0; font-size: 15px; }
+
+    /* ─── DEFECT CARDS ──────────────────────────────────────────── */
+    .defect-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 32px 0;
+    }
+    .defect-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      transition: all 0.25s;
+    }
+    .defect-card:hover { border-color: rgba(74,158,255,0.4); transform: translateY(-3px); }
+    .defect-icon { font-size: 36px; margin-bottom: 16px; }
+    .defect-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .defect-also {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-bottom: 14px;
+    }
+    .defect-card p { font-size: 14px; color: var(--text-muted); margin-bottom: 14px; }
+    .defect-correction {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(74,158,255,0.08);
+      border: 1px solid rgba(74,158,255,0.2);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 13px;
+      color: var(--sky);
+    }
+
+    /* ─── PHENOMENON CARDS (SCATTERING/RAINBOW) ─────────────────── */
+    .phenomenon-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      margin: 32px 0;
+    }
+    .phenomenon-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      transition: all 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .phenomenon-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      border-radius: 3px 3px 0 0;
+    }
+    .phenomenon-card.blue-sky::after { background: linear-gradient(90deg, var(--sky), var(--violet)); }
+    .phenomenon-card.red-sun::after { background: linear-gradient(90deg, var(--amber), var(--red-soft)); }
+    .phenomenon-card.rainbow::after { background: linear-gradient(90deg, #f87171, #fbbf24, #34d399, #60a5fa, #a78bfa); }
+    .phenomenon-card.stars::after { background: linear-gradient(90deg, var(--violet), var(--sky)); }
+    .phenomenon-card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.15); }
+    .phen-icon { font-size: 42px; margin-bottom: 16px; }
+    .phen-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .phen-body { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
+
+    /* ─── KEY POINTS SUMMARY ────────────────────────────────────── */
+    .summary-section {
+      background: linear-gradient(135deg, var(--surface) 0%, var(--card) 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 48px;
+      margin: 60px 0;
+    }
+    .summary-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 30px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 32px;
+    }
+    .key-points {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .key-point {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .kp-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+      margin-top: 8px;
+    }
+    .key-point p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+    .key-point p strong { color: var(--text); }
+
+    /* ─── RAINBOW SVG SECTION ───────────────────────────────────── */
+    .rainbow-viz {
+      background: linear-gradient(to bottom, #0a1628, #1a0a2e);
+      border-radius: var(--radius-lg);
+      padding: 48px;
+      text-align: center;
+      margin: 40px 0;
+      overflow: hidden;
+      position: relative;
+    }
+    .rainbow-arc {
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto;
+      display: block;
+    }
+
+    /* ─── FOOTER ────────────────────────────────────────────────── */
+    footer {
+      padding: 60px 24px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    .footer-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    footer p {
+      color: var(--text-muted);
+      font-size: 14px;
+      max-width: 400px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+    .footer-chapters {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+    .footer-chip {
+      padding: 8px 18px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .footer-chip:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ─── ANIMATIONS ────────────────────────────────────────────── */
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── QUIZ SECTION ──────────────────────────────────────────── */
+    .quiz-section {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      margin: 48px 0;
+    }
+    .quiz-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .quiz-sub { color: var(--text-muted); font-size: 14px; margin-bottom: 32px; }
+    .quiz-question {
+      margin-bottom: 28px;
+    }
+    .quiz-q {
+      font-size: 16px;
+      color: var(--text);
+      margin-bottom: 14px;
+      line-height: 1.55;
+    }
+    .quiz-q span { color: var(--gold); font-weight: 500; }
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .quiz-opt {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-size: 14px;
+      color: var(--text);
+      transition: all 0.2s;
+      user-select: none;
+    }
+    .quiz-opt:hover { border-color: rgba(240,168,74,0.4); }
+    .quiz-opt.correct { background: rgba(52,211,153,0.1); border-color: var(--green-soft); color: var(--green-soft); }
+    .quiz-opt.wrong   { background: rgba(248,113,113,0.1); border-color: var(--red-soft); color: var(--red-soft); }
+    .quiz-opt .opt-letter {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 600;
+      flex-shrink: 0;
+      color: var(--text-muted);
+    }
+    .quiz-opt.correct .opt-letter { background: var(--green-soft); border-color: var(--green-soft); color: var(--ink); }
+    .quiz-opt.wrong   .opt-letter { background: var(--red-soft); border-color: var(--red-soft); color: var(--ink); }
+    .quiz-feedback {
+      margin-top: 8px;
+      font-size: 13px;
+      color: var(--text-muted);
+      padding-left: 16px;
+      display: none;
+    }
+    .quiz-score {
+      text-align: center;
+      padding: 28px;
+      background: var(--card);
+      border-radius: var(--radius);
+      display: none;
+    }
+    .score-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 64px;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .score-label { font-size: 16px; color: var(--text-muted); margin-top: 8px; }
+    .quiz-submit {
+      padding: 14px 32px;
+      background: var(--sky);
+      color: var(--ink);
+      border: none;
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .quiz-submit:hover { opacity: 0.9; transform: translateY(-2px); }
+
+    /* ─── SPECTRUM BAR ──────────────────────────────────────────── */
+    .spectrum-bar {
+      height: 20px;
+      border-radius: 100px;
+      background: linear-gradient(to right, #8b00ff, #4b0082, #0000ff, #00c000, #ffff00, #ff7f00, #ff0000);
+      margin: 24px 0;
+      position: relative;
+    }
+    .spectrum-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--text-muted);
+      padding: 0 4px;
+    }
+
+    /* ─── RESPONSIVE ────────────────────────────────────────────── */
+    @media (max-width: 720px) {
+      nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+      .defect-grid { grid-template-columns: 1fr; }
+      .key-points { grid-template-columns: 1fr; }
+      .calc-grid { grid-template-columns: 1fr; }
+      .hero-chapters { flex-direction: column; align-items: center; }
+      .summary-section { padding: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Progress bar -->
+  <div id="progress-bar"></div>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-brand" href="#">Light & Vision</a>
+    <ul class="nav-links">
+      <li><a href="#ch9">Ch. 9 — Optics</a></li>
+      <li><a href="#ch10">Ch. 10 — Human Eye</a></li>
+      <li><a href="#quiz">Quiz</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-bg">
+      <div class="light-ray"></div>
+      <div class="light-ray"></div>
+      <div class="light-ray"></div>
+      <div class="light-ray"></div>
+      <div class="light-ray"></div>
+    </div>
+
+    <p class="hero-eyebrow">Class 10 Physics · Chapters 9 &amp; 10</p>
+    <h1 class="hero-title">
+      The Science of<br/>
+      <em>Light &amp; Sight</em>
+    </h1>
+    <p class="hero-subtitle">
+      From the mirror on your wall to the blue of the morning sky — everything you see is a story of photons bouncing, bending, and scattering. Let's read that story together.
+    </p>
+    <div class="hero-meta">
+      <span>Reflections &amp; Refraction</span>
+      <div class="dot"></div>
+      <span>The Human Eye</span>
+      <div class="dot"></div>
+      <span>Why the Sky is Blue</span>
+    </div>
+    <div class="hero-chapters">
+      <a href="#ch9" class="chapter-pill primary">Start with Chapter 9 →</a>
+      <a href="#ch10" class="chapter-pill secondary">Jump to Chapter 10</a>
+    </div>
+
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       CHAPTER 9
+  ═══════════════════════════════════════════════════════════════ -->
+  <div id="ch9">
+    <div class="chapter-header container">
+      <div class="chapter-number">09</div>
+      <div class="chapter-tag gold">Chapter 9</div>
+      <h2 class="chapter-title">Light — Reflection<br/>&amp; Refraction</h2>
+      <p class="chapter-desc">Before you can see anything, light must travel, bounce, and bend. Here's how it does all three.</p>
+    </div>
+
+    <section>
+      <div class="container prose">
+
+        <div class="section-label reveal">Reflection of Light</div>
+        <h2 class="reveal">The Laws of Bouncing Light</h2>
+        <p class="reveal">When you look in a mirror, you're witnessing one of physics' most elegant rules in action. The moment light strikes a polished surface, it obeys two laws without exception — laws so consistent that we can use them to engineer telescopes, headlights, and solar furnaces.</p>
+
+        <div class="callout reveal">
+          <div class="callout-title">⚡ The Two Laws of Reflection</div>
+          <p><strong>Law 1:</strong> The angle of incidence equals the angle of reflection — always. <em>∠i = ∠r</em><br/>
+          <strong>Law 2:</strong> The incident ray, the reflected ray, and the normal at the point of contact all lie in the same plane.</p>
+        </div>
+
+        <p class="reveal">The plane mirror you use every morning forms an image that is <strong>virtual, erect, same-sized</strong>, and placed exactly as far behind the mirror as you are in front of it. That slightly unreal quality — where you can never actually reach through and touch the image — is exactly what "virtual" means in optics.</p>
+
+        <div class="divider-fancy reveal">✦</div>
+
+        <div class="section-label reveal">Spherical Mirrors</div>
+        <h2 class="reveal">Curved Mirrors — Where Things Get Interesting</h2>
+        <p class="reveal">Bend the mirror's surface into a sphere and the physics transforms dramatically. A concave mirror — curved inward like a satellite dish — converges parallel rays of light to a single point. A convex mirror — curved outward like the back of a spoon — spreads them apart.</p>
+
+        <div class="formula-grid reveal">
+          <div class="formula-card">
+            <div class="label">Mirror Formula</div>
+            <div class="formula">1/v + 1/u = 1/f</div>
+            <div class="formula-desc">v = image distance · u = object distance · f = focal length</div>
+          </div>
+          <div class="formula-card">
+            <div class="label">Magnification</div>
+            <div class="formula">m = −v / u</div>
+            <div class="formula-desc">Negative m → real &amp; inverted. Positive m → virtual &amp; erect.</div>
+          </div>
+          <div class="formula-card">
+            <div class="label">Focal Length Relation</div>
+            <div class="formula">f = R / 2</div>
+            <div class="formula-desc">R = radius of curvature. Focal length is always half the radius.</div>
+          </div>
+          <div class="formula-card">
+            <div class="label">Sign Convention</div>
+            <div class="formula">Left ← P → Right</div>
+            <div class="formula-desc">Distances to the right (+), to the left (−), upward (+), downward (−).</div>
+          </div>
+        </div>
+
+        <h3 class="reveal">Image Formation by Concave Mirror</h3>
+        <div class="image-table-wrap reveal">
+          <table class="image-table">
+            <thead>
+              <tr><th>Object Position</th><th>Image Position</th><th>Size</th><th>Nature</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>At infinity</td><td>At F</td><td>Point-sized</td><td><span class="badge real">Real</span> <span class="badge inverted">Inverted</span></td></tr>
+              <tr><td>Beyond C</td><td>Between F and C</td><td>Diminished</td><td><span class="badge real">Real</span> <span class="badge inverted">Inverted</span></td></tr>
+              <tr><td>At C</td><td>At C</td><td>Same size</td><td><span class="badge real">Real</span> <span class="badge inverted">Inverted</span></td></tr>
+              <tr><td>Between F and C</td><td>Beyond C</td><td>Enlarged</td><td><span class="badge real">Real</span> <span class="badge inverted">Inverted</span></td></tr>
+              <tr><td>Between P and F</td><td>Behind mirror</td><td>Enlarged</td><td><span class="badge virtual">Virtual</span> <span class="badge erect">Erect</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout blue reveal">
+          <div class="callout-title">💡 Why Convex Mirrors in Rear-View?</div>
+          <p>A convex mirror always produces a virtual, erect, diminished image — regardless of where the object is. That diminishment is actually a <em>feature</em>: a smaller image means a wider scene, giving the driver a larger field of view behind the car. The trade-off? Distances appear farther than they really are — hence the warning printed on every rear-view mirror.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MIRROR INTERACTIVE -->
+    <section style="padding-top:0;">
+      <div class="container">
+        <div class="demo-box reveal">
+          <div class="demo-title">🪞 Mirror Formula Calculator</div>
+          <div class="demo-subtitle">Plug in values and watch the mirror formula solve itself in real time.</div>
+          <div class="calc-grid">
+            <div class="calc-input">
+              <label>Object Distance u (cm)</label>
+              <input type="number" id="m-u" placeholder="e.g. −25" value="-25" />
+            </div>
+            <div class="calc-input">
+              <label>Focal Length f (cm)</label>
+              <input type="number" id="m-f" placeholder="e.g. −15" value="-15" />
+            </div>
+          </div>
+          <button class="calc-btn" onclick="calcMirror()">Calculate Image Distance</button>
+          <div class="calc-result" id="m-result">
+            <span class="r-label">Result will appear here</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORKED EXAMPLES -->
+    <section style="padding-top:0;">
+      <div class="container">
+        <div class="section-label reveal">Worked Examples</div>
+        <h2 class="prose reveal" style="font-family:'Playfair Display',serif;font-size:clamp(26px,3.5vw,38px);font-weight:700;color:#fff;margin-bottom:20px;">Practice Makes Perfect</h2>
+
+        <div class="example-card reveal">
+          <div class="example-header" onclick="toggleExample(this)">
+            <div class="example-num">1</div>
+            <div class="example-q">A convex mirror has radius of curvature 3 m. A bus is 5 m away. Find the position, nature, and size of the image.</div>
+            <div class="example-toggle">▾</div>
+          </div>
+          <div class="example-body">
+            <div class="solution-step">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                <p>Identify given values and apply sign convention.</p>
+                <div class="eq">R = +3.00 m → f = R/2 = +1.50 m &nbsp;|&nbsp; u = −5.00 m</div>
+              </div>
+            </div>
+            <div class="solution-step">
+              <div class="step-number">2</div>
+              <div class="step-content">
+                <p>Apply the mirror formula to find image distance.</p>
+                <div class="eq">1/v = 1/f − 1/u = 1/1.50 + 1/5.00 = 0.667 + 0.200 = 0.867<br/>v = +1.15 m</div>
+              </div>
+            </div>
+            <div class="solution-step">
+              <div class="step-number">3</div>
+              <div class="step-content">
+                <p>Calculate magnification.</p>
+                <div class="eq">m = −v/u = −1.15 / (−5.00) = +0.23</div>
+              </div>
+            </div>
+            <div class="answer-box">
+              <div class="ans-label">✓ Answer</div>
+              <p>Image forms <strong>1.15 m behind the mirror</strong> — virtual, erect, and diminished to 0.23× the size of the bus. Positive v confirms it's behind the mirror; positive m confirms erect &amp; virtual.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="example-card reveal">
+          <div class="example-header" onclick="toggleExample(this)">
+            <div class="example-num">2</div>
+            <div class="example-q">A 4 cm object is placed 25 cm in front of a concave mirror (f = 15 cm). Where must a screen be placed for a sharp image?</div>
+            <div class="example-toggle">▾</div>
+          </div>
+          <div class="example-body">
+            <div class="solution-step">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                <p>Sign convention for concave mirror: f is negative.</p>
+                <div class="eq">h = +4.0 cm &nbsp;|&nbsp; u = −25 cm &nbsp;|&nbsp; f = −15 cm</div>
+              </div>
+            </div>
+            <div class="solution-step">
+              <div class="step-number">2</div>
+              <div class="step-content">
+                <p>Apply mirror formula.</p>
+                <div class="eq">1/v = 1/f − 1/u = −1/15 + 1/25 = (−5+3)/75 = −2/75<br/>v = −37.5 cm</div>
+              </div>
+            </div>
+            <div class="solution-step">
+              <div class="step-number">3</div>
+              <div class="step-content">
+                <p>Find magnification and image height.</p>
+                <div class="eq">m = −v/u = −37.5/(−25) = −1.5 &nbsp;|&nbsp; h′ = −1.5 × 4 = −6.0 cm</div>
+              </div>
+            </div>
+            <div class="answer-box">
+              <div class="ans-label">✓ Answer</div>
+              <p>Screen placed <strong>37.5 cm in front of the mirror</strong>. Image is real, inverted, and 6 cm tall — 1.5× enlarged. The negative m confirms it is real and inverted.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REFRACTION -->
+    <section>
+      <div class="container prose">
+        <div class="section-label reveal">Refraction of Light</div>
+        <h2 class="reveal">When Light Changes Its Path</h2>
+        <p class="reveal">Light travels at a staggering 3 × 10⁸ m/s in vacuum. Drop it into water, and it slows to about 2.25 × 10⁸ m/s. That change in speed, at an angle, is exactly what causes light to bend — and it's why a straw looks broken in a glass of water.</p>
+
+        <div class="callout violet reveal">
+          <div class="callout-title">📐 Snell's Law</div>
+          <p><strong>sin i / sin r = n₂₁ = v₁/v₂</strong><br/>The ratio of the sines of the angles equals the ratio of speeds in the two media — and the refractive index of the second medium relative to the first.</p>
+        </div>
+
+        <h3 class="reveal">The Rules of Bending</h3>
+        <p class="reveal">The direction of bending follows one simple rule: <strong>light bends toward the normal when entering a denser medium, and away from the normal when entering a rarer one.</strong> Dense = slower speed = higher refractive index.</p>
+
+        <h3 class="reveal">Refractive Index of Common Materials</h3>
+        <table class="data-table reveal">
+          <thead>
+            <tr><th>Material</th><th>Refractive Index (n)</th><th>Speed of Light</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Air</td><td><code>≈ 1.00</code></td><td>≈ 3.0 × 10⁸ m/s</td></tr>
+            <tr><td>Water</td><td><code>1.33</code></td><td>2.26 × 10⁸ m/s</td></tr>
+            <tr><td>Crown Glass</td><td><code>1.52</code></td><td>1.97 × 10⁸ m/s</td></tr>
+            <tr><td>Diamond</td><td><code>2.42</code></td><td>1.24 × 10⁸ m/s</td></tr>
+          </tbody>
+        </table>
+        <p class="reveal" style="font-size:14px;color:var(--text-muted);">Diamond's refractive index of 2.42 means light travels 2.42× slower inside it than in air — which is why diamonds sparkle so spectacularly.</p>
+
+        <div class="divider-fancy reveal">✦</div>
+
+        <div class="section-label reveal">Lenses</div>
+        <h2 class="reveal">Lenses — Controlled Refraction</h2>
+        <p class="reveal">A lens is essentially a carefully shaped block of glass that uses refraction at two surfaces to bend light exactly where you want it. Convex lenses converge light to a focus; concave lenses diverge it as if it came from a focus.</p>
+
+        <div class="formula-grid reveal">
+          <div class="formula-card">
+            <div class="label">Lens Formula</div>
+            <div class="formula">1/v − 1/u = 1/f</div>
+            <div class="formula-desc">Note the minus sign — unlike the mirror formula!</div>
+          </div>
+          <div class="formula-card">
+            <div class="label">Power of Lens</div>
+            <div class="formula">P = 1/f (metres)</div>
+            <div class="formula-desc">Unit: Dioptre (D). Convex = +P, Concave = −P.</div>
+          </div>
+          <div class="formula-card">
+            <div class="label">Magnification</div>
+            <div class="formula">m = v / u</div>
+            <div class="formula-desc">Note: no negative sign, unlike mirrors.</div>
+          </div>
+          <div class="formula-card">
+            <div class="label">Combination</div>
+            <div class="formula">P = P₁ + P₂ + …</div>
+            <div class="formula-desc">Powers add algebraically for lenses in contact.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LENS CALCULATOR -->
+    <section style="padding-top:0;">
+      <div class="container">
+        <div class="demo-box reveal">
+          <div class="demo-title">🔭 Lens Formula Calculator</div>
+          <div class="demo-subtitle">Enter object distance and focal length to compute the image.</div>
+          <div class="calc-grid">
+            <div class="calc-input">
+              <label>Object Distance u (cm)</label>
+              <input type="number" id="l-u" placeholder="e.g. −15" value="-15" />
+            </div>
+            <div class="calc-input">
+              <label>Focal Length f (cm)</label>
+              <input type="number" id="l-f" placeholder="e.g. +10" value="10" />
+            </div>
+          </div>
+          <button class="calc-btn" onclick="calcLens()">Calculate</button>
+          <div class="calc-result" id="l-result">
+            <span class="r-label">Result will appear here</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CH9 SUMMARY -->
+    <section style="padding-top: 0;">
+      <div class="container">
+        <div class="summary-section reveal">
+          <div class="summary-title">Chapter 9 — Key Takeaways</div>
+          <div class="key-points">
+            <div class="key-point">
+              <div class="kp-dot"></div>
+              <p><strong>Reflection laws:</strong> ∠i = ∠r, all rays in the same plane.</p>
+            </div>
+            <div class="key-point">
+              <div class="kp-dot"></div>
+              <p><strong>Concave mirror:</strong> converges light; used in torches, solar furnaces, dentist mirrors.</p>
+            </div>
+            <div class="key-point">
+              <div class="kp-dot"></div>
+              <p><strong>Convex mirror:</strong> always virtual, erect, diminished — rear-view mirrors.</p>
+            </div>
+            <div class="key-point">
+              <div class="kp-dot"></div>
+              <p><strong>Mirror formula:</strong> 1/v + 1/u = 1/f &nbsp;|&nbsp; R = 2f</p>
+            </div>
+            <div class="key-point">
+              <div class="kp-dot"></div>
+              <p><strong>Refraction:</strong> light bends at media interfaces; Snell's Law governs the angle.</p>
+            </div>
+            <div class="key-point">
+              <div class="kp-dot"></div>
+              <p><strong>Lens formula:</strong> 1/v − 1/u = 1/f &nbsp;|&nbsp; P = 1/f (dioptres)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       CHAPTER 10
+  ═══════════════════════════════════════════════════════════════ -->
+  <div id="ch10">
+    <div class="chapter-header container">
+      <div class="chapter-number">10</div>
+      <div class="chapter-tag blue">Chapter 10</div>
+      <h2 class="chapter-title">The Human Eye &amp;<br/>The Colourful World</h2>
+      <p class="chapter-desc">You have the most sophisticated optical instrument ever built sitting in your skull. Here's how it works — and why the world looks the way it does.</p>
+    </div>
+
+    <section>
+      <div class="container prose">
+
+        <div class="section-label reveal">The Human Eye</div>
+        <h2 class="reveal">Nature's Finest Lens System</h2>
+        <p class="reveal">Your eye is a camera that can autofocus in milliseconds, adjust its aperture across a 100,000:1 range of brightness, and has never needed a firmware update in its 500-million-year history. At its core is a beautiful lens system that works by the same physics you just studied.</p>
+
+        <div class="callout reveal">
+          <div class="callout-title">🧬 How the Eye Works</div>
+          <p>Light enters through the <strong>cornea</strong> (does most of the bending), passes through the <strong>pupil</strong> (aperture controlled by the iris), and is fine-focused by the <strong>crystalline lens</strong> — whose shape is actively controlled by <strong>ciliary muscles</strong> — onto the <strong>retina</strong>, which sends electrical signals to the brain via the optic nerve.</p>
+        </div>
+
+        <h3 class="reveal">Power of Accommodation</h3>
+        <p class="reveal">The eye's killer feature: <em>accommodation</em>. Unlike a camera lens that moves back and forth to focus, your eye lens <strong>changes its own shape</strong>. Ciliary muscles contract to make the lens thicker (more powerful) for near objects, and relax to make it thinner (less powerful) for distant ones.</p>
+
+        <div class="formula-grid reveal">
+          <div class="formula-card">
+            <div class="label">Near Point (Normal)</div>
+            <div class="formula">25 cm</div>
+            <div class="formula-desc">Closest distance for comfortable clear vision. Also called least distance of distinct vision.</div>
+          </div>
+          <div class="formula-card">
+            <div class="label">Far Point (Normal)</div>
+            <div class="formula">∞ (Infinity)</div>
+            <div class="formula-desc">Farthest distance the eye can see clearly without strain.</div>
+          </div>
+        </div>
+
+        <div class="divider-fancy reveal">✦</div>
+
+        <div class="section-label reveal">Defects of Vision</div>
+        <h2 class="reveal">When the Eye Gets It Wrong</h2>
+        <p class="reveal">Three things can go wrong with an eye: the eyeball can be too long or too short, the lens can be too curved or too flat, or the ciliary muscles can weaken with age. Each creates a characteristic defect — and each has an elegant optical fix.</p>
+
+        <div class="defect-grid reveal">
+          <div class="defect-card">
+            <div class="defect-icon">🔍</div>
+            <div class="defect-name">Myopia</div>
+            <div class="defect-also">Near-sightedness</div>
+            <p>The eyeball is too long, so parallel rays from distant objects converge <em>before</em> the retina. Near objects are clear; far objects are blurry. Far point is closer than infinity.</p>
+            <div class="defect-correction">
+              <span>🔵</span>
+              <span>Corrected with a <strong>concave (diverging) lens</strong> — it pushes the focal point back onto the retina.</span>
+            </div>
+          </div>
+          <div class="defect-card">
+            <div class="defect-icon">🔭</div>
+            <div class="defect-name">Hypermetropia</div>
+            <div class="defect-also">Far-sightedness</div>
+            <p>The eyeball is too short, so light from nearby objects would converge <em>behind</em> the retina. Distant objects are clear; close objects are blurry. Near point is beyond 25 cm.</p>
+            <div class="defect-correction">
+              <span>🔵</span>
+              <span>Corrected with a <strong>convex (converging) lens</strong> — it brings the focus forward onto the retina.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout blue reveal">
+          <div class="callout-title">👴 Presbyopia — The Age Defect</div>
+          <p>As we age, the ciliary muscles gradually weaken and the crystalline lens loses flexibility. The result: the eye can no longer accommodate as well. Reading glasses (for near) and distance glasses (for far) are both needed — often solved with <strong>bifocal lenses</strong> that have two different powers in a single glass.</p>
+        </div>
+
+        <!-- LENS POWER CALCULATOR FOR EYE DEFECTS -->
+        <div class="demo-box reveal" style="margin-top:40px;">
+          <div class="demo-title">👁️ Eye Defect Lens Calculator</div>
+          <div class="demo-subtitle">Calculate the corrective lens power for myopia or hypermetropia.</div>
+          <div style="display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;">
+            <button class="quiz-submit" onclick="setEyeDefect('myopia')" id="btn-myopia">Myopia</button>
+            <button class="quiz-submit" onclick="setEyeDefect('hyper')" id="btn-hyper" style="background:var(--violet);">Hypermetropia</button>
+          </div>
+          <div id="eye-inputs"></div>
+          <button class="calc-btn" onclick="calcEye()" id="eye-calc-btn" style="display:none;">Calculate Lens Power</button>
+          <div class="calc-result" id="eye-result" style="display:none;"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- DISPERSION & LIGHT PHENOMENA -->
+    <section style="padding-top:0;">
+      <div class="container prose">
+        <div class="section-label reveal">Dispersion &amp; Scattering</div>
+        <h2 class="reveal">Why the World Is So Colourful</h2>
+        <p class="reveal">White sunlight is not truly "white" — it's a superposition of every colour from violet to red. A glass prism splits it apart by bending each wavelength a different amount. The result is the spectrum that Newton first catalogued: <strong>VIBGYOR</strong>.</p>
+
+        <div class="rainbow-viz reveal">
+          <svg class="rainbow-arc" viewBox="0 0 500 280" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="skyGrad" cx="50%" cy="100%" r="100%">
+                <stop offset="0%" stop-color="#050a18"/>
+                <stop offset="100%" stop-color="#0a1628"/>
+              </radialGradient>
+            </defs>
+            <!-- Sky background in SVG -->
+            <rect width="500" height="280" fill="transparent"/>
+            <!-- Rainbow arcs -->
+            <path d="M 40 260 Q 250 20 460 260" fill="none" stroke="#8b00ff" stroke-width="8" stroke-linecap="round" opacity="0.85"/>
+            <path d="M 52 260 Q 250 36 448 260" fill="none" stroke="#4b0082" stroke-width="8" stroke-linecap="round" opacity="0.85"/>
+            <path d="M 65 260 Q 250 55 435 260" fill="none" stroke="#0000ee" stroke-width="8" stroke-linecap="round" opacity="0.85"/>
+            <path d="M 79 260 Q 250 75 421 260" fill="none" stroke="#008800" stroke-width="8" stroke-linecap="round" opacity="0.85"/>
+            <path d="M 94 260 Q 250 97 406 260" fill="none" stroke="#cccc00" stroke-width="8" stroke-linecap="round" opacity="0.85"/>
+            <path d="M 110 260 Q 250 118 390 260" fill="none" stroke="#ff8800" stroke-width="8" stroke-linecap="round" opacity="0.85"/>
+            <path d="M 127 260 Q 250 140 373 260" fill="none" stroke="#ee0000" stroke-width="8" stroke-linecap="round" opacity="0.85"/>
+            <!-- Labels -->
+            <text x="250" y="215" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-family="DM Sans" font-size="13" font-weight="500">Violet · Indigo · Blue · Green · Yellow · Orange · Red</text>
+            <text x="250" y="238" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="DM Sans" font-size="11">Each colour bends by a different angle through the prism (or rain droplet)</text>
+            <!-- Sun -->
+            <circle cx="70" cy="50" r="28" fill="rgba(255,220,80,0.2)" />
+            <circle cx="70" cy="50" r="18" fill="rgba(255,200,60,0.6)" />
+            <circle cx="70" cy="50" r="10" fill="#ffd040" />
+            <text x="70" y="90" text-anchor="middle" fill="rgba(255,200,60,0.7)" font-size="11" font-family="DM Sans">Sun</text>
+          </svg>
+        </div>
+
+        <div class="spectrum-bar reveal"></div>
+        <div class="spectrum-labels reveal">
+          <span>Violet (380nm)</span>
+          <span>Indigo</span>
+          <span>Blue</span>
+          <span>Green</span>
+          <span>Yellow</span>
+          <span>Orange</span>
+          <span>Red (700nm)</span>
+        </div>
+        <p class="reveal" style="font-size:13px;color:var(--text-muted);margin-top:10px;">Violet has the shortest wavelength and bends the most. Red has the longest wavelength and bends the least.</p>
+
+        <div class="divider-fancy reveal">✦</div>
+
+        <div class="section-label reveal">Natural Phenomena</div>
+        <h2 class="reveal">The Physics Behind Everyday Wonders</h2>
+        <p class="reveal">Every natural spectacle in the sky — the blue dome above, the orange disc at sunset, the twinkling of stars, the arc of a rainbow — is optics in action. Here's the science behind four of the most beautiful ones.</p>
+
+        <div class="phenomenon-grid reveal">
+          <div class="phenomenon-card blue-sky">
+            <div class="phen-icon">🌤️</div>
+            <div class="phen-title">Blue Sky</div>
+            <div class="phen-body">Air molecules scatter <strong>shorter wavelengths</strong> (blue ≈ 450 nm) far more than longer ones. Blue light is scattered ~10× more than red. When you look anywhere in the sky (away from the sun), you're seeing this scattered blue light — hence the blue dome.</div>
+          </div>
+          <div class="phenomenon-card red-sun">
+            <div class="phen-icon">🌅</div>
+            <div class="phen-title">Red Sunrise &amp; Sunset</div>
+            <div class="phen-body">At the horizon, sunlight travels through a much thicker slice of atmosphere. By the time it reaches you, nearly all blue has scattered away. Only the <strong>least-scattered red and orange</strong> survive the journey — painting the sky in warm hues.</div>
+          </div>
+          <div class="phenomenon-card rainbow">
+            <div class="phen-icon">🌈</div>
+            <div class="phen-title">Rainbow</div>
+            <div class="phen-body">Rain droplets act as tiny prisms. Light enters a droplet, undergoes <strong>dispersion + total internal reflection + dispersion again</strong> as it exits. Different colours exit at slightly different angles, separating into an arc. Always appears <em>opposite</em> to the sun.</div>
+          </div>
+          <div class="phenomenon-card stars">
+            <div class="phen-icon">✨</div>
+            <div class="phen-title">Twinkling Stars</div>
+            <div class="phen-body">Stars are so distant they appear as point sources. Their light passes through layers of atmosphere with constantly shifting density — causing continuous refraction that makes the apparent position and brightness flicker. Planets don't twinkle because they appear as tiny <em>discs</em>, not points.</div>
+          </div>
+        </div>
+
+        <!-- SKY INTERACTIVE -->
+        <div class="demo-box reveal" style="margin-top:40px;">
+          <div class="demo-title">🌞 Interactive Sky — Time of Day</div>
+          <div class="demo-subtitle">Drag the slider to change the sun's position and see how scattering changes the sky colour.</div>
+          <div class="sky-demo" id="sky-demo">
+            <div class="sky-content">
+              <div class="sky-text">
+                <div class="sky-label" id="sky-label">Midday</div>
+                <div class="sky-sublabel" id="sky-sublabel">Blue light scatters in all directions</div>
+              </div>
+            </div>
+            <div class="sun" id="sun-circle" style="width:60px;height:60px;background:rgba(255,235,100,0.9);box-shadow:0 0 40px rgba(255,235,100,0.7);"></div>
+          </div>
+          <div class="time-slider-wrap">
+            <span class="time-icon">🌅</span>
+            <input type="range" min="0" max="100" value="50" id="time-slider" oninput="updateSky(this.value)" />
+            <span class="time-icon">🌄</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ATMOSPHERIC REFRACTION -->
+    <section style="padding-top:0;">
+      <div class="container prose">
+        <div class="section-label reveal">Atmospheric Refraction</div>
+        <h2 class="reveal">How the Atmosphere Bends the World</h2>
+        <p class="reveal">The atmosphere isn't a uniform slab of glass — it's a gradient, thickening and densening toward the Earth. Light passing through this gradient bends continuously, creating effects that have mystified humans for centuries.</p>
+
+        <div class="callout reveal">
+          <div class="callout-title">⏰ Advance Sunrise &amp; Delayed Sunset</div>
+          <p>Because the atmosphere bends the sun's light, we see the sun <strong>about 2 minutes before it actually crosses the horizon</strong> at sunrise — and for 2 minutes after it's geometrically below the horizon at sunset. The day is literally 4 minutes longer than it would be in a universe without atmosphere. That slight flattening you see in the setting sun is also atmospheric refraction at work.</p>
+        </div>
+
+        <!-- CH10 SUMMARY -->
+        <div class="summary-section reveal" style="margin-top:48px;">
+          <div class="summary-title">Chapter 10 — Key Takeaways</div>
+          <div class="key-points">
+            <div class="key-point">
+              <div class="kp-dot" style="background:var(--sky);"></div>
+              <p><strong>Near point</strong> = 25 cm; <strong>Far point</strong> = ∞ for a normal eye.</p>
+            </div>
+            <div class="key-point">
+              <div class="kp-dot" style="background:var(--sky);"></div>
+              <p><strong>Accommodation:</strong> ciliary muscles change lens curvature to focus at different distances.</p>
+            </div>
+            <div class="key-point">
+              <div class="kp-dot" style="background:var(--sky);"></div>
+              <p><strong>Myopia</strong> → concave lens. <strong>Hypermetropia</strong> → convex lens. <strong>Presbyopia</strong> → bifocals.</p>
+            </div>
+            <div class="key-point">
+              <div class="kp-dot" style="background:var(--sky);"></div>
+              <p><strong>Dispersion:</strong> white light splits into VIBGYOR; violet bends most, red bends least.</p>
+            </div>
+            <div class="key-point">
+              <div class="kp-dot" style="background:var(--sky);"></div>
+              <p><strong>Blue sky:</strong> Rayleigh scattering — blue (~450nm) scattered ~10× more than red.</p>
+            </div>
+            <div class="key-point">
+              <div class="kp-dot" style="background:var(--sky);"></div>
+              <p><strong>Twinkling:</strong> point-source stars vs disc-source planets — only points twinkle.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       QUIZ
+  ═══════════════════════════════════════════════════════════════ -->
+  <section id="quiz">
+    <div class="container">
+      <div class="section-label reveal">Test Yourself</div>
+      <div class="quiz-section reveal">
+        <div class="quiz-title">Quick Quiz — Chapters 9 &amp; 10</div>
+        <div class="quiz-sub">8 questions. No tricks, just physics. Click an answer to see the explanation.</div>
+
+        <div id="quiz-questions">
+          <!-- Questions injected by JS -->
+        </div>
+
+        <div id="quiz-score" class="quiz-score">
+          <div class="score-num" id="score-num">0/8</div>
+          <div class="score-label">Great effort! Review the explanations above for any you missed.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-title">Light &amp; Vision</div>
+    <p>Class 10 Physics · Chapters 9 &amp; 10<br/>Study smarter — understand the physics, don't just memorise it.</p>
+    <div class="footer-chapters">
+      <a href="#ch9" class="footer-chip">Ch.9 — Optics</a>
+      <a href="#ch10" class="footer-chip">Ch.10 — Human Eye</a>
+      <a href="#quiz" class="footer-chip">Take the Quiz</a>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       JAVASCRIPT
+  ═══════════════════════════════════════════════════════════════ -->
+  <script>
+    /* ── Progress bar ─────────────────────────────────────────── */
+    window.addEventListener('scroll', () => {
+      const total = document.body.scrollHeight - window.innerHeight;
+      const pct = (window.scrollY / total) * 100;
+      document.getElementById('progress-bar').style.width = pct + '%';
+    });
+
+    /* ── Scroll reveal ────────────────────────────────────────── */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    /* ── Toggle example solutions ─────────────────────────────── */
+    function toggleExample(header) {
+      const body = header.nextElementSibling;
+      const toggle = header.querySelector('.example-toggle');
+      body.classList.toggle('open');
+      toggle.classList.toggle('open');
+    }
+
+    /* ── Mirror Formula Calculator ────────────────────────────── */
+    function calcMirror() {
+      const u = parseFloat(document.getElementById('m-u').value);
+      const f = parseFloat(document.getElementById('m-f').value);
+      const res = document.getElementById('m-result');
+      if (isNaN(u) || isNaN(f) || u === 0) {
+        res.innerHTML = '<span style="color:var(--red-soft)">Please enter valid non-zero values.</span>';
+        return;
+      }
+      const v = 1 / (1/f - 1/u);
+      const m = -v / u;
+      const nature = m > 0 ? 'Virtual &amp; Erect' : 'Real &amp; Inverted';
+      const size = Math.abs(m) > 1 ? 'Enlarged' : Math.abs(m) < 1 ? 'Diminished' : 'Same size';
+      const side = v > 0 ? 'Behind the mirror' : 'In front of the mirror';
+      res.innerHTML = `
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div><span class="r-label">Image Distance (v)</span><br/><span class="r-value">${v.toFixed(2)} cm</span></div>
+          <div><span class="r-label">Magnification (m)</span><br/><span class="r-value">${m.toFixed(3)}</span></div>
+        </div>
+        <div class="r-verdict">
+          <strong>${nature}</strong> · ${size} · ${side}
+        </div>`;
+    }
+
+    /* ── Lens Formula Calculator ──────────────────────────────── */
+    function calcLens() {
+      const u = parseFloat(document.getElementById('l-u').value);
+      const f = parseFloat(document.getElementById('l-f').value);
+      const res = document.getElementById('l-result');
+      if (isNaN(u) || isNaN(f) || u === 0) {
+        res.innerHTML = '<span style="color:var(--red-soft)">Please enter valid non-zero values.</span>';
+        return;
+      }
+      const v = 1 / (1/f + 1/u);
+      const m = v / u;
+      const power = (1 / (f/100)).toFixed(2);
+      const nature = m > 0 ? 'Virtual &amp; Erect' : 'Real &amp; Inverted';
+      const size = Math.abs(m) > 1 ? 'Enlarged' : Math.abs(m) < 1 ? 'Diminished' : 'Same size';
+      res.innerHTML = `
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;">
+          <div><span class="r-label">Image Distance (v)</span><br/><span class="r-value">${v.toFixed(2)} cm</span></div>
+          <div><span class="r-label">Magnification (m)</span><br/><span class="r-value">${m.toFixed(3)}</span></div>
+          <div><span class="r-label">Lens Power</span><br/><span class="r-value">${power} D</span></div>
+        </div>
+        <div class="r-verdict">
+          <strong>${nature}</strong> · ${size}
+        </div>`;
+    }
+
+    /* ── Eye Defect Calculator ────────────────────────────────── */
+    let eyeMode = null;
+    function setEyeDefect(mode) {
+      eyeMode = mode;
+      const wrap = document.getElementById('eye-inputs');
+      const btn  = document.getElementById('eye-calc-btn');
+      const res  = document.getElementById('eye-result');
+      res.style.display = 'none';
+      btn.style.display = 'block';
+      if (mode === 'myopia') {
+        document.getElementById('btn-myopia').style.background = 'var(--sky)';
+        document.getElementById('btn-hyper').style.background  = 'var(--card)';
+        document.getElementById('btn-hyper').style.color = 'var(--text)';
+        wrap.innerHTML = `
+          <div class="calc-grid" style="margin-bottom:16px;">
+            <div class="calc-input">
+              <label>Far Point of Patient (cm)</label>
+              <input type="number" id="eye-fp" placeholder="e.g. 80" value="80" />
+            </div>
+          </div>`;
+      } else {
+        document.getElementById('btn-hyper').style.background = 'var(--violet)';
+        document.getElementById('btn-hyper').style.color = 'var(--ink)';
+        document.getElementById('btn-myopia').style.background = 'var(--card)';
+        document.getElementById('btn-myopia').style.color = 'var(--text)';
+        wrap.innerHTML = `
+          <div class="calc-grid" style="margin-bottom:16px;">
+            <div class="calc-input">
+              <label>Patient's Near Point (cm)</label>
+              <input type="number" id="eye-np" placeholder="e.g. 100" value="100" />
+            </div>
+          </div>`;
+      }
+    }
+    function calcEye() {
+      const res = document.getElementById('eye-result');
+      res.style.display = 'block';
+      if (eyeMode === 'myopia') {
+        const fp = parseFloat(document.getElementById('eye-fp').value);
+        if (isNaN(fp) || fp <= 0) { res.innerHTML='<span style="color:var(--red-soft)">Enter a positive far point.</span>'; return; }
+        const f = -fp;
+        const P = (1 / (f/100)).toFixed(2);
+        res.innerHTML=`
+          <div><span class="r-label">Required Focal Length</span><br/><span class="r-value">−${fp} cm</span></div>
+          <div style="margin-top:12px;"><span class="r-label">Lens Power</span><br/><span class="r-value">${P} D</span></div>
+          <div class="r-verdict">Use a <strong>concave lens</strong> of power <strong>${P} D</strong>. It creates a virtual image of infinity at the patient's far point (${fp} cm).</div>`;
+      } else {
+        const np = parseFloat(document.getElementById('eye-np').value);
+        if (isNaN(np) || np <= 0) { res.innerHTML='<span style="color:var(--red-soft)">Enter a positive near point.</span>'; return; }
+        const v = -np, u = -25;
+        const f = 1/(1/v - 1/u);
+        const P = (1 / (f/100)).toFixed(2);
+        res.innerHTML=`
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+            <div><span class="r-label">Required Focal Length</span><br/><span class="r-value">${f.toFixed(1)} cm</span></div>
+            <div><span class="r-label">Lens Power</span><br/><span class="r-value">+${P} D</span></div>
+          </div>
+          <div class="r-verdict">Use a <strong>convex lens</strong> of power <strong>+${P} D</strong>. It creates a virtual image of a 25 cm object at the patient's near point (${np} cm).</div>`;
+      }
+    }
+
+    /* ── Sky Demo ─────────────────────────────────────────────── */
+    function updateSky(val) {
+      const v = parseInt(val);
+      const demo = document.getElementById('sky-demo');
+      const lbl  = document.getElementById('sky-label');
+      const sub  = document.getElementById('sky-sublabel');
+      const sun  = document.getElementById('sun-circle');
+      let bg, label, sublabel, sunX, sunY, sunSize, sunCol;
+
+      if (v < 15) {
+        bg = 'linear-gradient(to bottom, #0a0812, #1a0a18)';
+        label = 'Night'; sublabel = 'No sunlight — no scattering';
+        sunX = -60; sunY = 50; sunSize = 40; sunCol = 'rgba(255,220,100,0)';
+      } else if (v < 28) {
+        const t = (v-15)/13;
+        bg = `linear-gradient(to bottom, hsl(${20+t*20},60%,${8+t*12}%), hsl(${25+t*10},70%,${15+t*20}%))`;
+        label = 'Sunrise'; sublabel = 'Long path → blue scattered away → orange/red sky';
+        sunX = Math.round(5 + t*15); sunY = Math.round(75 - t*15);
+        sunSize = 50; sunCol = `rgba(255,${160+t*50},60,0.9)`;
+      } else if (v < 70) {
+        const t = (v-28)/42;
+        bg = `linear-gradient(to bottom, hsl(${210+t*5},${65+t*10}%,${28+t*12}%), hsl(215,70%,${18+t*10}%))`;
+        label = v < 50 ? 'Morning' : 'Midday'; sublabel = 'Short path → blue survives → blue sky';
+        sunX = Math.round(20 + t*60); sunY = Math.round(60 - t*50);
+        sunSize = 55; sunCol = `rgba(255,${230+t*15},${80+t*120},0.95)`;
+      } else if (v < 85) {
+        const t = (v-70)/15;
+        bg = `linear-gradient(to bottom, hsl(${25-t*5},${60+t*15}%,${35-t*15}%), hsl(${20},${70+t*10}%,${22-t*8}%))`;
+        label = 'Sunset'; sublabel = 'Long path again → red &amp; orange dominate';
+        sunX = Math.round(80 + t*10); sunY = Math.round(10 + t*60);
+        sunSize = 50; sunCol = `rgba(255,${140-t*50},40,0.9)`;
+      } else {
+        const t = (v-85)/15;
+        bg = `linear-gradient(to bottom, hsl(220,40%,${12-t*8}%), hsl(220,30%,${8-t*5}%))`;
+        label = 'Dusk / Night'; sublabel = 'Sun below horizon — scattered light fades';
+        sunX = 110; sunY = 80; sunSize = 40; sunCol = 'rgba(255,100,40,0)';
+      }
+
+      demo.style.background = bg;
+      lbl.textContent = label;
+      sub.innerHTML = sublabel;
+      sun.style.width  = sunSize+'px';
+      sun.style.height = sunSize+'px';
+      sun.style.left   = sunX+'%';
+      sun.style.top    = sunY+'%';
+      sun.style.transform = 'translate(-50%,-50%)';
+      sun.style.background = sunCol;
+      sun.style.boxShadow  = sunSize > 35 ? `0 0 ${sunSize}px ${sunCol}` : 'none';
+      sun.style.borderRadius = '50%';
+    }
+    updateSky(50);
+
+    /* ── QUIZ ─────────────────────────────────────────────────── */
+    const quizData = [
+      {
+        q: "Which type of mirror is used in the headlights of a car and why?",
+        opts: ["Plane mirror — reflects light uniformly", "Concave mirror — converges light into a powerful parallel beam", "Convex mirror — widens the field of view", "Semi-silvered mirror — partially transmits light"],
+        ans: 1,
+        exp: "When the bulb is placed at the focus of a concave mirror, reflected rays emerge as a strong, parallel beam — exactly what headlights need."
+      },
+      {
+        q: "An object is placed between the pole P and the principal focus F of a concave mirror. The image formed is:",
+        opts: ["Real, inverted, and diminished", "Real, inverted, and enlarged", "Virtual, erect, and enlarged", "Virtual, erect, and diminished"],
+        ans: 2,
+        exp: "When the object is between P and F of a concave mirror, you get a virtual, erect, and enlarged image — this is how a magnifying/shaving mirror works!"
+      },
+      {
+        q: "A lens has a power of −2.5 D. What type of lens is it, and what is its focal length?",
+        opts: ["Convex, f = +40 cm", "Concave, f = −40 cm", "Concave, f = −25 cm", "Convex, f = +25 cm"],
+        ans: 1,
+        exp: "Negative power → concave (diverging) lens. f = 1/P = 1/(−2.5) = −0.4 m = −40 cm."
+      },
+      {
+        q: "Which colour of light bends the MOST when passing through a glass prism?",
+        opts: ["Red", "Green", "Orange", "Violet"],
+        ans: 3,
+        exp: "Violet has the shortest wavelength and the highest refractive index in glass — so it bends the most. Red, with the longest wavelength, bends the least."
+      },
+      {
+        q: "A person cannot see objects beyond 1.5 m. What defect does this person have, and what type of corrective lens is needed?",
+        opts: ["Hypermetropia — convex lens", "Presbyopia — bifocal lens", "Myopia — concave lens", "Astigmatism — cylindrical lens"],
+        ans: 2,
+        exp: "The person's far point is 1.5 m instead of infinity — that's myopia (near-sightedness). A concave lens of suitable power will shift the far point back to infinity."
+      },
+      {
+        q: "Why does the sky appear blue to us?",
+        opts: ["The sky reflects blue light from the ocean", "The atmosphere preferentially scatters shorter (blue) wavelengths of sunlight", "Blue light travels faster in the atmosphere", "The sun emits mainly blue light during the day"],
+        ans: 1,
+        exp: "Rayleigh scattering: air molecules scatter shorter wavelengths (blue ~450 nm) much more strongly than longer wavelengths (red ~700 nm). Blue scattered in all directions reaches our eyes, making the sky blue."
+      },
+      {
+        q: "Why don't planets twinkle like stars do?",
+        opts: ["Planets are self-luminous and don't rely on reflected light", "Planets are closer and appear as extended discs, so atmospheric variations average out", "Planets have their own atmospheres that stabilise the light", "The light from planets has a longer wavelength that isn't affected by refraction"],
+        ans: 1,
+        exp: "Stars are point sources (too far away to appear as discs), so any slight atmospheric shift visibly alters their apparent brightness. Planets are close enough to appear as tiny discs — variations from different parts of the disc cancel each other out."
+      },
+      {
+        q: "A mirror formula gives v = +8.6 cm when u = −20 cm. What can you conclude?",
+        opts: ["The mirror is concave; image is real and in front of the mirror", "The mirror is convex; image is virtual and behind the mirror", "The mirror is plane; image is at the same distance", "The image is at infinity"],
+        ans: 1,
+        exp: "Positive v means the image is on the same side as the object's reflected rays — i.e., behind the mirror. This is a virtual image, typical of a convex mirror. The positive focal length (f = R/2) confirms convex."
+      }
+    ];
+
+    let answered = new Array(quizData.length).fill(false);
+    let score = 0;
+
+    function buildQuiz() {
+      const wrap = document.getElementById('quiz-questions');
+      wrap.innerHTML = quizData.map((q, qi) => `
+        <div class="quiz-question">
+          <div class="quiz-q"><span>Q${qi+1}.</span> ${q.q}</div>
+          <div class="quiz-options">
+            ${q.opts.map((opt, oi) => `
+              <div class="quiz-opt" onclick="answerQ(${qi}, ${oi})" id="opt-${qi}-${oi}">
+                <span class="opt-letter">${'ABCD'[oi]}</span>
+                ${opt}
+              </div>
+            `).join('')}
+          </div>
+          <div class="quiz-feedback" id="fb-${qi}">${q.exp}</div>
+        </div>
+      `).join('');
+    }
+
+    function answerQ(qi, oi) {
+      if (answered[qi]) return;
+      answered[qi] = true;
+      const correct = quizData[qi].ans;
+      const correctEl = document.getElementById(`opt-${qi}-${correct}`);
+      const chosenEl  = document.getElementById(`opt-${qi}-${oi}`);
+      chosenEl.classList.add(oi === correct ? 'correct' : 'wrong');
+      if (oi !== correct) correctEl.classList.add('correct');
+      document.getElementById(`fb-${qi}`).style.display = 'block';
+      if (oi === correct) score++;
+      if (answered.every(Boolean)) {
+        const sc = document.getElementById('quiz-score');
+        const sn = document.getElementById('score-num');
+        sn.textContent = `${score}/${quizData.length}`;
+        sc.style.display = 'block';
+        sc.scrollIntoView({ behavior:'smooth', block:'center' });
+      }
+    }
+
+    buildQuiz();
+
+    // Run calculators once on load
+    calcMirror();
+    calcLens();
+  </script>
+
+</body>
+</html>
