@@ -1,0 +1,2536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 8: Heredity and Evolution | Class 10 NCERT Biology</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Nunito:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+body {
+  font-family: 'Nunito', sans-serif;
+  background: #fdfaf5;
+  color: #1a1612;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+h1, h2, h3, h4 { font-family: 'Lora', serif; color: #1a1612; }
+code, .mono { font-family: 'JetBrains Mono', monospace; }
+
+/* ===== READING PROGRESS BAR ===== */
+#progress-bar {
+  position: fixed; top: 0; left: 0; height: 4px;
+  background: linear-gradient(90deg, #457b9d, #e63946);
+  width: 0%; z-index: 10000; transition: width 0.15s linear;
+}
+
+/* ===== STICKY NAV ===== */
+.sticky-nav {
+  position: fixed; top: 4px; left: 0; right: 0; z-index: 9999;
+  background: rgba(253, 250, 245, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(107, 99, 85, 0.12);
+  padding: 0 20px;
+  transition: box-shadow 0.3s;
+}
+.sticky-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
+.nav-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 56px; gap: 10px;
+}
+.nav-brand { font-family: 'Lora', serif; font-weight: 700; font-size: 1rem; color: #457b9d; white-space: nowrap; }
+.nav-links { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+.nav-links::-webkit-scrollbar { display: none; }
+.nav-links a {
+  font-size: 0.78rem; color: #6b6355; text-decoration: none;
+  padding: 6px 10px; border-radius: 6px; white-space: nowrap;
+  transition: all 0.2s;
+}
+.nav-links a:hover, .nav-links a.active { background: #457b9d; color: #fff; }
+.nav-toggle { display: none; background: none; border: none; font-size: 1.4rem; cursor: pointer; color: #1a1612; }
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 100px 20px 60px;
+  position: relative;
+  background: linear-gradient(180deg, #fdfaf5 0%, #eee8da 100%);
+}
+.hero h1 {
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, #457b9d, #1d3557);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero .subtitle { font-size: 1.15rem; color: #6b6355; margin-bottom: 36px; }
+
+/* DNA Helix SVG */
+.dna-container { width: 200px; height: 260px; margin: 0 auto 30px; perspective: 600px; }
+.dna-helix { animation: dnaRotate 8s ease-in-out infinite; transform-style: preserve-3d; }
+@keyframes dnaRotate {
+  0%, 100% { transform: rotateY(0deg); }
+  50% { transform: rotateY(360deg); }
+}
+.dna-pair { animation: unzip 8s ease-in-out infinite; }
+@keyframes unzip {
+  0%, 30%, 70%, 100% { opacity: 1; }
+  45%, 55% { opacity: 0.3; }
+}
+
+.scroll-indicator {
+  position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+  animation: bounce 2s infinite;
+}
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(10px); }
+}
+.scroll-indicator svg { width: 30px; height: 30px; stroke: #6b6355; }
+
+/* ===== SECTION CONTAINERS ===== */
+.container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+.section {
+  padding: 80px 0;
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.section.visible { opacity: 1; transform: translateY(0); }
+
+/* ===== CARDS ===== */
+.card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 36px;
+  margin-bottom: 28px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+  border: 1px solid rgba(107,99,85,0.08);
+}
+.card h3 { font-size: 1.4rem; margin-bottom: 16px; color: #457b9d; }
+.card p { margin-bottom: 12px; color: #1a1612; }
+
+/* ===== TOPIC BADGE ===== */
+.topic-badge {
+  display: inline-block; padding: 4px 14px; border-radius: 20px; font-size: 0.78rem;
+  font-weight: 700; margin-bottom: 12px; letter-spacing: 0.5px;
+}
+.badge-blue { background: #d6eaf8; color: #1d3557; }
+.badge-red { background: #fadbd8; color: #922b21; }
+.badge-green { background: #d5f5e3; color: #1e8449; }
+.badge-purple { background: #e8daef; color: #6c3483; }
+
+/* ===== FUN FACT ===== */
+.fun-fact {
+  background: linear-gradient(135deg, #fff9e6, #fff3cc);
+  border-left: 4px solid #f1c40f;
+  border-radius: 0 12px 12px 0;
+  padding: 18px 22px; margin: 20px 0;
+}
+.fun-fact strong { color: #b7950b; }
+
+/* ===== MINI QUIZ ===== */
+.mini-quiz {
+  background: #f4f0e8; border-radius: 12px; padding: 22px; margin: 20px 0;
+}
+.mini-quiz h4 { font-size: 1rem; color: #457b9d; margin-bottom: 10px; }
+.mini-quiz .mq-options { display: flex; flex-direction: column; gap: 8px; }
+.mini-quiz .mq-btn {
+  background: #fff; border: 2px solid #ddd; border-radius: 8px;
+  padding: 10px 16px; text-align: left; cursor: pointer; font-size: 0.92rem;
+  font-family: 'Nunito', sans-serif; transition: all 0.2s;
+}
+.mini-quiz .mq-btn:hover { border-color: #457b9d; background: #eef5fa; }
+.mini-quiz .mq-btn.correct { border-color: #27ae60; background: #d5f5e3; }
+.mini-quiz .mq-btn.wrong { border-color: #e63946; background: #fadbd8; }
+.mini-quiz .mq-feedback { margin-top: 10px; font-weight: 600; font-size: 0.9rem; }
+
+/* ===== SVG DIAGRAMS ===== */
+.diagram-container {
+  background: #fff; border-radius: 12px; padding: 20px;
+  text-align: center; margin: 20px 0;
+  border: 1px solid rgba(107,99,85,0.1);
+}
+.diagram-container svg { max-width: 100%; height: auto; }
+
+/* ===== PUNNETT SQUARE INTERACTIVE ===== */
+.punnett-section { background: #f4f0e8; border-radius: 16px; padding: 36px; margin: 28px 0; }
+.punnett-controls {
+  display: flex; gap: 16px; align-items: center; flex-wrap: wrap; margin-bottom: 24px;
+}
+.punnett-controls label { font-weight: 700; font-size: 0.95rem; }
+.punnett-controls select {
+  padding: 8px 14px; border: 2px solid #457b9d; border-radius: 8px;
+  font-family: 'JetBrains Mono', monospace; font-size: 1rem; background: #fff;
+  cursor: pointer;
+}
+.punnett-grid {
+  display: grid; grid-template-columns: 60px 1fr 1fr; grid-template-rows: 60px 1fr 1fr;
+  max-width: 340px; margin: 0 auto 20px; gap: 4px;
+}
+.punnett-cell {
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; font-weight: 700;
+  border-radius: 8px; min-height: 60px; transition: all 0.4s ease;
+}
+.punnett-header { background: #457b9d; color: #fff; }
+.punnett-corner { background: transparent; }
+.punnett-result { background: #fff; border: 2px solid #ddd; }
+.punnett-result.dominant { background: #d6eaf8; border-color: #457b9d; }
+.punnett-result.recessive { background: #fadbd8; border-color: #e63946; }
+.punnett-result.fill-animate {
+  animation: cellFill 0.5s ease forwards;
+}
+@keyframes cellFill {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.ratio-display {
+  display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 16px;
+}
+.ratio-item {
+  background: #fff; padding: 12px 20px; border-radius: 10px; text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.ratio-item .ratio-value { font-size: 1.5rem; font-weight: 700; color: #457b9d; font-family: 'JetBrains Mono', monospace; }
+.ratio-item .ratio-label { font-size: 0.8rem; color: #6b6355; }
+
+/* Animated Bar */
+.ratio-bar-container { margin-top: 16px; max-width: 400px; margin-left: auto; margin-right: auto; }
+.ratio-bar { display: flex; height: 28px; border-radius: 14px; overflow: hidden; }
+.ratio-bar .bar-segment { transition: width 0.8s ease; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; color: #fff; }
+.bar-dominant { background: #457b9d; }
+.bar-recessive { background: #e63946; }
+
+/* ===== ANIMATED CROSS ===== */
+.cross-animation { position: relative; min-height: 350px; margin: 20px 0; }
+
+/* ===== FLASHCARDS ===== */
+.flashcard-deck { perspective: 1000px; margin: 30px auto; max-width: 520px; }
+.flashcard-wrapper { position: relative; width: 100%; height: 280px; }
+.flashcard {
+  position: absolute; inset: 0;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s;
+  transform-style: preserve-3d; cursor: pointer;
+  border-radius: 16px;
+}
+.flashcard.flipped { transform: rotateY(180deg); }
+.flashcard-face {
+  position: absolute; inset: 0;
+  backface-visibility: hidden; border-radius: 16px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 30px; text-align: center;
+}
+.flashcard-front {
+  background: linear-gradient(135deg, #457b9d, #1d3557); color: #fff;
+  box-shadow: 0 8px 32px rgba(69, 123, 157, 0.3);
+}
+.flashcard-front h4 { font-size: 0.85rem; margin-bottom: 16px; opacity: 0.8; }
+.flashcard-front p { font-size: 1.15rem; line-height: 1.6; }
+.flashcard-back {
+  background: #fff; color: #1a1612;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  transform: rotateY(180deg);
+  border: 2px solid #457b9d;
+}
+.flashcard-back h4 { font-size: 0.85rem; margin-bottom: 16px; color: #457b9d; }
+.flashcard-back p { font-size: 1.05rem; line-height: 1.6; }
+.fc-controls {
+  display: flex; gap: 12px; align-items: center; justify-content: center; margin-top: 20px;
+}
+.fc-btn {
+  padding: 10px 22px; border: 2px solid #457b9d; border-radius: 10px;
+  background: #fff; color: #457b9d; font-weight: 700; cursor: pointer;
+  font-family: 'Nunito', sans-serif; font-size: 0.9rem; transition: all 0.2s;
+}
+.fc-btn:hover { background: #457b9d; color: #fff; }
+.fc-btn.shuffle { border-color: #e63946; color: #e63946; }
+.fc-btn.shuffle:hover { background: #e63946; color: #fff; }
+.fc-counter { font-weight: 700; color: #6b6355; font-size: 0.95rem; min-width: 60px; text-align: center; }
+
+/* ===== QUIZ ===== */
+.quiz-container { max-width: 680px; margin: 0 auto; }
+.quiz-question {
+  background: #fff; border-radius: 16px; padding: 32px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+  border: 1px solid rgba(107,99,85,0.08);
+}
+.quiz-question .q-num {
+  font-size: 0.8rem; font-weight: 700; color: #fff; padding: 4px 12px;
+  border-radius: 20px; display: inline-block; margin-bottom: 14px;
+}
+.q-easy { background: #27ae60; }
+.q-medium { background: #f39c12; }
+.q-hard { background: #e63946; }
+.quiz-question h4 { font-size: 1.1rem; margin-bottom: 18px; line-height: 1.5; }
+.quiz-options { display: flex; flex-direction: column; gap: 10px; }
+.quiz-opt {
+  padding: 14px 18px; border: 2px solid #e0dcd4; border-radius: 10px;
+  background: #fdfaf5; cursor: pointer; font-size: 0.95rem;
+  font-family: 'Nunito', sans-serif; transition: all 0.2s; text-align: left;
+}
+.quiz-opt:hover { border-color: #457b9d; background: #eef5fa; }
+.quiz-opt.selected { border-color: #457b9d; background: #d6eaf8; }
+.quiz-opt.q-correct { border-color: #27ae60; background: #d5f5e3; }
+.quiz-opt.q-wrong { border-color: #e63946; background: #fadbd8; }
+.quiz-opt:disabled { cursor: default; }
+.quiz-feedback { margin-top: 14px; font-weight: 600; font-size: 0.92rem; min-height: 24px; }
+.quiz-nav { display: flex; gap: 12px; justify-content: center; margin-top: 24px; }
+.quiz-nav-btn {
+  padding: 10px 24px; border-radius: 10px; border: 2px solid #457b9d;
+  background: #457b9d; color: #fff; font-weight: 700; cursor: pointer;
+  font-family: 'Nunito', sans-serif; font-size: 0.9rem; transition: all 0.2s;
+}
+.quiz-nav-btn:hover { background: #1d3557; border-color: #1d3557; }
+.quiz-nav-btn.outline { background: transparent; color: #457b9d; }
+.quiz-nav-btn.outline:hover { background: #457b9d; color: #fff; }
+.quiz-progress { display: flex; gap: 6px; justify-content: center; margin-bottom: 20px; }
+.quiz-dot {
+  width: 10px; height: 10px; border-radius: 50%; background: #e0dcd4;
+  transition: all 0.3s;
+}
+.quiz-dot.active { background: #457b9d; transform: scale(1.3); }
+.quiz-dot.answered { background: #27ae60; }
+.quiz-dot.wrong-dot { background: #e63946; }
+.quiz-score {
+  text-align: center; padding: 40px;
+  background: linear-gradient(135deg, #457b9d, #1d3557);
+  border-radius: 16px; color: #fff;
+}
+.quiz-score h3 { font-size: 2rem; color: #fff; margin-bottom: 10px; }
+.quiz-score .score-num { font-size: 3.5rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+.quiz-score p { opacity: 0.9; margin-top: 10px; }
+
+/* ===== SUMMARY ===== */
+.summary-list { list-style: none; }
+.summary-list li {
+  padding: 14px 18px; border-left: 4px solid #457b9d;
+  background: #fff; margin-bottom: 10px; border-radius: 0 10px 10px 0;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.03);
+}
+.summary-list li strong { color: #457b9d; }
+
+/* ===== OVERVIEW ===== */
+.overview-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px; margin-top: 20px;
+}
+.overview-item {
+  background: #fff; border-radius: 12px; padding: 20px; text-align: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  border: 1px solid rgba(107,99,85,0.08);
+  transition: transform 0.2s;
+}
+.overview-item:hover { transform: translateY(-4px); }
+.overview-icon { font-size: 2rem; margin-bottom: 8px; }
+.overview-item h4 { font-size: 0.95rem; color: #457b9d; margin-bottom: 4px; }
+.overview-item p { font-size: 0.82rem; color: #6b6355; }
+
+/* ===== FOOTER ===== */
+.footer {
+  background: #1a1612; color: #a89e91; padding: 40px 20px; text-align: center; margin-top: 40px;
+}
+.footer a { color: #457b9d; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 56px; left: 0; right: 0; background: rgba(253,250,245,0.98); padding: 16px; border-bottom: 1px solid #e0dcd4; gap: 4px; }
+  .nav-toggle { display: block; }
+  .card { padding: 24px; }
+  .punnett-section { padding: 24px; }
+  .punnett-controls { flex-direction: column; align-items: flex-start; }
+  .section { padding: 50px 0; }
+}
+@media (max-width: 480px) {
+  .hero h1 { font-size: 1.8rem; }
+  .punnett-grid { grid-template-columns: 50px 1fr 1fr; }
+  .flashcard-wrapper { height: 310px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== PROGRESS BAR ===== -->
+<div id="progress-bar"></div>
+
+<!-- ===== STICKY NAV ===== -->
+<nav class="sticky-nav" id="stickyNav">
+  <div class="nav-inner">
+    <span class="nav-brand">Ch 8: Heredity</span>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">&#9776;</button>
+    <div class="nav-links" id="navLinks">
+      <a href="#overview">Overview</a>
+      <a href="#topic1">Heredity</a>
+      <a href="#topic2">Mendel</a>
+      <a href="#topic3">Sex</a>
+      <a href="#topic4">Evolution</a>
+      <a href="#topic5">Relationships</a>
+      <a href="#punnett-calc">Punnett Sq.</a>
+      <a href="#flashcards">Flashcards</a>
+      <a href="#quiz">Quiz</a>
+      <a href="#summary">Summary</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<header class="hero" id="hero">
+  <div class="dna-container">
+    <svg class="dna-helix" viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg">
+      <!-- DNA Double Helix -->
+      <defs>
+        <linearGradient id="strandL" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#457b9d"/>
+          <stop offset="100%" stop-color="#1d3557"/>
+        </linearGradient>
+        <linearGradient id="strandR" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#e63946"/>
+          <stop offset="100%" stop-color="#c0392b"/>
+        </linearGradient>
+      </defs>
+      <!-- Left strand -->
+      <path d="M40,10 Q100,40 40,70 Q-20,100 40,130 Q100,160 40,190 Q-20,220 40,250"
+            fill="none" stroke="url(#strandL)" stroke-width="4" stroke-linecap="round"/>
+      <!-- Right strand -->
+      <path d="M160,10 Q100,40 160,70 Q220,100 160,130 Q100,160 160,190 Q220,220 160,250"
+            fill="none" stroke="url(#strandR)" stroke-width="4" stroke-linecap="round"/>
+      <!-- Base pairs (rungs) with unzip animation -->
+      <g class="dna-pair" style="animation-delay:0s">
+        <line x1="58" y1="25" x2="142" y2="25" stroke="#f1c40f" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="58" cy="25" r="5" fill="#457b9d"/><circle cx="142" cy="25" r="5" fill="#e63946"/>
+      </g>
+      <g class="dna-pair" style="animation-delay:0.3s">
+        <line x1="42" y1="48" x2="158" y2="48" stroke="#2ecc71" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="42" cy="48" r="5" fill="#457b9d"/><circle cx="158" cy="48" r="5" fill="#e63946"/>
+      </g>
+      <g class="dna-pair" style="animation-delay:0.6s">
+        <line x1="52" y1="70" x2="148" y2="70" stroke="#e74c3c" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="52" cy="70" r="5" fill="#457b9d"/><circle cx="148" cy="70" r="5" fill="#e63946"/>
+      </g>
+      <g class="dna-pair" style="animation-delay:0.9s">
+        <line x1="28" y1="93" x2="172" y2="93" stroke="#3498db" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="28" cy="93" r="5" fill="#457b9d"/><circle cx="172" cy="93" r="5" fill="#e63946"/>
+      </g>
+      <g class="dna-pair" style="animation-delay:1.2s">
+        <line x1="45" y1="115" x2="155" y2="115" stroke="#f1c40f" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="45" cy="115" r="5" fill="#457b9d"/><circle cx="155" cy="115" r="5" fill="#e63946"/>
+      </g>
+      <g class="dna-pair" style="animation-delay:1.5s">
+        <line x1="55" y1="137" x2="145" y2="137" stroke="#2ecc71" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="55" cy="137" r="5" fill="#457b9d"/><circle cx="145" cy="137" r="5" fill="#e63946"/>
+      </g>
+      <g class="dna-pair" style="animation-delay:1.8s">
+        <line x1="25" y1="160" x2="175" y2="160" stroke="#e74c3c" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="25" cy="160" r="5" fill="#457b9d"/><circle cx="175" cy="160" r="5" fill="#e63946"/>
+      </g>
+      <g class="dna-pair" style="animation-delay:2.1s">
+        <line x1="48" y1="183" x2="152" y2="183" stroke="#3498db" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="48" cy="183" r="5" fill="#457b9d"/><circle cx="152" cy="183" r="5" fill="#e63946"/>
+      </g>
+      <g class="dna-pair" style="animation-delay:2.4s">
+        <line x1="58" y1="205" x2="142" y2="205" stroke="#f1c40f" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="58" cy="205" r="5" fill="#457b9d"/><circle cx="142" cy="205" r="5" fill="#e63946"/>
+      </g>
+      <g class="dna-pair" style="animation-delay:2.7s">
+        <line x1="30" y1="228" x2="170" y2="228" stroke="#2ecc71" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="30" cy="228" r="5" fill="#457b9d"/><circle cx="170" cy="228" r="5" fill="#e63946"/>
+      </g>
+    </svg>
+  </div>
+  <h1>Heredity and Evolution</h1>
+  <p class="subtitle">Class 10 NCERT &mdash; Chapter 8 &bull; Biology</p>
+  <div class="scroll-indicator">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+      <path d="M12 5v14M5 12l7 7 7-7"/>
+    </svg>
+  </div>
+</header>
+
+<!-- ===== CHAPTER OVERVIEW ===== -->
+<section class="section" id="overview">
+  <div class="container">
+    <h2 style="text-align:center; margin-bottom:10px;">Chapter Overview</h2>
+    <p style="text-align:center; color:#6b6355; margin-bottom:30px;">
+      This chapter explores how traits are inherited from parents to offspring, Mendel's pioneering experiments with pea plants, the mechanism of sex determination, the principles of evolution, and how we trace evolutionary relationships through evidence like fossils and homologous organs.
+    </p>
+    <div class="overview-grid">
+      <div class="overview-item">
+        <div class="overview-icon">&#x1F9EC;</div>
+        <h4>Heredity &amp; Variation</h4>
+        <p>How traits pass from parents to offspring and why siblings differ</p>
+      </div>
+      <div class="overview-item">
+        <div class="overview-icon">&#x1F331;</div>
+        <h4>Mendel's Laws</h4>
+        <p>Pea plant experiments, dominance, segregation, independent assortment</p>
+      </div>
+      <div class="overview-item">
+        <div class="overview-icon">&#x2640;&#x2642;</div>
+        <h4>Sex Determination</h4>
+        <p>XX/XY system and how sex is determined in humans</p>
+      </div>
+      <div class="overview-item">
+        <div class="overview-icon">&#x1F9ED;</div>
+        <h4>Evolution</h4>
+        <p>Natural selection, speciation, genetic drift, acquired vs inherited traits</p>
+      </div>
+      <div class="overview-item">
+        <div class="overview-icon">&#x1F9B4;</div>
+        <h4>Tracing Relationships</h4>
+        <p>Homologous &amp; analogous organs, fossils, human evolution</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TOPIC 1: HEREDITY AND VARIATION ===== -->
+<section class="section" id="topic1">
+  <div class="container">
+    <span class="topic-badge badge-blue">Topic 1</span>
+    <h2>Heredity and Variation</h2>
+
+    <div class="card">
+      <h3>What is Heredity?</h3>
+      <p><strong>Heredity</strong> is the process by which traits and characteristics are transmitted from parents to their offspring through genes. It is the reason children resemble their parents. Genes, located on chromosomes, carry the information for specific traits like eye colour, height, and blood group.</p>
+      <p>Every organism inherits one set of genes from each parent. The combination of these genes determines the organism's characteristics. This is why offspring are similar to, but not identical copies of, their parents.</p>
+    </div>
+
+    <div class="card">
+      <h3>What is Variation?</h3>
+      <p><strong>Variation</strong> refers to the differences in characteristics among individuals of the same species. Even though children inherit genes from the same parents, siblings are not identical to each other (except identical twins). This is because sexual reproduction creates new combinations of genes during meiosis and fertilisation.</p>
+      <p><strong>Importance of Variation:</strong></p>
+      <ul style="margin-left:20px; margin-top:8px;">
+        <li>Variation is the raw material for evolution.</li>
+        <li>It ensures that a species can adapt to changing environments.</li>
+        <li>If a population has no variation, a single environmental change could wipe out the entire species.</li>
+        <li>For example, if all bacteria in a population are identical and an antibiotic is introduced, all would die. But if some have a variation making them resistant, those survive and reproduce.</li>
+      </ul>
+    </div>
+
+    <!-- Diagram: Sources of Variation -->
+    <div class="diagram-container">
+      <h4 style="margin-bottom:12px; color:#457b9d;">Sources of Variation</h4>
+      <svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" style="max-width:560px;">
+        <!-- Sexual Reproduction box -->
+        <rect x="20" y="10" width="160" height="70" rx="12" fill="#d6eaf8" stroke="#457b9d" stroke-width="2"/>
+        <text x="100" y="38" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="700" fill="#1d3557">Sexual Reproduction</text>
+        <text x="100" y="58" text-anchor="middle" font-family="Nunito" font-size="10" fill="#6b6355">Gene recombination</text>
+        <!-- Mutation box -->
+        <rect x="220" y="10" width="160" height="70" rx="12" fill="#fadbd8" stroke="#e63946" stroke-width="2"/>
+        <text x="300" y="38" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="700" fill="#922b21">Mutations</text>
+        <text x="300" y="58" text-anchor="middle" font-family="Nunito" font-size="10" fill="#6b6355">Random DNA changes</text>
+        <!-- Environment box -->
+        <rect x="420" y="10" width="160" height="70" rx="12" fill="#d5f5e3" stroke="#27ae60" stroke-width="2"/>
+        <text x="500" y="38" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="700" fill="#1e8449">Environment</text>
+        <text x="500" y="58" text-anchor="middle" font-family="Nunito" font-size="10" fill="#6b6355">Phenotype expression</text>
+        <!-- Arrows down -->
+        <line x1="100" y1="80" x2="300" y2="140" stroke="#457b9d" stroke-width="2" marker-end="url(#arrowB)"/>
+        <line x1="300" y1="80" x2="300" y2="140" stroke="#e63946" stroke-width="2" marker-end="url(#arrowR)"/>
+        <line x1="500" y1="80" x2="300" y2="140" stroke="#27ae60" stroke-width="2" marker-end="url(#arrowG)"/>
+        <!-- Variation result -->
+        <rect x="200" y="130" width="200" height="55" rx="12" fill="#fff9e6" stroke="#f1c40f" stroke-width="2"/>
+        <text x="300" y="155" text-anchor="middle" font-family="Lora" font-size="15" font-weight="700" fill="#b7950b">VARIATION</text>
+        <text x="300" y="175" text-anchor="middle" font-family="Nunito" font-size="10" fill="#6b6355">Raw material for evolution</text>
+        <defs>
+          <marker id="arrowB" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#457b9d"/></marker>
+          <marker id="arrowR" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#e63946"/></marker>
+          <marker id="arrowG" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#27ae60"/></marker>
+        </defs>
+      </svg>
+    </div>
+
+    <div class="card">
+      <h3>Rules of Inheritance</h3>
+      <p>Key terms to understand before we study Mendel's work:</p>
+      <ul style="margin-left:20px; margin-top:8px;">
+        <li><strong>Gene:</strong> A unit of inheritance. It is a segment of DNA on a chromosome that codes for a specific protein, which determines a particular trait.</li>
+        <li><strong>Allele:</strong> Different forms of the same gene. For example, the gene for height has two alleles &mdash; T (tall) and t (short).</li>
+        <li><strong>Genotype:</strong> The genetic makeup of an organism (e.g., TT, Tt, tt).</li>
+        <li><strong>Phenotype:</strong> The physical appearance of an organism based on its genotype (e.g., tall or short).</li>
+        <li><strong>Homozygous:</strong> Both alleles are the same (TT or tt).</li>
+        <li><strong>Heterozygous:</strong> The two alleles are different (Tt).</li>
+        <li><strong>Dominant trait:</strong> Expresses itself in both homozygous (TT) and heterozygous (Tt) condition. Written as a capital letter.</li>
+        <li><strong>Recessive trait:</strong> Expresses itself only in homozygous condition (tt). Written as a lowercase letter.</li>
+      </ul>
+    </div>
+
+    <div class="fun-fact">
+      <strong>Fun Fact:</strong> Even identical twins, who share 100% of their DNA, can develop slight differences due to environmental factors. These are called epigenetic changes!
+    </div>
+
+    <div class="mini-quiz" id="mq1">
+      <h4>Quick Check</h4>
+      <p style="margin-bottom:10px;">Why is variation important for a species?</p>
+      <div class="mq-options">
+        <button class="mq-btn" onclick="checkMini(this, false)">It makes all organisms identical</button>
+        <button class="mq-btn" onclick="checkMini(this, true)">It helps species survive changing environments</button>
+        <button class="mq-btn" onclick="checkMini(this, false)">It stops evolution from happening</button>
+      </div>
+      <div class="mq-feedback"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TOPIC 2: MENDEL'S EXPERIMENTS ===== -->
+<section class="section" id="topic2">
+  <div class="container">
+    <span class="topic-badge badge-green">Topic 2</span>
+    <h2>Mendel's Experiments</h2>
+
+    <div class="card">
+      <h3>Gregor Johann Mendel (1822&ndash;1884)</h3>
+      <p>Gregor Mendel, an Austrian monk, is known as the <strong>"Father of Genetics"</strong>. He performed systematic breeding experiments on <strong>garden pea plants (Pisum sativum)</strong> for 7 years and studied the inheritance of 7 pairs of contrasting traits: seed shape, seed colour, flower colour, pod shape, pod colour, flower position, and plant height.</p>
+      <p>He chose pea plants because they have short generation times, produce many offspring, have clearly contrasting traits, and can self-pollinate or be cross-pollinated easily.</p>
+
+      <!-- Mendel's 7 Traits Diagram -->
+      <div class="diagram-container" style="margin-top:16px;">
+        <h4 style="margin-bottom:12px; color:#457b9d;">Mendel's Seven Contrasting Traits in Pea Plants</h4>
+        <svg viewBox="0 0 620 390" xmlns="http://www.w3.org/2000/svg" style="max-width:600px;">
+          <defs>
+            <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#457b9d"/><stop offset="100%" stop-color="#1d3557"/>
+            </linearGradient>
+          </defs>
+          <!-- Header row -->
+          <rect x="10" y="5" width="150" height="34" rx="8" fill="url(#headerGrad)"/>
+          <text x="85" y="27" text-anchor="middle" font-family="Lora" font-size="13" font-weight="700" fill="#fff">Trait</text>
+          <rect x="170" y="5" width="210" height="34" rx="8" fill="#27ae60"/>
+          <text x="275" y="27" text-anchor="middle" font-family="Lora" font-size="13" font-weight="700" fill="#fff">Dominant</text>
+          <rect x="390" y="5" width="220" height="34" rx="8" fill="#e63946"/>
+          <text x="500" y="27" text-anchor="middle" font-family="Lora" font-size="13" font-weight="700" fill="#fff">Recessive</text>
+
+          <!-- Row 1: Seed Shape -->
+          <rect x="10" y="46" width="150" height="44" rx="6" fill="#f4f0e8"/>
+          <text x="85" y="73" text-anchor="middle" font-family="Nunito" font-size="12" font-weight="700" fill="#1a1612">1. Seed Shape</text>
+          <!-- Dominant: Round seed -->
+          <circle cx="210" cy="68" r="14" fill="#f4d03f" stroke="#b7950b" stroke-width="1.5"/>
+          <text x="210" y="72" text-anchor="middle" font-family="Nunito" font-size="7" fill="#7d6608">R</text>
+          <text x="275" y="73" text-anchor="middle" font-family="Nunito" font-size="12" font-weight="600" fill="#1e8449">Round</text>
+          <!-- Recessive: Wrinkled seed -->
+          <circle cx="430" cy="68" r="14" fill="#f9e79f" stroke="#b7950b" stroke-width="1.5"/>
+          <path d="M422,63 Q426,58 430,63 Q434,58 438,63" fill="none" stroke="#7d6608" stroke-width="1"/>
+          <path d="M422,68 Q426,63 430,68 Q434,63 438,68" fill="none" stroke="#7d6608" stroke-width="1"/>
+          <path d="M422,73 Q426,68 430,73 Q434,68 438,73" fill="none" stroke="#7d6608" stroke-width="1"/>
+          <text x="500" y="73" text-anchor="middle" font-family="Nunito" font-size="12" fill="#922b21">Wrinkled</text>
+
+          <!-- Row 2: Seed Colour -->
+          <rect x="10" y="96" width="150" height="44" rx="6" fill="#fff"/>
+          <text x="85" y="123" text-anchor="middle" font-family="Nunito" font-size="12" font-weight="700" fill="#1a1612">2. Seed Colour</text>
+          <!-- Dominant: Yellow seed -->
+          <circle cx="210" cy="118" r="14" fill="#f1c40f" stroke="#b7950b" stroke-width="1.5"/>
+          <text x="275" y="123" text-anchor="middle" font-family="Nunito" font-size="12" font-weight="600" fill="#1e8449">Yellow</text>
+          <!-- Recessive: Green seed -->
+          <circle cx="430" cy="118" r="14" fill="#82e0aa" stroke="#1e8449" stroke-width="1.5"/>
+          <text x="500" y="123" text-anchor="middle" font-family="Nunito" font-size="12" fill="#922b21">Green</text>
+
+          <!-- Row 3: Flower Colour -->
+          <rect x="10" y="146" width="150" height="44" rx="6" fill="#f4f0e8"/>
+          <text x="85" y="173" text-anchor="middle" font-family="Nunito" font-size="12" font-weight="700" fill="#1a1612">3. Flower Colour</text>
+          <!-- Dominant: Violet/Purple flower -->
+          <path d="M203,160 Q210,152 217,160 Q224,152 217,160" fill="none" stroke="#8e44ad" stroke-width="0"/>
+          <ellipse cx="206" cy="166" rx="5" ry="7" fill="#8e44ad" transform="rotate(-30 206 166)"/>
+          <ellipse cx="214" cy="166" rx="5" ry="7" fill="#8e44ad" transform="rotate(30 214 166)"/>
+          <ellipse cx="210" cy="162" rx="5" ry="7" fill="#9b59b6"/>
+          <ellipse cx="204" cy="170" rx="5" ry="6" fill="#8e44ad" transform="rotate(-60 204 170)"/>
+          <ellipse cx="216" cy="170" rx="5" ry="6" fill="#8e44ad" transform="rotate(60 216 170)"/>
+          <circle cx="210" cy="168" r="3" fill="#f1c40f"/>
+          <text x="275" y="173" text-anchor="middle" font-family="Nunito" font-size="12" font-weight="600" fill="#1e8449">Violet</text>
+          <!-- Recessive: White flower -->
+          <ellipse cx="426" cy="166" rx="5" ry="7" fill="#fff" stroke="#bbb" stroke-width="0.8" transform="rotate(-30 426 166)"/>
+          <ellipse cx="434" cy="166" rx="5" ry="7" fill="#fff" stroke="#bbb" stroke-width="0.8" transform="rotate(30 434 166)"/>
+          <ellipse cx="430" cy="162" rx="5" ry="7" fill="#fff" stroke="#bbb" stroke-width="0.8"/>
+          <ellipse cx="424" cy="170" rx="5" ry="6" fill="#fff" stroke="#bbb" stroke-width="0.8" transform="rotate(-60 424 170)"/>
+          <ellipse cx="436" cy="170" rx="5" ry="6" fill="#fff" stroke="#bbb" stroke-width="0.8" transform="rotate(60 436 170)"/>
+          <circle cx="430" cy="168" r="3" fill="#f9e79f"/>
+          <text x="500" y="173" text-anchor="middle" font-family="Nunito" font-size="12" fill="#922b21">White</text>
+
+          <!-- Row 4: Pod Shape -->
+          <rect x="10" y="196" width="150" height="44" rx="6" fill="#fff"/>
+          <text x="85" y="223" text-anchor="middle" font-family="Nunito" font-size="12" font-weight="700" fill="#1a1612">4. Pod Shape</text>
+          <!-- Dominant: Inflated pod -->
+          <path d="M195,218 Q203,204 210,210 Q217,204 225,218 Q217,232 210,226 Q203,232 195,218 Z" fill="#82e0aa" stroke="#1e8449" stroke-width="1.2"/>
+          <text x="275" y="223" text-anchor="middle" font-family="Nunito" font-size="12" font-weight="600" fill="#1e8449">Inflated</text>
+          <!-- Recessive: Constricted pod -->
+          <path d="M418,218 Q423,210 427,218 Q430,210 434,218 Q437,210 442,218 Q437,226 434,218 Q430,226 427,218 Q423,226 418,218 Z" fill="#abebc6" stroke="#1e8449" stroke-width="1.2"/>
+          <text x="500" y="223" text-anchor="middle" font-family="Nunito" font-size="12" fill="#922b21">Constricted</text>
+
+          <!-- Row 5: Pod Colour -->
+          <rect x="10" y="246" width="150" height="44" rx="6" fill="#f4f0e8"/>
+          <text x="85" y="273" text-anchor="middle" font-family="Nunito" font-size="12" font-weight="700" fill="#1a1612">5. Pod Colour</text>
+          <!-- Dominant: Green pod -->
+          <rect x="198" y="260" width="24" height="16" rx="8" fill="#27ae60" stroke="#1e8449" stroke-width="1"/>
+          <text x="275" y="273" text-anchor="middle" font-family="Nunito" font-size="12" font-weight="600" fill="#1e8449">Green</text>
+          <!-- Recessive: Yellow pod -->
+          <rect x="418" y="260" width="24" height="16" rx="8" fill="#f4d03f" stroke="#b7950b" stroke-width="1"/>
+          <text x="500" y="273" text-anchor="middle" font-family="Nunito" font-size="12" fill="#922b21">Yellow</text>
+
+          <!-- Row 6: Flower Position -->
+          <rect x="10" y="296" width="150" height="44" rx="6" fill="#fff"/>
+          <text x="85" y="323" text-anchor="middle" font-family="Nunito" font-size="12" font-weight="700" fill="#1a1612">6. Flower Position</text>
+          <!-- Dominant: Axial (flower along stem) -->
+          <line x1="210" y1="302" x2="210" y2="336" stroke="#27ae60" stroke-width="2"/>
+          <circle cx="210" cy="314" r="4" fill="#8e44ad"/>
+          <line x1="210" y1="314" x2="204" y2="308" stroke="#27ae60" stroke-width="1.2"/>
+          <circle cx="210" cy="326" r="4" fill="#8e44ad"/>
+          <line x1="210" y1="326" x2="216" y2="320" stroke="#27ae60" stroke-width="1.2"/>
+          <text x="275" y="323" text-anchor="middle" font-family="Nunito" font-size="12" font-weight="600" fill="#1e8449">Axial</text>
+          <!-- Recessive: Terminal (flower at tip) -->
+          <line x1="430" y1="308" x2="430" y2="336" stroke="#27ae60" stroke-width="2"/>
+          <circle cx="430" cy="305" r="4" fill="#8e44ad"/>
+          <text x="500" y="323" text-anchor="middle" font-family="Nunito" font-size="12" fill="#922b21">Terminal</text>
+
+          <!-- Row 7: Plant Height -->
+          <rect x="10" y="346" width="150" height="44" rx="6" fill="#f4f0e8"/>
+          <text x="85" y="373" text-anchor="middle" font-family="Nunito" font-size="12" font-weight="700" fill="#1a1612">7. Plant Height</text>
+          <!-- Dominant: Tall plant -->
+          <line x1="210" y1="354" x2="210" y2="386" stroke="#27ae60" stroke-width="2.5"/>
+          <line x1="210" y1="362" x2="202" y2="356" stroke="#27ae60" stroke-width="1.5"/>
+          <line x1="210" y1="370" x2="218" y2="364" stroke="#27ae60" stroke-width="1.5"/>
+          <line x1="210" y1="378" x2="202" y2="372" stroke="#27ae60" stroke-width="1.5"/>
+          <text x="275" y="373" text-anchor="middle" font-family="Nunito" font-size="12" font-weight="600" fill="#1e8449">Tall</text>
+          <!-- Recessive: Dwarf plant -->
+          <line x1="430" y1="372" x2="430" y2="386" stroke="#27ae60" stroke-width="2.5"/>
+          <line x1="430" y1="376" x2="424" y2="372" stroke="#27ae60" stroke-width="1.5"/>
+          <line x1="430" y1="380" x2="436" y2="376" stroke="#27ae60" stroke-width="1.5"/>
+          <text x="500" y="373" text-anchor="middle" font-family="Nunito" font-size="12" fill="#922b21">Short (Dwarf)</text>
+
+          <!-- Grid lines -->
+          <line x1="10" y1="45" x2="610" y2="45" stroke="#ddd" stroke-width="0.5"/>
+          <line x1="10" y1="95" x2="610" y2="95" stroke="#ddd" stroke-width="0.5"/>
+          <line x1="10" y1="145" x2="610" y2="145" stroke="#ddd" stroke-width="0.5"/>
+          <line x1="10" y1="195" x2="610" y2="195" stroke="#ddd" stroke-width="0.5"/>
+          <line x1="10" y1="245" x2="610" y2="245" stroke="#ddd" stroke-width="0.5"/>
+          <line x1="10" y1="295" x2="610" y2="295" stroke="#ddd" stroke-width="0.5"/>
+          <line x1="10" y1="345" x2="610" y2="345" stroke="#ddd" stroke-width="0.5"/>
+          <!-- Vertical dividers -->
+          <line x1="165" y1="5" x2="165" y2="390" stroke="#ddd" stroke-width="0.5"/>
+          <line x1="385" y1="5" x2="385" y2="390" stroke="#ddd" stroke-width="0.5"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Monohybrid Cross</h3>
+      <p>A monohybrid cross studies the inheritance of <strong>one pair of contrasting characters</strong>.</p>
+      <p><strong>Example:</strong> Tall (TT) &times; Short (tt)</p>
+      <ul style="margin-left:20px; margin-top:8px; margin-bottom:12px;">
+        <li><strong>F1 Generation:</strong> All plants are <strong>Tall (Tt)</strong> &mdash; the tall trait is <strong>dominant</strong>, short is <strong>recessive</strong>.</li>
+        <li><strong>F2 Generation:</strong> When F1 plants (Tt &times; Tt) are self-pollinated, the ratio is <strong class="mono">3 Tall : 1 Short</strong>.</li>
+        <li><strong>Genotypic ratio:</strong> <span class="mono">1 TT : 2 Tt : 1 tt</span></li>
+      </ul>
+
+      <!-- Animated Monohybrid Cross Diagram -->
+      <div class="diagram-container">
+        <h4 style="margin-bottom:12px; color:#457b9d;">Monohybrid Cross: Tt &times; Tt</h4>
+        <svg viewBox="0 0 520 520" xmlns="http://www.w3.org/2000/svg" style="max-width:500px;">
+          <defs>
+            <marker id="arrowMono" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-auto">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#457b9d"/>
+            </marker>
+          </defs>
+
+          <!-- Parent 1: Tall plant illustration + genotype -->
+          <g transform="translate(70,5)">
+            <!-- Tall plant drawing -->
+            <line x1="30" y1="18" x2="30" y2="60" stroke="#27ae60" stroke-width="3"/>
+            <line x1="30" y1="28" x2="20" y2="20" stroke="#27ae60" stroke-width="2"/>
+            <line x1="30" y1="38" x2="40" y2="30" stroke="#27ae60" stroke-width="2"/>
+            <line x1="30" y1="48" x2="20" y2="40" stroke="#27ae60" stroke-width="2"/>
+            <ellipse cx="30" cy="15" rx="6" ry="4" fill="#8e44ad"/>
+            <rect x="50" y="12" width="90" height="42" rx="10" fill="#d6eaf8" stroke="#457b9d" stroke-width="2"/>
+            <text x="95" y="30" text-anchor="middle" font-family="Lora" font-size="12" font-weight="700" fill="#1d3557">Parent 1</text>
+            <text x="95" y="46" text-anchor="middle" font-family="JetBrains Mono" font-size="15" font-weight="700" fill="#457b9d">Tt (Tall)</text>
+          </g>
+
+          <!-- Cross symbol -->
+          <text x="260" y="40" text-anchor="middle" font-family="Lora" font-size="24" font-weight="700" fill="#6b6355">&times;</text>
+
+          <!-- Parent 2: Tall plant illustration + genotype -->
+          <g transform="translate(320,5)">
+            <line x1="30" y1="18" x2="30" y2="60" stroke="#27ae60" stroke-width="3"/>
+            <line x1="30" y1="28" x2="20" y2="20" stroke="#27ae60" stroke-width="2"/>
+            <line x1="30" y1="38" x2="40" y2="30" stroke="#27ae60" stroke-width="2"/>
+            <line x1="30" y1="48" x2="20" y2="40" stroke="#27ae60" stroke-width="2"/>
+            <ellipse cx="30" cy="15" rx="6" ry="4" fill="#8e44ad"/>
+            <rect x="50" y="12" width="90" height="42" rx="10" fill="#d6eaf8" stroke="#457b9d" stroke-width="2"/>
+            <text x="95" y="30" text-anchor="middle" font-family="Lora" font-size="12" font-weight="700" fill="#1d3557">Parent 2</text>
+            <text x="95" y="46" text-anchor="middle" font-family="JetBrains Mono" font-size="15" font-weight="700" fill="#457b9d">Tt (Tall)</text>
+          </g>
+
+          <!-- Arrows from parents to gametes -->
+          <line x1="130" y1="68" x2="130" y2="88" stroke="#457b9d" stroke-width="2" marker-end="url(#arrowMono)"/>
+          <line x1="390" y1="68" x2="390" y2="88" stroke="#457b9d" stroke-width="2" marker-end="url(#arrowMono)"/>
+
+          <!-- Gamete label -->
+          <text x="130" y="103" text-anchor="middle" font-family="Nunito" font-size="10" font-weight="600" fill="#6b6355">Gametes</text>
+          <text x="390" y="103" text-anchor="middle" font-family="Nunito" font-size="10" font-weight="600" fill="#6b6355">Gametes</text>
+
+          <!-- Gamete circles - Parent 1 -->
+          <circle cx="100" cy="120" r="16" fill="#d6eaf8" stroke="#457b9d" stroke-width="2"/>
+          <text x="100" y="125" text-anchor="middle" font-family="JetBrains Mono" font-size="16" font-weight="700" fill="#457b9d">T</text>
+          <circle cx="160" cy="120" r="16" fill="#fadbd8" stroke="#e63946" stroke-width="2"/>
+          <text x="160" y="125" text-anchor="middle" font-family="JetBrains Mono" font-size="16" font-weight="700" fill="#e63946">t</text>
+
+          <!-- Gamete circles - Parent 2 -->
+          <circle cx="360" cy="120" r="16" fill="#d6eaf8" stroke="#457b9d" stroke-width="2"/>
+          <text x="360" y="125" text-anchor="middle" font-family="JetBrains Mono" font-size="16" font-weight="700" fill="#457b9d">T</text>
+          <circle cx="420" cy="120" r="16" fill="#fadbd8" stroke="#e63946" stroke-width="2"/>
+          <text x="420" y="125" text-anchor="middle" font-family="JetBrains Mono" font-size="16" font-weight="700" fill="#e63946">t</text>
+
+          <!-- Punnett Square Grid -->
+          <!-- Outer border -->
+          <rect x="155" y="155" width="210" height="210" rx="8" fill="none" stroke="#457b9d" stroke-width="2.5"/>
+
+          <!-- Corner cell -->
+          <rect x="155" y="155" width="50" height="50" fill="#f4f0e8" rx="8"/>
+          <text x="180" y="184" text-anchor="middle" font-family="Nunito" font-size="9" font-weight="600" fill="#6b6355">P2 &rarr;</text>
+          <text x="180" y="174" text-anchor="middle" font-family="Nunito" font-size="7" fill="#6b6355">P1 &darr;</text>
+
+          <!-- Column headers -->
+          <rect x="205" y="155" width="80" height="50" fill="#457b9d"/>
+          <text x="245" y="185" text-anchor="middle" font-family="JetBrains Mono" font-size="22" font-weight="700" fill="#fff">T</text>
+          <rect x="285" y="155" width="80" height="50" fill="#1d3557"/>
+          <text x="325" y="185" text-anchor="middle" font-family="JetBrains Mono" font-size="22" font-weight="700" fill="#fff">t</text>
+
+          <!-- Row headers -->
+          <rect x="155" y="205" width="50" height="80" fill="#457b9d"/>
+          <text x="180" y="250" text-anchor="middle" font-family="JetBrains Mono" font-size="22" font-weight="700" fill="#fff">T</text>
+          <rect x="155" y="285" width="50" height="80" fill="#1d3557"/>
+          <text x="180" y="330" text-anchor="middle" font-family="JetBrains Mono" font-size="22" font-weight="700" fill="#fff">t</text>
+
+          <!-- Cell 1: TT (Tall) -->
+          <rect x="205" y="205" width="80" height="80" fill="#d6eaf8" stroke="#457b9d" stroke-width="1.5"/>
+          <text x="245" y="235" text-anchor="middle" font-family="JetBrains Mono" font-size="22" font-weight="700" fill="#1d3557">TT</text>
+          <!-- Mini tall plant icon -->
+          <line x1="245" y1="248" x2="245" y2="272" stroke="#27ae60" stroke-width="2"/>
+          <line x1="245" y1="254" x2="240" y2="250" stroke="#27ae60" stroke-width="1.2"/>
+          <line x1="245" y1="260" x2="250" y2="256" stroke="#27ae60" stroke-width="1.2"/>
+          <text x="245" y="282" text-anchor="middle" font-family="Nunito" font-size="9" font-weight="700" fill="#457b9d">Tall</text>
+
+          <!-- Cell 2: Tt (Tall) -->
+          <rect x="285" y="205" width="80" height="80" fill="#d6eaf8" stroke="#457b9d" stroke-width="1.5"/>
+          <text x="325" y="235" text-anchor="middle" font-family="JetBrains Mono" font-size="22" font-weight="700" fill="#1d3557">Tt</text>
+          <line x1="325" y1="248" x2="325" y2="272" stroke="#27ae60" stroke-width="2"/>
+          <line x1="325" y1="254" x2="320" y2="250" stroke="#27ae60" stroke-width="1.2"/>
+          <line x1="325" y1="260" x2="330" y2="256" stroke="#27ae60" stroke-width="1.2"/>
+          <text x="325" y="282" text-anchor="middle" font-family="Nunito" font-size="9" font-weight="700" fill="#457b9d">Tall</text>
+
+          <!-- Cell 3: Tt (Tall) -->
+          <rect x="205" y="285" width="80" height="80" fill="#d6eaf8" stroke="#457b9d" stroke-width="1.5"/>
+          <text x="245" y="315" text-anchor="middle" font-family="JetBrains Mono" font-size="22" font-weight="700" fill="#1d3557">Tt</text>
+          <line x1="245" y1="328" x2="245" y2="352" stroke="#27ae60" stroke-width="2"/>
+          <line x1="245" y1="334" x2="240" y2="330" stroke="#27ae60" stroke-width="1.2"/>
+          <line x1="245" y1="340" x2="250" y2="336" stroke="#27ae60" stroke-width="1.2"/>
+          <text x="245" y="362" text-anchor="middle" font-family="Nunito" font-size="9" font-weight="700" fill="#457b9d">Tall</text>
+
+          <!-- Cell 4: tt (Short) -->
+          <rect x="285" y="285" width="80" height="80" fill="#fadbd8" stroke="#e63946" stroke-width="2"/>
+          <text x="325" y="315" text-anchor="middle" font-family="JetBrains Mono" font-size="22" font-weight="700" fill="#922b21">tt</text>
+          <!-- Mini short plant icon -->
+          <line x1="325" y1="340" x2="325" y2="352" stroke="#27ae60" stroke-width="2"/>
+          <line x1="325" y1="344" x2="320" y2="340" stroke="#27ae60" stroke-width="1.2"/>
+          <line x1="325" y1="348" x2="330" y2="344" stroke="#27ae60" stroke-width="1.2"/>
+          <text x="325" y="362" text-anchor="middle" font-family="Nunito" font-size="9" font-weight="700" fill="#e63946">Short</text>
+
+          <!-- Grid lines for clarity -->
+          <line x1="205" y1="155" x2="205" y2="365" stroke="#457b9d" stroke-width="1.5"/>
+          <line x1="285" y1="155" x2="285" y2="365" stroke="#457b9d" stroke-width="1"/>
+          <line x1="155" y1="205" x2="365" y2="205" stroke="#457b9d" stroke-width="1.5"/>
+          <line x1="155" y1="285" x2="365" y2="285" stroke="#457b9d" stroke-width="1"/>
+
+          <!-- Genotypic ratio -->
+          <rect x="100" y="385" width="320" height="30" rx="8" fill="#fff" stroke="#457b9d" stroke-width="1.5"/>
+          <text x="260" y="405" text-anchor="middle" font-family="Nunito" font-size="11" font-weight="700" fill="#1d3557">Genotypic Ratio: <tspan font-family="JetBrains Mono">1 TT : 2 Tt : 1 tt</tspan></text>
+
+          <!-- Phenotype Ratio -->
+          <rect x="120" y="425" width="280" height="40" rx="10" fill="#d6eaf8" stroke="#457b9d" stroke-width="2"/>
+          <text x="260" y="443" text-anchor="middle" font-family="Lora" font-size="13" font-weight="700" fill="#1d3557">Phenotype Ratio</text>
+          <text x="260" y="459" text-anchor="middle" font-family="JetBrains Mono" font-size="16" font-weight="700" fill="#457b9d">3 Tall : 1 Short</text>
+
+          <!-- Ratio bar -->
+          <rect x="120" y="478" width="210" height="14" rx="7" fill="#457b9d"/>
+          <rect x="330" y="478" width="70" height="14" rx="7" fill="#e63946"/>
+          <text x="225" y="489" text-anchor="middle" font-family="Nunito" font-size="8" font-weight="700" fill="#fff">75% Tall</text>
+          <text x="365" y="489" text-anchor="middle" font-family="Nunito" font-size="8" font-weight="700" fill="#fff">25%</text>
+
+          <!-- Key -->
+          <rect x="120" y="500" width="12" height="12" rx="3" fill="#d6eaf8" stroke="#457b9d" stroke-width="1"/>
+          <text x="138" y="510" font-family="Nunito" font-size="9" fill="#6b6355">= Dominant (Tall)</text>
+          <rect x="270" y="500" width="12" height="12" rx="3" fill="#fadbd8" stroke="#e63946" stroke-width="1"/>
+          <text x="288" y="510" font-family="Nunito" font-size="9" fill="#6b6355">= Recessive (Short)</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Dihybrid Cross</h3>
+      <p>A dihybrid cross studies the inheritance of <strong>two pairs of contrasting characters</strong> simultaneously.</p>
+      <p><strong>Example:</strong> Round Yellow (RRYY) &times; Wrinkled Green (rryy)</p>
+      <ul style="margin-left:20px; margin-top:8px; margin-bottom:12px;">
+        <li><strong>F1 Generation:</strong> All plants are <strong>Round Yellow (RrYy)</strong>.</li>
+        <li><strong>F2 Generation:</strong> <span class="mono">9 Round Yellow : 3 Round Green : 3 Wrinkled Yellow : 1 Wrinkled Green</span></li>
+      </ul>
+
+      <div class="diagram-container">
+        <h4 style="margin-bottom:12px; color:#457b9d;">Dihybrid Cross F2 Ratio &mdash; 9:3:3:1</h4>
+        <svg viewBox="0 0 580 620" xmlns="http://www.w3.org/2000/svg" style="max-width:560px;">
+          <defs>
+            <linearGradient id="diRY" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#d6eaf8"/><stop offset="100%" stop-color="#d6eaf8"/></linearGradient>
+            <linearGradient id="diRG" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#d5f5e3"/><stop offset="100%" stop-color="#d5f5e3"/></linearGradient>
+            <linearGradient id="diWY" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#fdebd0"/><stop offset="100%" stop-color="#fdebd0"/></linearGradient>
+            <linearGradient id="diWG" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#fadbd8"/><stop offset="100%" stop-color="#fadbd8"/></linearGradient>
+          </defs>
+
+          <!-- Title: Parents -->
+          <text x="290" y="20" text-anchor="middle" font-family="Lora" font-size="13" font-weight="700" fill="#1d3557">F1 Cross: RrYy &times; RrYy</text>
+
+          <!-- 4x4 Punnett Square -->
+          <!-- Column headers (Parent 2 gametes) -->
+          <rect x="120" y="35" width="50" height="30" fill="none"/>
+          <text x="145" y="55" text-anchor="middle" font-family="Nunito" font-size="9" font-weight="600" fill="#6b6355">Parent 2 &rarr;</text>
+          <rect x="170" y="35" width="95" height="30" rx="4" fill="#457b9d"/>
+          <text x="217" y="55" text-anchor="middle" font-family="JetBrains Mono" font-size="12" font-weight="700" fill="#fff">RY</text>
+          <rect x="265" y="35" width="95" height="30" rx="4" fill="#457b9d"/>
+          <text x="312" y="55" text-anchor="middle" font-family="JetBrains Mono" font-size="12" font-weight="700" fill="#fff">Ry</text>
+          <rect x="360" y="35" width="95" height="30" rx="4" fill="#457b9d"/>
+          <text x="407" y="55" text-anchor="middle" font-family="JetBrains Mono" font-size="12" font-weight="700" fill="#fff">rY</text>
+          <rect x="455" y="35" width="95" height="30" rx="4" fill="#457b9d"/>
+          <text x="502" y="55" text-anchor="middle" font-family="JetBrains Mono" font-size="12" font-weight="700" fill="#fff">ry</text>
+
+          <!-- Row headers (Parent 1 gametes) -->
+          <text x="100" y="90" text-anchor="middle" font-family="Nunito" font-size="9" font-weight="600" fill="#6b6355" transform="rotate(-90 50 120)">Parent 1</text>
+          <rect x="120" y="65" width="50" height="95" rx="4" fill="#457b9d"/>
+          <text x="145" y="118" text-anchor="middle" font-family="JetBrains Mono" font-size="12" font-weight="700" fill="#fff">RY</text>
+          <rect x="120" y="160" width="50" height="95" rx="4" fill="#457b9d"/>
+          <text x="145" y="213" text-anchor="middle" font-family="JetBrains Mono" font-size="12" font-weight="700" fill="#fff">Ry</text>
+          <rect x="120" y="255" width="50" height="95" rx="4" fill="#457b9d"/>
+          <text x="145" y="308" text-anchor="middle" font-family="JetBrains Mono" font-size="12" font-weight="700" fill="#fff">rY</text>
+          <rect x="120" y="350" width="50" height="95" rx="4" fill="#457b9d"/>
+          <text x="145" y="403" text-anchor="middle" font-family="JetBrains Mono" font-size="12" font-weight="700" fill="#fff">ry</text>
+
+          <!-- Row 1: RY x (RY, Ry, rY, ry) -->
+          <rect x="170" y="65" width="95" height="95" fill="#d6eaf8" stroke="#457b9d" stroke-width="1"/>
+          <text x="217" y="105" text-anchor="middle" font-family="JetBrains Mono" font-size="13" font-weight="700" fill="#1d3557">RRYY</text>
+          <circle cx="217" cy="125" r="8" fill="#f1c40f" stroke="#b7950b" stroke-width="1"/><text x="217" y="145" text-anchor="middle" font-family="Nunito" font-size="8" fill="#457b9d">Round Yellow</text>
+
+          <rect x="265" y="65" width="95" height="95" fill="#d6eaf8" stroke="#457b9d" stroke-width="1"/>
+          <text x="312" y="105" text-anchor="middle" font-family="JetBrains Mono" font-size="13" font-weight="700" fill="#1d3557">RRYy</text>
+          <circle cx="312" cy="125" r="8" fill="#f1c40f" stroke="#b7950b" stroke-width="1"/><text x="312" y="145" text-anchor="middle" font-family="Nunito" font-size="8" fill="#457b9d">Round Yellow</text>
+
+          <rect x="360" y="65" width="95" height="95" fill="#d6eaf8" stroke="#457b9d" stroke-width="1"/>
+          <text x="407" y="105" text-anchor="middle" font-family="JetBrains Mono" font-size="13" font-weight="700" fill="#1d3557">RrYY</text>
+          <circle cx="407" cy="125" r="8" fill="#f1c40f" stroke="#b7950b" stroke-width="1"/><text x="407" y="145" text-anchor="middle" font-family="Nunito" font-size="8" fill="#457b9d">Round Yellow</text>
+
+          <rect x="455" y="65" width="95" height="95" fill="#d6eaf8" stroke="#457b9d" stroke-width="1"/>
+          <text x="502" y="105" text-anchor="middle" font-family="JetBrains Mono" font-size="13" font-weight="700" fill="#1d3557">RrYy</text>
+          <circle cx="502" cy="125" r="8" fill="#f1c40f" stroke="#b7950b" stroke-width="1"/><text x="502" y="145" text-anchor="middle" font-family="Nunito" font-size="8" fill="#457b9d">Round Yellow</text>
+
+          <!-- Row 2: Ry x (RY, Ry, rY, ry) -->
+          <rect x="170" y="160" width="95" height="95" fill="#d6eaf8" stroke="#457b9d" stroke-width="1"/>
+          <text x="217" y="200" text-anchor="middle" font-family="JetBrains Mono" font-size="13" font-weight="700" fill="#1d3557">RRYy</text>
+          <circle cx="217" cy="220" r="8" fill="#f1c40f" stroke="#b7950b" stroke-width="1"/><text x="217" y="240" text-anchor="middle" font-family="Nunito" font-size="8" fill="#457b9d">Round Yellow</text>
+
+          <rect x="265" y="160" width="95" height="95" fill="#d5f5e3" stroke="#27ae60" stroke-width="1"/>
+          <text x="312" y="200" text-anchor="middle" font-family="JetBrains Mono" font-size="13" font-weight="700" fill="#1e8449">RRyy</text>
+          <circle cx="312" cy="220" r="8" fill="#82e0aa" stroke="#1e8449" stroke-width="1"/><text x="312" y="240" text-anchor="middle" font-family="Nunito" font-size="8" fill="#1e8449">Round Green</text>
+
+          <rect x="360" y="160" width="95" height="95" fill="#d6eaf8" stroke="#457b9d" stroke-width="1"/>
+          <text x="407" y="200" text-anchor="middle" font-family="JetBrains Mono" font-size="13" font-weight="700" fill="#1d3557">RrYy</text>
+          <circle cx="407" cy="220" r="8" fill="#f1c40f" stroke="#b7950b" stroke-width="1"/><text x="407" y="240" text-anchor="middle" font-family="Nunito" font-size="8" fill="#457b9d">Round Yellow</text>
+
+          <rect x="455" y="160" width="95" height="95" fill="#d5f5e3" stroke="#27ae60" stroke-width="1"/>
+          <text x="502" y="200" text-anchor="middle" font-family="JetBrains Mono" font-size="13" font-weight="700" fill="#1e8449">Rryy</text>
+          <circle cx="502" cy="220" r="8" fill="#82e0aa" stroke="#1e8449" stroke-width="1"/><text x="502" y="240" text-anchor="middle" font-family="Nunito" font-size="8" fill="#1e8449">Round Green</text>
+
+          <!-- Row 3: rY x (RY, Ry, rY, ry) -->
+          <rect x="170" y="255" width="95" height="95" fill="#d6eaf8" stroke="#457b9d" stroke-width="1"/>
+          <text x="217" y="295" text-anchor="middle" font-family="JetBrains Mono" font-size="13" font-weight="700" fill="#1d3557">RrYY</text>
+          <circle cx="217" cy="315" r="8" fill="#f1c40f" stroke="#b7950b" stroke-width="1"/><text x="217" y="335" text-anchor="middle" font-family="Nunito" font-size="8" fill="#457b9d">Round Yellow</text>
+
+          <rect x="265" y="255" width="95" height="95" fill="#d6eaf8" stroke="#457b9d" stroke-width="1"/>
+          <text x="312" y="295" text-anchor="middle" font-family="JetBrains Mono" font-size="13" font-weight="700" fill="#1d3557">RrYy</text>
+          <circle cx="312" cy="315" r="8" fill="#f1c40f" stroke="#b7950b" stroke-width="1"/><text x="312" y="335" text-anchor="middle" font-family="Nunito" font-size="8" fill="#457b9d">Round Yellow</text>
+
+          <rect x="360" y="255" width="95" height="95" fill="#fdebd0" stroke="#e67e22" stroke-width="1"/>
+          <text x="407" y="295" text-anchor="middle" font-family="JetBrains Mono" font-size="13" font-weight="700" fill="#d35400">rrYY</text>
+          <circle cx="407" cy="315" r="8" fill="#f9e79f" stroke="#b7950b" stroke-width="1"/>
+          <path d="M403,313 Q405,310 407,313 Q409,310 411,313" fill="none" stroke="#7d6608" stroke-width="0.5"/>
+          <text x="407" y="335" text-anchor="middle" font-family="Nunito" font-size="8" fill="#d35400">Wrinkled Yellow</text>
+
+          <rect x="455" y="255" width="95" height="95" fill="#fdebd0" stroke="#e67e22" stroke-width="1"/>
+          <text x="502" y="295" text-anchor="middle" font-family="JetBrains Mono" font-size="13" font-weight="700" fill="#d35400">rrYy</text>
+          <circle cx="502" cy="315" r="8" fill="#f9e79f" stroke="#b7950b" stroke-width="1"/>
+          <path d="M498,313 Q500,310 502,313 Q504,310 506,313" fill="none" stroke="#7d6608" stroke-width="0.5"/>
+          <text x="502" y="335" text-anchor="middle" font-family="Nunito" font-size="8" fill="#d35400">Wrinkled Yellow</text>
+
+          <!-- Row 4: ry x (RY, Ry, rY, ry) -->
+          <rect x="170" y="350" width="95" height="95" fill="#d6eaf8" stroke="#457b9d" stroke-width="1"/>
+          <text x="217" y="390" text-anchor="middle" font-family="JetBrains Mono" font-size="13" font-weight="700" fill="#1d3557">RrYy</text>
+          <circle cx="217" cy="410" r="8" fill="#f1c40f" stroke="#b7950b" stroke-width="1"/><text x="217" y="430" text-anchor="middle" font-family="Nunito" font-size="8" fill="#457b9d">Round Yellow</text>
+
+          <rect x="265" y="350" width="95" height="95" fill="#d5f5e3" stroke="#27ae60" stroke-width="1"/>
+          <text x="312" y="390" text-anchor="middle" font-family="JetBrains Mono" font-size="13" font-weight="700" fill="#1e8449">Rryy</text>
+          <circle cx="312" cy="410" r="8" fill="#82e0aa" stroke="#1e8449" stroke-width="1"/><text x="312" y="430" text-anchor="middle" font-family="Nunito" font-size="8" fill="#1e8449">Round Green</text>
+
+          <rect x="360" y="350" width="95" height="95" fill="#fdebd0" stroke="#e67e22" stroke-width="1"/>
+          <text x="407" y="390" text-anchor="middle" font-family="JetBrains Mono" font-size="13" font-weight="700" fill="#d35400">rrYy</text>
+          <circle cx="407" cy="410" r="8" fill="#f9e79f" stroke="#b7950b" stroke-width="1"/>
+          <path d="M403,408 Q405,405 407,408 Q409,405 411,408" fill="none" stroke="#7d6608" stroke-width="0.5"/>
+          <text x="407" y="430" text-anchor="middle" font-family="Nunito" font-size="8" fill="#d35400">Wrinkled Yellow</text>
+
+          <rect x="455" y="350" width="95" height="95" fill="#fadbd8" stroke="#e63946" stroke-width="1.5"/>
+          <text x="502" y="390" text-anchor="middle" font-family="JetBrains Mono" font-size="13" font-weight="700" fill="#922b21">rryy</text>
+          <circle cx="502" cy="410" r="8" fill="#a9dfbf" stroke="#1e8449" stroke-width="1"/>
+          <path d="M498,408 Q500,405 502,408 Q504,405 506,408" fill="none" stroke="#1e8449" stroke-width="0.5"/>
+          <text x="502" y="430" text-anchor="middle" font-family="Nunito" font-size="8" fill="#922b21">Wrinkled Green</text>
+
+          <!-- Phenotype summary bar chart -->
+          <text x="290" y="475" text-anchor="middle" font-family="Lora" font-size="14" font-weight="700" fill="#1d3557">Phenotype Ratio (F2 Generation)</text>
+
+          <!-- Horizontal bars -->
+          <rect x="30" y="490" width="337" height="24" rx="6" fill="#457b9d"/>
+          <text x="198" y="507" text-anchor="middle" font-family="Nunito" font-size="11" font-weight="700" fill="#fff">9 Round Yellow (9/16)</text>
+
+          <rect x="30" y="520" width="112" height="24" rx="6" fill="#27ae60"/>
+          <text x="86" y="537" text-anchor="middle" font-family="Nunito" font-size="11" font-weight="700" fill="#fff">3 Round Green</text>
+
+          <rect x="30" y="550" width="112" height="24" rx="6" fill="#e67e22"/>
+          <text x="86" y="567" text-anchor="middle" font-family="Nunito" font-size="11" font-weight="700" fill="#fff">3 Wrinkled Yellow</text>
+
+          <rect x="30" y="580" width="37" height="24" rx="6" fill="#e63946"/>
+          <text x="49" y="597" text-anchor="middle" font-family="Nunito" font-size="9" font-weight="700" fill="#fff">1</text>
+          <text x="78" y="597" text-anchor="start" font-family="Nunito" font-size="11" fill="#6b6355">Wrinkled Green (1/16)</text>
+
+          <text x="290" y="618" text-anchor="middle" font-family="JetBrains Mono" font-size="14" font-weight="700" fill="#1a1612">Total: 16 combinations &rarr; 9 : 3 : 3 : 1</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Mendel's Laws of Inheritance</h3>
+      <p><strong>1. Law of Dominance:</strong> When two organisms with contrasting traits are crossed, only the dominant trait appears in the F1 generation. The recessive trait is masked but not lost.</p>
+      <p><strong>2. Law of Segregation (Law of Purity of Gametes):</strong> Each individual possesses two alleles for each trait. During gamete formation, these alleles segregate (separate) so that each gamete carries only one allele for each trait.</p>
+      <p><strong>3. Law of Independent Assortment:</strong> When two or more pairs of traits are considered together, the alleles of different traits assort independently of one another during gamete formation. This is why the dihybrid cross gives a 9:3:3:1 ratio rather than a 3:1 ratio.</p>
+    </div>
+
+    <!-- INTERACTIVE PUNNETT SQUARE (within Topic 2) -->
+    <div class="punnett-section" id="topic2-punnett">
+      <h3 style="margin-bottom:16px; color:#457b9d;">Interactive Punnett Square</h3>
+      <p style="margin-bottom:16px; color:#6b6355;">Select parent genotypes and watch the Punnett square fill in automatically.</p>
+      <div class="punnett-controls">
+        <label>Parent 1:</label>
+        <select id="parent1-topic">
+          <option value="TT">TT (Homozygous Dominant)</option>
+          <option value="Tt" selected>Tt (Heterozygous)</option>
+          <option value="tt">tt (Homozygous Recessive)</option>
+        </select>
+        <label>Parent 2:</label>
+        <select id="parent2-topic">
+          <option value="TT">TT (Homozygous Dominant)</option>
+          <option value="Tt" selected>Tt (Heterozygous)</option>
+          <option value="tt">tt (Homozygous Recessive)</option>
+        </select>
+        <button class="fc-btn" onclick="runTopicPunnett()">Cross!</button>
+      </div>
+      <div class="punnett-grid" id="topicPunnettGrid">
+        <div class="punnett-cell punnett-corner"></div>
+        <div class="punnett-cell punnett-header" id="tp-h1">T</div>
+        <div class="punnett-cell punnett-header" id="tp-h2">t</div>
+        <div class="punnett-cell punnett-header" id="tp-v1">T</div>
+        <div class="punnett-cell punnett-result" id="tp-c1">TT</div>
+        <div class="punnett-cell punnett-result" id="tp-c2">Tt</div>
+        <div class="punnett-cell punnett-header" id="tp-v2">t</div>
+        <div class="punnett-cell punnett-result" id="tp-c3">Tt</div>
+        <div class="punnett-cell punnett-result" id="tp-c4">tt</div>
+      </div>
+      <div class="ratio-bar-container" id="topicRatioBar">
+        <div class="ratio-bar">
+          <div class="bar-segment bar-dominant" style="width:75%">75% Tall</div>
+          <div class="bar-segment bar-recessive" style="width:25%">25% Short</div>
+        </div>
+      </div>
+      <div class="ratio-display" id="topicRatioDisplay">
+        <div class="ratio-item"><div class="ratio-value">3</div><div class="ratio-label">Tall (Dominant)</div></div>
+        <div class="ratio-item"><div class="ratio-value">:</div><div class="ratio-label">&nbsp;</div></div>
+        <div class="ratio-item"><div class="ratio-value">1</div><div class="ratio-label">Short (Recessive)</div></div>
+      </div>
+    </div>
+
+    <div class="fun-fact">
+      <strong>Fun Fact:</strong> Mendel's work was largely ignored for 35 years after its publication in 1866. It was only in 1900 that three scientists independently rediscovered his laws!
+    </div>
+
+    <div class="mini-quiz" id="mq2">
+      <h4>Quick Check</h4>
+      <p style="margin-bottom:10px;">In F2 generation of a monohybrid cross (Tt &times; Tt), what is the genotypic ratio?</p>
+      <div class="mq-options">
+        <button class="mq-btn" onclick="checkMini(this, false)">3 : 1</button>
+        <button class="mq-btn" onclick="checkMini(this, true)">1 : 2 : 1 (TT : Tt : tt)</button>
+        <button class="mq-btn" onclick="checkMini(this, false)">1 : 1</button>
+      </div>
+      <div class="mq-feedback"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TOPIC 3: SEX DETERMINATION ===== -->
+<section class="section" id="topic3">
+  <div class="container">
+    <span class="topic-badge badge-red">Topic 3</span>
+    <h2>Sex Determination</h2>
+
+    <div class="card">
+      <h3>XX/XY System in Humans</h3>
+      <p>In humans, sex is determined by <strong>sex chromosomes</strong>. Humans have 23 pairs of chromosomes &mdash; 22 pairs are <strong>autosomes</strong> (body chromosomes) and 1 pair are <strong>sex chromosomes</strong>.</p>
+      <ul style="margin-left:20px; margin-top:8px; margin-bottom:12px;">
+        <li><strong>Females</strong> have two X chromosomes: <span class="mono">XX</span></li>
+        <li><strong>Males</strong> have one X and one Y chromosome: <span class="mono">XY</span></li>
+      </ul>
+      <p>All eggs (ova) from the mother carry an <strong>X</strong> chromosome. Sperm from the father carry either an <strong>X</strong> or a <strong>Y</strong> chromosome. Therefore, the <strong>father's sperm determines the sex</strong> of the child:</p>
+      <ul style="margin-left:20px; margin-top:8px;">
+        <li>If X sperm fertilises the egg &rarr; <strong>XX &rarr; Girl</strong></li>
+        <li>If Y sperm fertilises the egg &rarr; <strong>XY &rarr; Boy</strong></li>
+      </ul>
+    </div>
+
+    <!-- Sex Determination Diagram -->
+    <div class="diagram-container">
+      <h4 style="margin-bottom:12px; color:#457b9d;">Sex Determination in Humans</h4>
+      <svg viewBox="0 0 500 380" xmlns="http://www.w3.org/2000/svg" style="max-width:460px;">
+        <!-- Mother -->
+        <rect x="40" y="10" width="140" height="55" rx="12" fill="#fadbd8" stroke="#e63946" stroke-width="2"/>
+        <text x="110" y="32" text-anchor="middle" font-family="Lora" font-size="14" font-weight="700" fill="#922b21">Mother</text>
+        <text x="110" y="52" text-anchor="middle" font-family="JetBrains Mono" font-size="18" font-weight="700" fill="#e63946">XX</text>
+
+        <!-- Father -->
+        <rect x="320" y="10" width="140" height="55" rx="12" fill="#d6eaf8" stroke="#457b9d" stroke-width="2"/>
+        <text x="390" y="32" text-anchor="middle" font-family="Lora" font-size="14" font-weight="700" fill="#1d3557">Father</text>
+        <text x="390" y="52" text-anchor="middle" font-family="JetBrains Mono" font-size="18" font-weight="700" fill="#457b9d">XY</text>
+
+        <!-- Gametes -->
+        <line x1="110" y1="65" x2="110" y2="110" stroke="#e63946" stroke-width="2"/>
+        <line x1="390" y1="65" x2="340" y2="110" stroke="#457b9d" stroke-width="2"/>
+        <line x1="390" y1="65" x2="440" y2="110" stroke="#457b9d" stroke-width="2"/>
+
+        <text x="60" y="100" font-family="Nunito" font-size="11" fill="#6b6355">Eggs:</text>
+        <text x="325" y="100" font-family="Nunito" font-size="11" fill="#6b6355">Sperm:</text>
+
+        <circle cx="110" cy="130" r="22" fill="#fadbd8" stroke="#e63946" stroke-width="2"/>
+        <text x="110" y="135" text-anchor="middle" font-family="JetBrains Mono" font-size="16" font-weight="700" fill="#e63946">X</text>
+
+        <circle cx="340" cy="130" r="22" fill="#d6eaf8" stroke="#457b9d" stroke-width="2"/>
+        <text x="340" y="135" text-anchor="middle" font-family="JetBrains Mono" font-size="16" font-weight="700" fill="#457b9d">X</text>
+
+        <circle cx="440" cy="130" r="22" fill="#d6eaf8" stroke="#457b9d" stroke-width="2"/>
+        <text x="440" y="135" text-anchor="middle" font-family="JetBrains Mono" font-size="16" font-weight="700" fill="#457b9d">Y</text>
+
+        <!-- Cross lines -->
+        <line x1="132" y1="135" x2="318" y2="135" stroke="#aaa" stroke-width="1" stroke-dasharray="5"/>
+        <line x1="132" y1="130" x2="418" y2="130" stroke="#aaa" stroke-width="1" stroke-dasharray="5"/>
+
+        <!-- Fertilisation arrows -->
+        <line x1="180" y1="152" x2="180" y2="215" stroke="#e63946" stroke-width="2" marker-end="url(#arrowR)"/>
+        <line x1="320" y1="152" x2="320" y2="215" stroke="#457b9d" stroke-width="2" marker-end="url(#arrowB)"/>
+
+        <text x="250" y="195" text-anchor="middle" font-family="Nunito" font-size="12" font-weight="700" fill="#6b6355">Fertilisation</text>
+
+        <!-- Offspring -->
+        <rect x="80" y="220" width="150" height="65" rx="12" fill="#fadbd8" stroke="#e63946" stroke-width="2"/>
+        <text x="155" y="245" text-anchor="middle" font-family="JetBrains Mono" font-size="22" font-weight="700" fill="#e63946">XX</text>
+        <text x="155" y="270" text-anchor="middle" font-family="Lora" font-size="14" font-weight="700" fill="#922b21">Girl</text>
+
+        <rect x="270" y="220" width="150" height="65" rx="12" fill="#d6eaf8" stroke="#457b9d" stroke-width="2"/>
+        <text x="345" y="245" text-anchor="middle" font-family="JetBrains Mono" font-size="22" font-weight="700" fill="#457b9d">XY</text>
+        <text x="345" y="270" text-anchor="middle" font-family="Lora" font-size="14" font-weight="700" fill="#1d3557">Boy</text>
+
+        <!-- Probability -->
+        <rect x="120" y="310" width="260" height="45" rx="10" fill="#fff9e6" stroke="#f1c40f" stroke-width="2"/>
+        <text x="250" y="330" text-anchor="middle" font-family="Nunito" font-size="12" font-weight="700" fill="#b7950b">Probability</text>
+        <text x="250" y="348" text-anchor="middle" font-family="JetBrains Mono" font-size="14" font-weight="700" fill="#1a1612">50% Girl : 50% Boy</text>
+      </svg>
+    </div>
+
+    <div class="fun-fact">
+      <strong>Fun Fact:</strong> In some species like birds and butterflies, the system is reversed: males are ZZ and females are ZW! In some reptiles like crocodiles, the sex is determined by the temperature at which eggs are incubated.
+    </div>
+
+    <div class="mini-quiz" id="mq3">
+      <h4>Quick Check</h4>
+      <p style="margin-bottom:10px;">Who determines the sex of the child in humans?</p>
+      <div class="mq-options">
+        <button class="mq-btn" onclick="checkMini(this, false)">The mother, because she carries two X chromosomes</button>
+        <button class="mq-btn" onclick="checkMini(this, true)">The father, because his sperm can carry X or Y</button>
+        <button class="mq-btn" onclick="checkMini(this, false)">Both parents equally</button>
+      </div>
+      <div class="mq-feedback"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TOPIC 4: EVOLUTION ===== -->
+<section class="section" id="topic4">
+  <div class="container">
+    <span class="topic-badge badge-purple">Topic 4</span>
+    <h2>Evolution</h2>
+
+    <div class="card">
+      <h3>Accumulation of Variation</h3>
+      <p>Evolution is the gradual change in the inherited characteristics of a population over successive generations. It occurs due to the <strong>accumulation of variations</strong> over many generations.</p>
+      <p>In asexual reproduction, variations arise only through mutations, so evolution is slow. In <strong>sexual reproduction</strong>, new combinations of genes are created in every generation due to crossing over and random assortment. This creates much more variation and accelerates evolution.</p>
+    </div>
+
+    <div class="card">
+      <h3>Natural Selection (Darwin)</h3>
+      <p><strong>Charles Darwin</strong> proposed the theory of <strong>natural selection</strong> (also called "survival of the fittest") based on his observations during a voyage on HMS Beagle.</p>
+      <p>Key points:</p>
+      <ul style="margin-left:20px; margin-top:8px;">
+        <li>Organisms produce more offspring than can survive.</li>
+        <li>There is a struggle for existence due to limited resources.</li>
+        <li>Individuals with <strong>favourable variations</strong> are better adapted and survive more often.</li>
+        <li>These survivors reproduce and pass their advantageous traits to the next generation.</li>
+        <li>Over many generations, this leads to the evolution of new characteristics and even new species.</li>
+      </ul>
+
+      <div class="diagram-container" style="margin-top:16px;">
+        <h4 style="margin-bottom:12px; color:#457b9d;">Natural Selection in Action</h4>
+        <svg viewBox="0 0 540 160" xmlns="http://www.w3.org/2000/svg" style="max-width:520px;">
+          <!-- Gen 1 -->
+          <text x="60" y="20" text-anchor="middle" font-family="Lora" font-size="12" font-weight="700" fill="#1d3557">Generation 1</text>
+          <circle cx="30" cy="50" r="14" fill="#457b9d"/><circle cx="60" cy="50" r="14" fill="#457b9d"/>
+          <circle cx="90" cy="50" r="14" fill="#e63946"/><circle cx="45" cy="80" r="14" fill="#457b9d"/>
+          <circle cx="75" cy="80" r="14" fill="#e63946"/>
+          <text x="60" y="115" text-anchor="middle" font-family="Nunito" font-size="9" fill="#6b6355">Mixed population</text>
+
+          <!-- Arrow -->
+          <text x="150" y="65" font-family="Nunito" font-size="10" fill="#6b6355">Selection</text>
+          <line x1="120" y1="60" x2="185" y2="60" stroke="#6b6355" stroke-width="2" marker-end="url(#arrowBk)"/>
+
+          <!-- Gen 2 -->
+          <text x="250" y="20" text-anchor="middle" font-family="Lora" font-size="12" font-weight="700" fill="#1d3557">Generation 2</text>
+          <circle cx="220" cy="50" r="14" fill="#457b9d"/><circle cx="250" cy="50" r="14" fill="#457b9d"/>
+          <circle cx="280" cy="50" r="14" fill="#457b9d"/><circle cx="235" cy="80" r="14" fill="#e63946"/>
+          <text x="250" y="115" text-anchor="middle" font-family="Nunito" font-size="9" fill="#6b6355">More blue survive</text>
+
+          <!-- Arrow -->
+          <text x="340" y="65" font-family="Nunito" font-size="10" fill="#6b6355">Selection</text>
+          <line x1="310" y1="60" x2="375" y2="60" stroke="#6b6355" stroke-width="2" marker-end="url(#arrowBk)"/>
+
+          <!-- Gen 3 -->
+          <text x="450" y="20" text-anchor="middle" font-family="Lora" font-size="12" font-weight="700" fill="#1d3557">Generation 3</text>
+          <circle cx="420" cy="50" r="14" fill="#457b9d"/><circle cx="450" cy="50" r="14" fill="#457b9d"/>
+          <circle cx="480" cy="50" r="14" fill="#457b9d"/><circle cx="435" cy="80" r="14" fill="#457b9d"/>
+          <circle cx="465" cy="80" r="14" fill="#457b9d"/>
+          <text x="450" y="115" text-anchor="middle" font-family="Nunito" font-size="9" fill="#6b6355">Blue trait dominates</text>
+
+          <defs>
+            <marker id="arrowBk" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#6b6355"/></marker>
+          </defs>
+        </svg>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Speciation</h3>
+      <p><strong>Speciation</strong> is the formation of new species from existing ones. It occurs when populations become reproductively isolated and accumulate enough genetic differences over time.</p>
+      <p>Key mechanisms:</p>
+      <ul style="margin-left:20px; margin-top:8px;">
+        <li><strong>Geographical isolation:</strong> A physical barrier (mountain, river) splits a population. Each group evolves independently due to different environments and random genetic changes.</li>
+        <li><strong>Genetic drift:</strong> Random changes in allele frequency in small, isolated populations. Chance events can dramatically alter which genes are common, especially after a population bottleneck.</li>
+        <li><strong>Natural selection:</strong> Different environments favour different traits, driving the two groups further apart genetically.</li>
+      </ul>
+      <p style="margin-top:12px;">Over time, these isolated groups accumulate so many differences that they can no longer interbreed even if the barrier is removed &mdash; they have become separate species.</p>
+
+      <!-- Speciation SVG Diagram -->
+      <div class="diagram-container" style="margin-top:16px;">
+        <h4 style="margin-bottom:12px; color:#457b9d;">Speciation through Geographical Isolation</h4>
+        <svg viewBox="0 0 560 280" xmlns="http://www.w3.org/2000/svg" style="max-width:540px;">
+          <!-- Original population -->
+          <rect x="195" y="5" width="170" height="45" rx="10" fill="#d6eaf8" stroke="#457b9d" stroke-width="2"/>
+          <text x="280" y="22" text-anchor="middle" font-family="Lora" font-size="12" font-weight="700" fill="#1d3557">Original Population</text>
+          <text x="280" y="40" text-anchor="middle" font-family="Nunito" font-size="10" fill="#6b6355">Species A (interbreeding)</text>
+
+          <!-- Arrow down splitting -->
+          <line x1="280" y1="50" x2="140" y2="95" stroke="#6b6355" stroke-width="2" marker-end="url(#arrowBk)"/>
+          <line x1="280" y1="50" x2="420" y2="95" stroke="#6b6355" stroke-width="2" marker-end="url(#arrowBk)"/>
+
+          <!-- Mountain barrier -->
+          <polygon points="255,70 280,45 305,70 290,70 280,58 270,70" fill="#8d6e63" stroke="#5d4037" stroke-width="1.5"/>
+          <text x="280" y="86" text-anchor="middle" font-family="Nunito" font-size="9" font-weight="700" fill="#5d4037">Barrier (Mountain/River)</text>
+
+          <!-- Sub-population A -->
+          <rect x="50" y="100" width="180" height="45" rx="10" fill="#d5f5e3" stroke="#27ae60" stroke-width="2"/>
+          <text x="140" y="118" text-anchor="middle" font-family="Lora" font-size="11" font-weight="700" fill="#1e8449">Sub-population A</text>
+          <text x="140" y="136" text-anchor="middle" font-family="Nunito" font-size="9" fill="#6b6355">Forest environment</text>
+
+          <!-- Sub-population B -->
+          <rect x="330" y="100" width="180" height="45" rx="10" fill="#e8daef" stroke="#8e44ad" stroke-width="2"/>
+          <text x="420" y="118" text-anchor="middle" font-family="Lora" font-size="11" font-weight="700" fill="#6c3483">Sub-population B</text>
+          <text x="420" y="136" text-anchor="middle" font-family="Nunito" font-size="9" fill="#6b6355">Grassland environment</text>
+
+          <!-- Time passing -->
+          <line x1="140" y1="145" x2="140" y2="175" stroke="#27ae60" stroke-width="2" stroke-dasharray="4"/>
+          <line x1="420" y1="145" x2="420" y2="175" stroke="#8e44ad" stroke-width="2" stroke-dasharray="4"/>
+          <text x="280" y="168" text-anchor="middle" font-family="Nunito" font-size="10" font-weight="700" fill="#6b6355">Many generations pass...</text>
+          <text x="280" y="182" text-anchor="middle" font-family="Nunito" font-size="9" fill="#6b6355">Natural selection + Genetic drift + Mutations</text>
+
+          <!-- New species -->
+          <rect x="50" y="190" width="180" height="45" rx="10" fill="#27ae60" stroke="#1e8449" stroke-width="2"/>
+          <text x="140" y="208" text-anchor="middle" font-family="Lora" font-size="12" font-weight="700" fill="#fff">New Species A1</text>
+          <text x="140" y="226" text-anchor="middle" font-family="Nunito" font-size="9" fill="#d5f5e3">Adapted to forest</text>
+
+          <rect x="330" y="190" width="180" height="45" rx="10" fill="#8e44ad" stroke="#6c3483" stroke-width="2"/>
+          <text x="420" y="208" text-anchor="middle" font-family="Lora" font-size="12" font-weight="700" fill="#fff">New Species B1</text>
+          <text x="420" y="226" text-anchor="middle" font-family="Nunito" font-size="9" fill="#e8daef">Adapted to grassland</text>
+
+          <!-- Cannot interbreed -->
+          <line x1="230" y1="212" x2="330" y2="212" stroke="#e63946" stroke-width="2" stroke-dasharray="6"/>
+          <text x="280" y="255" text-anchor="middle" font-family="Nunito" font-size="10" font-weight="700" fill="#e63946">Cannot interbreed anymore</text>
+          <text x="280" y="270" text-anchor="middle" font-family="Nunito" font-size="10" fill="#e63946">= Reproductive isolation = Speciation</text>
+
+          <!-- X mark on dashed line -->
+          <text x="280" y="218" text-anchor="middle" font-family="Nunito" font-size="18" font-weight="700" fill="#e63946">&times;</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Acquired Traits vs Inherited Traits</h3>
+      <p><strong>Acquired traits</strong> are changes in an organism that develop during its lifetime due to environmental factors or personal actions. They affect only the <strong>somatic (body) cells</strong>, not the reproductive cells, so they are <strong>NOT passed on</strong> to the next generation.</p>
+      <p><em>Examples:</em> A bodybuilder's large muscles, a surgeon's skill, a plant losing leaves due to drought, scars.</p>
+      <p style="margin-top:12px;"><strong>Inherited traits</strong> are traits coded by genes in the DNA. They are present in the <strong>germ cells</strong> (reproductive cells) and are <strong>passed on</strong> to offspring.</p>
+      <p><em>Examples:</em> Eye colour, blood group, attached/free earlobes, hair texture.</p>
+      <p style="margin-top:12px;"><strong>Key difference:</strong> Only changes in the DNA of germ cells (gametes) can be inherited. Changes in body cells, no matter how significant, die with the organism. This is why Lamarck's theory of inheritance of acquired traits was rejected.</p>
+    </div>
+
+    <div class="fun-fact">
+      <strong>Fun Fact:</strong> Darwin's finches on the Galapagos Islands had different beak shapes depending on the food available on each island. This was a key observation that led Darwin to formulate his theory of natural selection!
+    </div>
+
+    <div class="mini-quiz" id="mq4">
+      <h4>Quick Check</h4>
+      <p style="margin-bottom:10px;">Which of the following is an acquired trait?</p>
+      <div class="mq-options">
+        <button class="mq-btn" onclick="checkMini(this, false)">Blue eye colour</button>
+        <button class="mq-btn" onclick="checkMini(this, false)">Free earlobes</button>
+        <button class="mq-btn" onclick="checkMini(this, true)">Muscles built by weight training</button>
+      </div>
+      <div class="mq-feedback"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TOPIC 5: TRACING EVOLUTIONARY RELATIONSHIPS ===== -->
+<section class="section" id="topic5">
+  <div class="container">
+    <span class="topic-badge badge-blue">Topic 5</span>
+    <h2>Tracing Evolutionary Relationships</h2>
+
+    <div class="card">
+      <h3>Homologous Organs</h3>
+      <p><strong>Homologous organs</strong> have the <strong>same basic structural plan and origin</strong> but perform <strong>different functions</strong>. They indicate <strong>divergent evolution</strong> from a common ancestor.</p>
+      <p><em>Example:</em> The forelimbs of a human (grasping), a bat (flying), a whale (swimming), and a horse (running) all have the same bone structure (humerus, radius, ulna, carpals, metacarpals, phalanges) but are adapted for different purposes.</p>
+
+      <div class="diagram-container" style="margin-top:16px;">
+        <h4 style="margin-bottom:12px; color:#457b9d;">Homologous Organs &mdash; Same Structure, Different Function</h4>
+        <svg viewBox="0 0 600 440" xmlns="http://www.w3.org/2000/svg" style="max-width:580px;">
+          <defs>
+            <linearGradient id="homBg" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#fdfaf5"/><stop offset="100%" stop-color="#f4f0e8"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Title banner -->
+          <rect x="130" y="5" width="340" height="36" rx="10" fill="#d6eaf8" stroke="#457b9d" stroke-width="2"/>
+          <text x="300" y="28" text-anchor="middle" font-family="Lora" font-size="13" font-weight="700" fill="#1d3557">Divergent Evolution from Common Ancestor</text>
+
+          <!-- Divergence lines -->
+          <line x1="300" y1="41" x2="80" y2="75" stroke="#457b9d" stroke-width="1.5" stroke-dasharray="4"/>
+          <line x1="300" y1="41" x2="230" y2="75" stroke="#457b9d" stroke-width="1.5" stroke-dasharray="4"/>
+          <line x1="300" y1="41" x2="380" y2="75" stroke="#457b9d" stroke-width="1.5" stroke-dasharray="4"/>
+          <line x1="300" y1="41" x2="520" y2="75" stroke="#457b9d" stroke-width="1.5" stroke-dasharray="4"/>
+
+          <!-- ===== HUMAN ARM ===== -->
+          <g transform="translate(10,75)">
+            <rect x="0" y="0" width="140" height="280" rx="12" fill="#fff" stroke="#457b9d" stroke-width="1.5"/>
+            <text x="70" y="22" text-anchor="middle" font-family="Lora" font-size="13" font-weight="700" fill="#1d3557">Human Arm</text>
+            <text x="70" y="38" text-anchor="middle" font-family="Nunito" font-size="10" fill="#6b6355">Function: Grasping</text>
+            <!-- Shoulder joint -->
+            <circle cx="70" cy="60" r="8" fill="#e8daef" stroke="#6c3483" stroke-width="1.5"/>
+            <!-- Humerus (blue) -->
+            <path d="M70,68 Q74,95 72,120" fill="none" stroke="#2471a3" stroke-width="8" stroke-linecap="round"/>
+            <path d="M70,68 Q66,95 68,120" fill="none" stroke="#2980b9" stroke-width="7" stroke-linecap="round" opacity="0.5"/>
+            <!-- Elbow joint -->
+            <circle cx="70" cy="124" r="5" fill="#e8daef" stroke="#6c3483" stroke-width="1"/>
+            <!-- Radius + Ulna (green) -->
+            <path d="M66,128 Q62,148 60,170" fill="none" stroke="#1e8449" stroke-width="5" stroke-linecap="round"/>
+            <path d="M74,128 Q78,148 80,170" fill="none" stroke="#27ae60" stroke-width="5" stroke-linecap="round"/>
+            <!-- Wrist -->
+            <circle cx="70" cy="176" r="4" fill="#e8daef" stroke="#6c3483" stroke-width="1"/>
+            <!-- Carpals (yellow) -->
+            <rect x="56" y="180" width="28" height="14" rx="5" fill="#f4d03f" stroke="#b7950b" stroke-width="1.2"/>
+            <!-- Metacarpals + Phalanges (red/orange) -->
+            <line x1="60" y1="194" x2="50" y2="220" stroke="#e74c3c" stroke-width="3" stroke-linecap="round"/>
+            <line x1="50" y1="220" x2="44" y2="236" stroke="#c0392b" stroke-width="2" stroke-linecap="round"/>
+            <line x1="66" y1="194" x2="62" y2="224" stroke="#e74c3c" stroke-width="3" stroke-linecap="round"/>
+            <line x1="62" y1="224" x2="58" y2="240" stroke="#c0392b" stroke-width="2" stroke-linecap="round"/>
+            <line x1="72" y1="194" x2="74" y2="224" stroke="#e74c3c" stroke-width="3" stroke-linecap="round"/>
+            <line x1="74" y1="224" x2="76" y2="240" stroke="#c0392b" stroke-width="2" stroke-linecap="round"/>
+            <line x1="78" y1="194" x2="86" y2="222" stroke="#e74c3c" stroke-width="3" stroke-linecap="round"/>
+            <line x1="86" y1="222" x2="92" y2="236" stroke="#c0392b" stroke-width="2" stroke-linecap="round"/>
+            <line x1="84" y1="190" x2="98" y2="210" stroke="#e74c3c" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="98" y1="210" x2="102" y2="222" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"/>
+            <!-- Label lines -->
+            <line x1="100" y1="90" x2="120" y2="85" stroke="#aaa" stroke-width="0.5"/>
+            <text x="122" y="89" font-family="Nunito" font-size="7" fill="#2471a3" font-weight="600">Humerus</text>
+            <line x1="84" y1="150" x2="120" y2="148" stroke="#aaa" stroke-width="0.5"/>
+            <text x="122" y="152" font-family="Nunito" font-size="7" fill="#1e8449" font-weight="600">Radius/Ulna</text>
+            <line x1="86" y1="187" x2="120" y2="192" stroke="#aaa" stroke-width="0.5"/>
+            <text x="122" y="196" font-family="Nunito" font-size="7" fill="#b7950b" font-weight="600">Carpals</text>
+          </g>
+
+          <!-- ===== BAT WING ===== -->
+          <g transform="translate(155,75)">
+            <rect x="0" y="0" width="150" height="280" rx="12" fill="#fff" stroke="#457b9d" stroke-width="1.5"/>
+            <text x="75" y="22" text-anchor="middle" font-family="Lora" font-size="13" font-weight="700" fill="#1d3557">Bat Wing</text>
+            <text x="75" y="38" text-anchor="middle" font-family="Nunito" font-size="10" fill="#6b6355">Function: Flying</text>
+            <!-- Shoulder -->
+            <circle cx="30" cy="60" r="7" fill="#e8daef" stroke="#6c3483" stroke-width="1.5"/>
+            <!-- Humerus (blue) - short -->
+            <path d="M33,66 L40,90" fill="none" stroke="#2471a3" stroke-width="7" stroke-linecap="round"/>
+            <path d="M33,66 L38,90" fill="none" stroke="#2980b9" stroke-width="5" stroke-linecap="round" opacity="0.5"/>
+            <!-- Elbow -->
+            <circle cx="40" cy="93" r="4" fill="#e8daef" stroke="#6c3483" stroke-width="1"/>
+            <!-- Radius + Ulna (green) - medium -->
+            <path d="M38,96 L34,125" fill="none" stroke="#1e8449" stroke-width="4" stroke-linecap="round"/>
+            <path d="M42,96 L46,125" fill="none" stroke="#27ae60" stroke-width="4" stroke-linecap="round"/>
+            <!-- Wrist -->
+            <circle cx="40" cy="130" r="3" fill="#e8daef" stroke="#6c3483" stroke-width="1"/>
+            <!-- Carpals (yellow) - tiny -->
+            <rect x="34" y="133" width="12" height="8" rx="3" fill="#f4d03f" stroke="#b7950b" stroke-width="1"/>
+            <!-- Metacarpals + Phalanges (red) - very elongated for wing -->
+            <line x1="36" y1="141" x2="20" y2="230" stroke="#e74c3c" stroke-width="2" stroke-linecap="round"/>
+            <line x1="40" y1="141" x2="55" y2="240" stroke="#e74c3c" stroke-width="2" stroke-linecap="round"/>
+            <line x1="42" y1="141" x2="85" y2="230" stroke="#e74c3c" stroke-width="2" stroke-linecap="round"/>
+            <line x1="44" y1="141" x2="115" y2="210" stroke="#e74c3c" stroke-width="2" stroke-linecap="round"/>
+            <!-- Wing membrane -->
+            <path d="M20,230 Q30,245 55,240 Q80,238 85,230 Q100,220 115,210 L130,180 Q125,140 44,141 L36,141 Q18,180 20,230 Z" fill="rgba(69,123,157,0.08)" stroke="#457b9d" stroke-width="0.8"/>
+            <!-- Labels -->
+            <text x="75" y="260" text-anchor="middle" font-family="Nunito" font-size="7" fill="#e74c3c" font-weight="600">Elongated fingers</text>
+            <text x="75" y="270" text-anchor="middle" font-family="Nunito" font-size="7" fill="#457b9d">+ membrane</text>
+          </g>
+
+          <!-- ===== WHALE FLIPPER ===== -->
+          <g transform="translate(310,75)">
+            <rect x="0" y="0" width="140" height="280" rx="12" fill="#fff" stroke="#457b9d" stroke-width="1.5"/>
+            <text x="70" y="22" text-anchor="middle" font-family="Lora" font-size="13" font-weight="700" fill="#1d3557">Whale Flipper</text>
+            <text x="70" y="38" text-anchor="middle" font-family="Nunito" font-size="10" fill="#6b6355">Function: Swimming</text>
+            <!-- Flipper outline -->
+            <path d="M40,55 Q30,80 28,120 Q26,160 35,200 Q45,240 70,255 Q95,240 105,200 Q114,160 112,120 Q110,80 100,55 Q80,48 60,48 Z" fill="rgba(69,123,157,0.06)" stroke="#457b9d" stroke-width="1.2"/>
+            <!-- Shoulder -->
+            <circle cx="70" cy="62" r="8" fill="#e8daef" stroke="#6c3483" stroke-width="1.5"/>
+            <!-- Humerus (blue) - very short, thick -->
+            <path d="M70,70 L70,95" fill="none" stroke="#2471a3" stroke-width="12" stroke-linecap="round"/>
+            <path d="M70,70 L70,95" fill="none" stroke="#2980b9" stroke-width="8" stroke-linecap="round" opacity="0.4"/>
+            <!-- Elbow -->
+            <circle cx="70" cy="100" r="5" fill="#e8daef" stroke="#6c3483" stroke-width="1"/>
+            <!-- Radius + Ulna (green) - short, wide -->
+            <path d="M62,104 L58,130" fill="none" stroke="#1e8449" stroke-width="7" stroke-linecap="round"/>
+            <path d="M78,104 L82,130" fill="none" stroke="#27ae60" stroke-width="7" stroke-linecap="round"/>
+            <!-- Wrist area -->
+            <circle cx="70" cy="138" r="4" fill="#e8daef" stroke="#6c3483" stroke-width="1"/>
+            <!-- Carpals (yellow) - broad -->
+            <rect x="48" y="142" width="44" height="16" rx="6" fill="#f4d03f" stroke="#b7950b" stroke-width="1.2"/>
+            <!-- Metacarpals + Phalanges (red) - flattened, many -->
+            <line x1="52" y1="158" x2="42" y2="200" stroke="#e74c3c" stroke-width="4" stroke-linecap="round"/>
+            <line x1="42" y1="200" x2="40" y2="225" stroke="#c0392b" stroke-width="3" stroke-linecap="round"/>
+            <line x1="60" y1="158" x2="55" y2="205" stroke="#e74c3c" stroke-width="4" stroke-linecap="round"/>
+            <line x1="55" y1="205" x2="52" y2="230" stroke="#c0392b" stroke-width="3" stroke-linecap="round"/>
+            <line x1="70" y1="158" x2="70" y2="210" stroke="#e74c3c" stroke-width="4" stroke-linecap="round"/>
+            <line x1="70" y1="210" x2="70" y2="238" stroke="#c0392b" stroke-width="3" stroke-linecap="round"/>
+            <line x1="80" y1="158" x2="85" y2="205" stroke="#e74c3c" stroke-width="4" stroke-linecap="round"/>
+            <line x1="85" y1="205" x2="88" y2="230" stroke="#c0392b" stroke-width="3" stroke-linecap="round"/>
+            <line x1="88" y1="158" x2="98" y2="200" stroke="#e74c3c" stroke-width="4" stroke-linecap="round"/>
+            <line x1="98" y1="200" x2="100" y2="222" stroke="#c0392b" stroke-width="3" stroke-linecap="round"/>
+            <!-- Labels -->
+            <text x="70" y="270" text-anchor="middle" font-family="Nunito" font-size="7" fill="#e74c3c" font-weight="600">Short, broad bones</text>
+          </g>
+
+          <!-- ===== HORSE LEG ===== -->
+          <g transform="translate(455,75)">
+            <rect x="0" y="0" width="135" height="280" rx="12" fill="#fff" stroke="#457b9d" stroke-width="1.5"/>
+            <text x="68" y="22" text-anchor="middle" font-family="Lora" font-size="13" font-weight="700" fill="#1d3557">Horse Leg</text>
+            <text x="68" y="38" text-anchor="middle" font-family="Nunito" font-size="10" fill="#6b6355">Function: Running</text>
+            <!-- Shoulder -->
+            <circle cx="68" cy="58" r="7" fill="#e8daef" stroke="#6c3483" stroke-width="1.5"/>
+            <!-- Humerus (blue) -->
+            <path d="M68,65 Q72,85 70,110" fill="none" stroke="#2471a3" stroke-width="8" stroke-linecap="round"/>
+            <path d="M68,65 Q66,85 68,110" fill="none" stroke="#2980b9" stroke-width="6" stroke-linecap="round" opacity="0.4"/>
+            <!-- Elbow -->
+            <circle cx="70" cy="114" r="5" fill="#e8daef" stroke="#6c3483" stroke-width="1"/>
+            <!-- Radius + Ulna (green) - fused, long -->
+            <path d="M68,118 Q66,145 67,168" fill="none" stroke="#1e8449" stroke-width="6" stroke-linecap="round"/>
+            <path d="M72,118 Q74,145 73,168" fill="none" stroke="#27ae60" stroke-width="5" stroke-linecap="round" opacity="0.5"/>
+            <!-- Wrist (knee in horse) -->
+            <circle cx="70" cy="172" r="4" fill="#e8daef" stroke="#6c3483" stroke-width="1"/>
+            <!-- Carpals (yellow) - small -->
+            <rect x="62" y="176" width="16" height="10" rx="4" fill="#f4d03f" stroke="#b7950b" stroke-width="1"/>
+            <!-- Single metacarpal + phalanx (red) - fused into cannon bone + single toe -->
+            <line x1="70" y1="186" x2="70" y2="230" stroke="#e74c3c" stroke-width="5" stroke-linecap="round"/>
+            <line x1="70" y1="230" x2="70" y2="250" stroke="#c0392b" stroke-width="4" stroke-linecap="round"/>
+            <!-- Hoof -->
+            <path d="M60,248 Q70,260 80,248" fill="#1a1612" stroke="#1a1612" stroke-width="1.5"/>
+            <!-- Labels -->
+            <text x="68" y="270" text-anchor="middle" font-family="Nunito" font-size="7" fill="#e74c3c" font-weight="600">Single fused toe</text>
+            <line x1="85" y1="88" x2="112" y2="78" stroke="#aaa" stroke-width="0.5"/>
+            <text x="90" y="75" font-family="Nunito" font-size="7" fill="#2471a3" font-weight="600">Humerus</text>
+            <line x1="80" y1="145" x2="112" y2="140" stroke="#aaa" stroke-width="0.5"/>
+            <text x="85" y="137" font-family="Nunito" font-size="7" fill="#1e8449" font-weight="600">Radius/Ulna</text>
+          </g>
+
+          <!-- Color-coded Legend -->
+          <rect x="50" y="370" width="500" height="58" rx="10" fill="#fff" stroke="#457b9d" stroke-width="1.5"/>
+          <text x="300" y="389" text-anchor="middle" font-family="Lora" font-size="12" font-weight="700" fill="#1d3557">Bone Color Key (Same across all limbs = Homology)</text>
+          <!-- Humerus -->
+          <rect x="70" y="398" width="18" height="12" rx="3" fill="#2471a3"/>
+          <text x="94" y="409" font-family="Nunito" font-size="10" fill="#1a1612" font-weight="600">Humerus</text>
+          <!-- Radius/Ulna -->
+          <rect x="170" y="398" width="18" height="12" rx="3" fill="#27ae60"/>
+          <text x="194" y="409" font-family="Nunito" font-size="10" fill="#1a1612" font-weight="600">Radius/Ulna</text>
+          <!-- Carpals -->
+          <rect x="295" y="398" width="18" height="12" rx="3" fill="#f4d03f"/>
+          <text x="319" y="409" font-family="Nunito" font-size="10" fill="#1a1612" font-weight="600">Carpals</text>
+          <!-- Metacarpals/Phalanges -->
+          <rect x="390" y="398" width="18" height="12" rx="3" fill="#e74c3c"/>
+          <text x="414" y="409" font-family="Nunito" font-size="10" fill="#1a1612" font-weight="600">Metacarpals/Phalanges</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Analogous Organs</h3>
+      <p><strong>Analogous organs</strong> have <strong>different structural origins</strong> but perform the <strong>same function</strong>. They indicate <strong>convergent evolution</strong> &mdash; different organisms independently evolving similar features due to similar environmental pressures.</p>
+      <p><em>Example:</em> Wings of a bird (modified forelimb with bones and feathers) and wings of an insect (membranous extension of exoskeleton). Both are used for flying but have completely different structures and origins.</p>
+      <p style="margin-top:8px;"><em>Other examples:</em> Eyes of an octopus and a human; fins of a fish and flippers of a dolphin.</p>
+
+      <div class="diagram-container" style="margin-top:16px;">
+        <h4 style="margin-bottom:12px; color:#e63946;">Analogous Organs &mdash; Different Structure, Same Function</h4>
+        <svg viewBox="0 0 600 420" xmlns="http://www.w3.org/2000/svg" style="max-width:580px;">
+          <!-- Same function connecting banner -->
+          <rect x="160" y="5" width="280" height="32" rx="10" fill="#fff9e6" stroke="#f1c40f" stroke-width="2"/>
+          <text x="300" y="26" text-anchor="middle" font-family="Lora" font-size="13" font-weight="700" fill="#b7950b">Same Function: FLIGHT</text>
+
+          <!-- Connecting dashed line -->
+          <line x1="140" y1="21" x2="20" y2="60" stroke="#f1c40f" stroke-width="1.5" stroke-dasharray="6"/>
+          <line x1="460" y1="21" x2="580" y2="60" stroke="#f1c40f" stroke-width="1.5" stroke-dasharray="6"/>
+
+          <!-- ===== BIRD WING (left) ===== -->
+          <g transform="translate(5,50)">
+            <rect x="0" y="0" width="280" height="300" rx="14" fill="#fff" stroke="#457b9d" stroke-width="1.8"/>
+            <text x="140" y="24" text-anchor="middle" font-family="Lora" font-size="15" font-weight="700" fill="#1d3557">Bird Wing</text>
+            <text x="140" y="42" text-anchor="middle" font-family="Nunito" font-size="10" fill="#6b6355">Modified vertebrate forelimb</text>
+
+            <!-- Wing outline -->
+            <path d="M40,85 Q35,100 30,140 Q28,170 35,200 Q42,230 60,245 L90,250 Q100,240 105,225 L260,110 Q270,95 260,85 Q220,70 160,75 Q100,78 50,82 Z" fill="rgba(69,123,157,0.04)" stroke="#457b9d" stroke-width="1"/>
+
+            <!-- Shoulder joint -->
+            <circle cx="50" cy="100" r="8" fill="#e8daef" stroke="#6c3483" stroke-width="1.5"/>
+            <text x="52" y="92" font-family="Nunito" font-size="7" fill="#6c3483" font-weight="600">Shoulder</text>
+
+            <!-- Humerus (blue) -->
+            <path d="M55,107 Q65,125 70,150" fill="none" stroke="#2471a3" stroke-width="7" stroke-linecap="round"/>
+            <line x1="78" y1="130" x2="105" y2="124" stroke="#aaa" stroke-width="0.5"/>
+            <text x="107" y="128" font-family="Nunito" font-size="8" fill="#2471a3" font-weight="700">Humerus</text>
+
+            <!-- Elbow -->
+            <circle cx="72" cy="155" r="5" fill="#e8daef" stroke="#6c3483" stroke-width="1"/>
+
+            <!-- Radius + Ulna (green) -->
+            <path d="M68,158 Q85,175 100,185" fill="none" stroke="#1e8449" stroke-width="5" stroke-linecap="round"/>
+            <path d="M76,158 Q90,172 108,180" fill="none" stroke="#27ae60" stroke-width="5" stroke-linecap="round"/>
+            <line x1="95" y1="170" x2="120" y2="162" stroke="#aaa" stroke-width="0.5"/>
+            <text x="122" y="166" font-family="Nunito" font-size="8" fill="#1e8449" font-weight="700">Radius/Ulna</text>
+
+            <!-- Wrist -->
+            <circle cx="105" cy="188" r="4" fill="#e8daef" stroke="#6c3483" stroke-width="1"/>
+
+            <!-- Carpals (yellow) -->
+            <rect x="107" y="183" width="14" height="10" rx="4" fill="#f4d03f" stroke="#b7950b" stroke-width="1"/>
+            <text x="137" y="192" font-family="Nunito" font-size="8" fill="#b7950b" font-weight="700">Carpals</text>
+
+            <!-- Metacarpals and digits (red) - fused in birds -->
+            <line x1="121" y1="186" x2="160" y2="172" stroke="#e74c3c" stroke-width="4" stroke-linecap="round"/>
+            <line x1="160" y1="172" x2="190" y2="160" stroke="#c0392b" stroke-width="3" stroke-linecap="round"/>
+
+            <!-- Feathers (flight feathers on trailing edge) -->
+            <path d="M70,155 Q50,170 45,200 Q42,220 55,240 L75,248" fill="none" stroke="#8e6e53" stroke-width="1" opacity="0.6"/>
+            <path d="M80,165 Q62,180 55,210 Q50,230 65,248 L80,250" fill="none" stroke="#8e6e53" stroke-width="1" opacity="0.5"/>
+            <path d="M100,180 Q85,195 75,218 Q72,235 80,250 L90,252" fill="none" stroke="#8e6e53" stroke-width="1" opacity="0.5"/>
+            <!-- Primary feathers -->
+            <path d="M160,172 Q200,145 250,115 Q260,108 255,118 Q230,140 190,165 Z" fill="rgba(142,110,83,0.12)" stroke="#8e6e53" stroke-width="0.8"/>
+            <path d="M145,178 Q185,155 235,125 Q250,115 240,128 Q210,150 170,175 Z" fill="rgba(142,110,83,0.1)" stroke="#8e6e53" stroke-width="0.8"/>
+            <path d="M130,185 Q165,165 215,140 Q235,128 225,140 Q195,158 150,182 Z" fill="rgba(142,110,83,0.08)" stroke="#8e6e53" stroke-width="0.8"/>
+
+            <!-- Structure label -->
+            <rect x="15" y="260" width="250" height="30" rx="8" fill="#d6eaf8" stroke="#457b9d" stroke-width="1"/>
+            <text x="140" y="278" text-anchor="middle" font-family="Nunito" font-size="10" font-weight="700" fill="#1d3557">Structure: Bones + Muscles + Feathers</text>
+            <text x="140" y="296" text-anchor="middle" font-family="Nunito" font-size="9" fill="#6b6355">Origin: Vertebrate forelimb (endoskeleton)</text>
+          </g>
+
+          <!-- ===== INSECT WING (right) ===== -->
+          <g transform="translate(310,50)">
+            <rect x="0" y="0" width="280" height="300" rx="14" fill="#fff" stroke="#e63946" stroke-width="1.8"/>
+            <text x="140" y="24" text-anchor="middle" font-family="Lora" font-size="15" font-weight="700" fill="#922b21">Insect Wing</text>
+            <text x="140" y="42" text-anchor="middle" font-family="Nunito" font-size="10" fill="#6b6355">Membranous exoskeletal extension</text>
+
+            <!-- Insect body (thorax) -->
+            <ellipse cx="30" cy="150" rx="18" ry="40" fill="#8e6e53" stroke="#5d4037" stroke-width="1.5"/>
+            <text x="30" y="155" text-anchor="middle" font-family="Nunito" font-size="7" fill="#fff" font-weight="600">Thorax</text>
+
+            <!-- Wing base attachment -->
+            <circle cx="48" cy="130" r="5" fill="#a1887f" stroke="#5d4037" stroke-width="1.5"/>
+            <text x="55" y="120" font-family="Nunito" font-size="7" fill="#5d4037" font-weight="600">Hinge</text>
+
+            <!-- Wing membrane outline -->
+            <path d="M48,128 Q80,70 160,65 Q220,62 260,80 Q270,90 265,105 Q250,130 200,145 Q140,158 80,155 Q55,152 48,140 Z" fill="rgba(230,57,70,0.06)" stroke="#e63946" stroke-width="1.5"/>
+
+            <!-- Wing veins (chitinous framework) -->
+            <!-- Costa (leading edge vein) -->
+            <path d="M48,128 Q100,75 180,68 Q230,65 260,80" fill="none" stroke="#c0392b" stroke-width="2"/>
+            <!-- Subcosta -->
+            <path d="M50,132 Q110,85 185,78 Q235,75 262,88" fill="none" stroke="#c0392b" stroke-width="1.2"/>
+            <!-- Radius -->
+            <path d="M50,135 Q90,95 150,90 Q200,88 255,100" fill="none" stroke="#c0392b" stroke-width="1"/>
+            <!-- Media -->
+            <path d="M50,138 Q80,110 130,108 Q175,107 240,115" fill="none" stroke="#c0392b" stroke-width="0.8"/>
+            <!-- Cubitus -->
+            <path d="M50,142 Q75,125 120,125 Q160,126 220,130" fill="none" stroke="#c0392b" stroke-width="0.8"/>
+            <!-- Anal veins -->
+            <path d="M50,148 Q70,140 110,140 Q150,142 190,145" fill="none" stroke="#c0392b" stroke-width="0.6"/>
+            <!-- Cross-veins -->
+            <line x1="100" y1="78" x2="105" y2="110" stroke="#c0392b" stroke-width="0.5" opacity="0.6"/>
+            <line x1="140" y1="72" x2="142" y2="118" stroke="#c0392b" stroke-width="0.5" opacity="0.6"/>
+            <line x1="180" y1="70" x2="178" y2="125" stroke="#c0392b" stroke-width="0.5" opacity="0.6"/>
+            <line x1="220" y1="75" x2="215" y2="130" stroke="#c0392b" stroke-width="0.5" opacity="0.6"/>
+
+            <!-- Labels -->
+            <line x1="165" y1="68" x2="165" y2="56" stroke="#aaa" stroke-width="0.5"/>
+            <text x="165" y="53" text-anchor="middle" font-family="Nunito" font-size="8" fill="#c0392b" font-weight="700">Chitinous veins</text>
+            <line x1="200" y1="105" x2="240" y2="160" stroke="#aaa" stroke-width="0.5"/>
+            <text x="242" y="168" font-family="Nunito" font-size="8" fill="#e63946" font-weight="600">Thin membrane</text>
+
+            <!-- No bones callout -->
+            <rect x="60" y="180" width="160" height="24" rx="6" fill="#fadbd8" stroke="#e63946" stroke-width="1.2"/>
+            <text x="140" y="196" text-anchor="middle" font-family="Nunito" font-size="10" font-weight="700" fill="#922b21">NO BONES inside</text>
+
+            <!-- Structure label -->
+            <rect x="15" y="260" width="250" height="30" rx="8" fill="#fadbd8" stroke="#e63946" stroke-width="1"/>
+            <text x="140" y="278" text-anchor="middle" font-family="Nunito" font-size="10" font-weight="700" fill="#922b21">Structure: Chitin membrane + Veins</text>
+            <text x="140" y="296" text-anchor="middle" font-family="Nunito" font-size="9" fill="#6b6355">Origin: Extension of exoskeleton (cuticle)</text>
+          </g>
+
+          <!-- "Different Structure" labels -->
+          <text x="145" y="370" text-anchor="middle" font-family="Nunito" font-size="11" font-weight="700" fill="#457b9d">DIFFERENT Structure</text>
+          <text x="450" y="370" text-anchor="middle" font-family="Nunito" font-size="11" font-weight="700" fill="#e63946">DIFFERENT Structure</text>
+          <text x="300" y="370" text-anchor="middle" font-family="Nunito" font-size="12" fill="#6b6355">vs</text>
+
+          <!-- Bottom conclusion -->
+          <rect x="100" y="385" width="400" height="30" rx="10" fill="#fff9e6" stroke="#f1c40f" stroke-width="2"/>
+          <text x="300" y="405" text-anchor="middle" font-family="Lora" font-size="12" font-weight="700" fill="#b7950b">Different origin + Same function = Convergent Evolution</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Fossils as Evidence for Evolution</h3>
+      <p><strong>Fossils</strong> are the preserved remains or impressions of organisms that lived in the past. They provide direct evidence of organisms that once existed and show how life has changed over time.</p>
+      <p>Fossils help us by:</p>
+      <ul style="margin-left:20px; margin-top:8px;">
+        <li>Showing organisms that no longer exist (extinct species).</li>
+        <li>Revealing <strong>transitional forms</strong> &mdash; organisms with features of two different groups (e.g., <em>Archaeopteryx</em> had features of both reptiles and birds).</li>
+        <li>Establishing a timeline of evolution by dating the rock layers (strata) in which fossils are found &mdash; deeper layers contain older fossils.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Human Evolution</h3>
+      <p>Modern humans (<em>Homo sapiens</em>) evolved in Africa and have migrated across the globe. Key points from the NCERT text:</p>
+      <ul style="margin-left:20px; margin-top:8px;">
+        <li>Humans and other primates (apes, monkeys) share a common ancestor &mdash; we did not evolve <em>from</em> modern apes.</li>
+        <li>Tools, fossils, and DNA evidence trace the journey of human migration from Africa to the rest of the world.</li>
+        <li>All races of humans are a single species &mdash; there is no biological basis for "superiority" of any race.</li>
+        <li>The evolutionary lineage: early primates &rarr; hominids &rarr; <em>Homo habilis</em> &rarr; <em>Homo erectus</em> &rarr; <em>Homo sapiens</em>.</li>
+      </ul>
+
+      <!-- Human Evolution Timeline -->
+      <div class="diagram-container" style="margin-top:16px;">
+        <h4 style="margin-bottom:12px; color:#457b9d;">Simplified Human Evolution Timeline</h4>
+        <svg viewBox="0 0 620 340" xmlns="http://www.w3.org/2000/svg" style="max-width:600px;">
+          <!-- Timeline base line -->
+          <line x1="30" y1="210" x2="590" y2="210" stroke="#457b9d" stroke-width="4" stroke-linecap="round"/>
+          <!-- Arrow heads on timeline -->
+          <polygon points="115,207 125,210 115,213" fill="#457b9d"/>
+          <polygon points="225,207 235,210 225,213" fill="#457b9d"/>
+          <polygon points="350,207 360,210 350,213" fill="#457b9d"/>
+          <polygon points="470,207 480,210 470,213" fill="#457b9d"/>
+
+          <!-- ===== 1. Early Primates - Quadrupedal ===== -->
+          <g transform="translate(45,100)">
+            <!-- Quadrupedal primate silhouette -->
+            <path d="M-15,80 Q-10,60 0,55 Q5,50 10,48 L15,47 Q18,44 20,40 Q22,38 25,38 Q28,38 28,42 L27,45 Q30,46 32,50 Q35,55 35,62 L38,65 Q40,70 38,75 L35,82 Q30,85 25,85 L-10,85 Q-14,83 -15,80 Z" fill="#8e44ad" opacity="0.85"/>
+            <!-- Tail -->
+            <path d="M-15,78 Q-25,65 -28,55 Q-30,48 -25,50" fill="none" stroke="#8e44ad" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- Four legs visible -->
+            <line x1="30" y1="85" x2="32" y2="100" stroke="#8e44ad" stroke-width="3" stroke-linecap="round"/>
+            <line x1="20" y1="85" x2="18" y2="100" stroke="#8e44ad" stroke-width="3" stroke-linecap="round"/>
+            <line x1="0" y1="84" x2="-2" y2="100" stroke="#8e44ad" stroke-width="3" stroke-linecap="round"/>
+            <line x1="-8" y1="82" x2="-10" y2="100" stroke="#8e44ad" stroke-width="3" stroke-linecap="round"/>
+          </g>
+          <!-- Label and date -->
+          <text x="60" y="230" text-anchor="middle" font-family="Lora" font-size="10" font-weight="700" fill="#6c3483">Early Primates</text>
+          <text x="60" y="244" text-anchor="middle" font-family="Nunito" font-size="9" fill="#6b6355">~55 MYA</text>
+          <!-- Brain size -->
+          <rect x="30" y="250" width="60" height="18" rx="5" fill="#e8daef" stroke="#8e44ad" stroke-width="1"/>
+          <text x="60" y="263" text-anchor="middle" font-family="JetBrains Mono" font-size="8" font-weight="600" fill="#6c3483">~50 cc</text>
+          <!-- Dot on timeline -->
+          <circle cx="60" cy="210" r="7" fill="#8e44ad" stroke="#6c3483" stroke-width="2"/>
+
+          <!-- ===== 2. Hominids - Semi-upright, knuckle-walker ===== -->
+          <g transform="translate(155,80)">
+            <!-- Semi-upright figure (bent forward) -->
+            <!-- Head -->
+            <ellipse cx="20" cy="40" rx="8" ry="9" fill="#2980b9" opacity="0.85"/>
+            <!-- Body (angled forward) -->
+            <path d="M20,49 Q22,60 20,80 Q18,90 20,100" fill="none" stroke="#2980b9" stroke-width="6" stroke-linecap="round"/>
+            <!-- Arms (long, reaching toward ground) -->
+            <path d="M20,60 Q10,75 5,95" fill="none" stroke="#2980b9" stroke-width="3.5" stroke-linecap="round"/>
+            <path d="M20,60 Q30,72 35,85" fill="none" stroke="#2980b9" stroke-width="3.5" stroke-linecap="round"/>
+            <!-- Legs -->
+            <path d="M20,100 Q15,112 12,120" fill="none" stroke="#2980b9" stroke-width="4" stroke-linecap="round"/>
+            <path d="M20,100 Q25,112 28,120" fill="none" stroke="#2980b9" stroke-width="4" stroke-linecap="round"/>
+          </g>
+          <text x="175" y="230" text-anchor="middle" font-family="Lora" font-size="10" font-weight="700" fill="#1d3557">Hominids</text>
+          <text x="175" y="244" text-anchor="middle" font-family="Nunito" font-size="9" fill="#6b6355">~6 MYA</text>
+          <rect x="145" y="250" width="60" height="18" rx="5" fill="#d6eaf8" stroke="#2980b9" stroke-width="1"/>
+          <text x="175" y="263" text-anchor="middle" font-family="JetBrains Mono" font-size="8" font-weight="600" fill="#1d3557">~400 cc</text>
+          <circle cx="175" cy="210" r="7" fill="#2980b9" stroke="#1d3557" stroke-width="2"/>
+
+          <!-- ===== 3. Homo habilis - More upright, with stone tool ===== -->
+          <g transform="translate(285,65)">
+            <!-- Head (slightly bigger) -->
+            <ellipse cx="15" cy="40" rx="9" ry="10" fill="#27ae60" opacity="0.85"/>
+            <!-- Body (more upright) -->
+            <path d="M15,50 Q16,65 15,85 Q14,100 15,110" fill="none" stroke="#27ae60" stroke-width="6" stroke-linecap="round"/>
+            <!-- Arms -->
+            <path d="M15,62 Q5,75 0,90" fill="none" stroke="#27ae60" stroke-width="3.5" stroke-linecap="round"/>
+            <path d="M15,62 Q25,72 32,80" fill="none" stroke="#27ae60" stroke-width="3.5" stroke-linecap="round"/>
+            <!-- Stone tool in hand -->
+            <polygon points="32,78 38,74 40,80 34,83" fill="#8e6e53" stroke="#5d4037" stroke-width="0.8"/>
+            <!-- Legs -->
+            <path d="M15,110 Q10,125 8,135" fill="none" stroke="#27ae60" stroke-width="4" stroke-linecap="round"/>
+            <path d="M15,110 Q20,125 22,135" fill="none" stroke="#27ae60" stroke-width="4" stroke-linecap="round"/>
+          </g>
+          <text x="300" y="225" text-anchor="middle" font-family="Lora" font-size="10" font-weight="700" fill="#1e8449">Homo habilis</text>
+          <text x="300" y="238" text-anchor="middle" font-family="Nunito" font-size="8" fill="#6b6355">(Tool maker)</text>
+          <text x="300" y="252" text-anchor="middle" font-family="Nunito" font-size="9" fill="#6b6355">~2.4 MYA</text>
+          <rect x="270" y="258" width="60" height="18" rx="5" fill="#d5f5e3" stroke="#27ae60" stroke-width="1"/>
+          <text x="300" y="271" text-anchor="middle" font-family="JetBrains Mono" font-size="8" font-weight="600" fill="#1e8449">~600 cc</text>
+          <circle cx="300" cy="210" r="7" fill="#27ae60" stroke="#1e8449" stroke-width="2"/>
+
+          <!-- ===== 4. Homo erectus - Fully upright ===== -->
+          <g transform="translate(410,55)">
+            <!-- Head (bigger brain) -->
+            <ellipse cx="15" cy="38" rx="9" ry="11" fill="#e67e22" opacity="0.85"/>
+            <!-- Body (fully upright) -->
+            <path d="M15,49 Q15,65 15,85 Q15,100 15,112" fill="none" stroke="#e67e22" stroke-width="7" stroke-linecap="round"/>
+            <!-- Arms (shorter proportionally) -->
+            <path d="M15,60 Q5,75 2,88" fill="none" stroke="#e67e22" stroke-width="3.5" stroke-linecap="round"/>
+            <path d="M15,60 Q25,72 30,82" fill="none" stroke="#e67e22" stroke-width="3.5" stroke-linecap="round"/>
+            <!-- Spear/tool -->
+            <line x1="30" y1="82" x2="34" y2="50" stroke="#8e6e53" stroke-width="2" stroke-linecap="round"/>
+            <polygon points="34,50 32,42 36,42" fill="#5d4037"/>
+            <!-- Legs -->
+            <path d="M15,112 Q10,130 8,145" fill="none" stroke="#e67e22" stroke-width="4.5" stroke-linecap="round"/>
+            <path d="M15,112 Q20,130 22,145" fill="none" stroke="#e67e22" stroke-width="4.5" stroke-linecap="round"/>
+          </g>
+          <text x="425" y="225" text-anchor="middle" font-family="Lora" font-size="10" font-weight="700" fill="#d35400">Homo erectus</text>
+          <text x="425" y="238" text-anchor="middle" font-family="Nunito" font-size="8" fill="#6b6355">(Upright walker)</text>
+          <text x="425" y="252" text-anchor="middle" font-family="Nunito" font-size="9" fill="#6b6355">~1.8 MYA</text>
+          <rect x="395" y="258" width="60" height="18" rx="5" fill="#fdebd0" stroke="#e67e22" stroke-width="1"/>
+          <text x="425" y="271" text-anchor="middle" font-family="JetBrains Mono" font-size="8" font-weight="600" fill="#d35400">~900 cc</text>
+          <circle cx="425" cy="210" r="7" fill="#e67e22" stroke="#d35400" stroke-width="2"/>
+
+          <!-- ===== 5. Homo sapiens - Modern human ===== -->
+          <g transform="translate(535,45)">
+            <!-- Head (largest brain) -->
+            <ellipse cx="15" cy="36" rx="10" ry="12" fill="#e63946" opacity="0.85"/>
+            <!-- Body (fully upright, proportioned) -->
+            <path d="M15,48 Q15,65 15,88 Q15,102 15,115" fill="none" stroke="#e63946" stroke-width="7" stroke-linecap="round"/>
+            <!-- Shoulders broader -->
+            <line x1="3" y1="58" x2="27" y2="58" stroke="#e63946" stroke-width="4" stroke-linecap="round"/>
+            <!-- Arms -->
+            <path d="M5,60 Q0,75 -2,88" fill="none" stroke="#e63946" stroke-width="3.5" stroke-linecap="round"/>
+            <path d="M25,60 Q30,72 32,82" fill="none" stroke="#e63946" stroke-width="3.5" stroke-linecap="round"/>
+            <!-- Legs -->
+            <path d="M15,115 Q8,135 6,155" fill="none" stroke="#e63946" stroke-width="4.5" stroke-linecap="round"/>
+            <path d="M15,115 Q22,135 24,155" fill="none" stroke="#e63946" stroke-width="4.5" stroke-linecap="round"/>
+          </g>
+          <text x="550" y="225" text-anchor="middle" font-family="Lora" font-size="10" font-weight="700" fill="#c0392b">Homo sapiens</text>
+          <text x="550" y="238" text-anchor="middle" font-family="Nunito" font-size="8" fill="#6b6355">(Modern humans)</text>
+          <text x="550" y="252" text-anchor="middle" font-family="Nunito" font-size="9" fill="#6b6355">~300,000 YA</text>
+          <rect x="520" y="258" width="60" height="18" rx="5" fill="#fadbd8" stroke="#e63946" stroke-width="1"/>
+          <text x="550" y="271" text-anchor="middle" font-family="JetBrains Mono" font-size="8" font-weight="600" fill="#c0392b">~1400 cc</text>
+          <circle cx="550" cy="210" r="8" fill="#e63946" stroke="#c0392b" stroke-width="2"/>
+
+          <!-- Brain size trend arrow -->
+          <text x="310" y="295" text-anchor="middle" font-family="Nunito" font-size="9" fill="#6b6355">cc = cranial capacity (brain size) &bull; MYA = Million Years Ago</text>
+          <rect x="105" y="300" width="410" height="14" rx="7" fill="none" stroke="#457b9d" stroke-width="1"/>
+          <rect x="105" y="300" width="410" height="14" rx="7" fill="url(#brainGrad)" opacity="0.3"/>
+          <defs>
+            <linearGradient id="brainGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#8e44ad"/><stop offset="50%" stop-color="#27ae60"/><stop offset="100%" stop-color="#e63946"/>
+            </linearGradient>
+          </defs>
+          <text x="310" y="311" text-anchor="middle" font-family="Nunito" font-size="8" font-weight="700" fill="#1d3557">Brain Size Increasing &rarr;</text>
+
+          <!-- Bottom banner -->
+          <rect x="120" y="322" width="380" height="22" rx="6" fill="#d6eaf8" stroke="#457b9d" stroke-width="1"/>
+          <text x="310" y="337" text-anchor="middle" font-family="Nunito" font-size="9" font-weight="700" fill="#1d3557">All modern humans originated in Africa and migrated globally</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="fun-fact">
+      <strong>Fun Fact:</strong> <em>Archaeopteryx</em> is one of the most famous transitional fossils. It had feathers and a wishbone like birds, but also had teeth, a bony tail, and claws on its wings like reptiles!
+    </div>
+
+    <div class="mini-quiz" id="mq5">
+      <h4>Quick Check</h4>
+      <p style="margin-bottom:10px;">Wings of a bird and wings of an insect are examples of:</p>
+      <div class="mq-options">
+        <button class="mq-btn" onclick="checkMini(this, false)">Homologous organs (same origin, different function)</button>
+        <button class="mq-btn" onclick="checkMini(this, true)">Analogous organs (different origin, same function)</button>
+        <button class="mq-btn" onclick="checkMini(this, false)">Vestigial organs</button>
+      </div>
+      <div class="mq-feedback"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PUNNETT SQUARE CALCULATOR ===== -->
+<section class="section" id="punnett-calc">
+  <div class="container">
+    <h2 style="text-align:center; margin-bottom:8px;">Punnett Square Calculator</h2>
+    <p style="text-align:center; color:#6b6355; margin-bottom:28px;">Select two parent genotypes and visualise the cross results with animated fill, genotype and phenotype ratios, and probability percentages.</p>
+
+    <div class="punnett-section">
+      <div class="punnett-controls">
+        <label>Parent 1:</label>
+        <select id="calc-p1">
+          <option value="TT">TT (Homozygous Dominant)</option>
+          <option value="Tt" selected>Tt (Heterozygous)</option>
+          <option value="tt">tt (Homozygous Recessive)</option>
+        </select>
+        <label>Parent 2:</label>
+        <select id="calc-p2">
+          <option value="TT">TT (Homozygous Dominant)</option>
+          <option value="Tt" selected>Tt (Heterozygous)</option>
+          <option value="tt">tt (Homozygous Recessive)</option>
+        </select>
+        <button class="fc-btn" onclick="runCalcPunnett()">Calculate Cross</button>
+      </div>
+
+      <div class="punnett-grid" id="calcPunnettGrid">
+        <div class="punnett-cell punnett-corner"></div>
+        <div class="punnett-cell punnett-header" id="cp-h1">T</div>
+        <div class="punnett-cell punnett-header" id="cp-h2">t</div>
+        <div class="punnett-cell punnett-header" id="cp-v1">T</div>
+        <div class="punnett-cell punnett-result dominant" id="cp-c1">TT</div>
+        <div class="punnett-cell punnett-result dominant" id="cp-c2">Tt</div>
+        <div class="punnett-cell punnett-header" id="cp-v2">t</div>
+        <div class="punnett-cell punnett-result dominant" id="cp-c3">Tt</div>
+        <div class="punnett-cell punnett-result recessive" id="cp-c4">tt</div>
+      </div>
+
+      <!-- Genotype Ratio -->
+      <div id="calcGenoRatio" style="text-align:center; margin:16px 0;">
+        <h4 style="color:#457b9d; margin-bottom:8px;">Genotype Ratio</h4>
+        <div class="ratio-display" id="calcGenoDisplay">
+          <div class="ratio-item"><div class="ratio-value">1</div><div class="ratio-label">TT</div></div>
+          <div class="ratio-item"><div class="ratio-value">:</div><div class="ratio-label">&nbsp;</div></div>
+          <div class="ratio-item"><div class="ratio-value">2</div><div class="ratio-label">Tt</div></div>
+          <div class="ratio-item"><div class="ratio-value">:</div><div class="ratio-label">&nbsp;</div></div>
+          <div class="ratio-item"><div class="ratio-value">1</div><div class="ratio-label">tt</div></div>
+        </div>
+      </div>
+
+      <!-- Phenotype Ratio with Bar -->
+      <div id="calcPhenoRatio" style="text-align:center; margin:16px 0;">
+        <h4 style="color:#457b9d; margin-bottom:8px;">Phenotype Ratio</h4>
+        <div class="ratio-bar-container">
+          <div class="ratio-bar" id="calcBar">
+            <div class="bar-segment bar-dominant" id="calcBarDom" style="width:75%">75% Dominant (Tall)</div>
+            <div class="bar-segment bar-recessive" id="calcBarRec" style="width:25%">25% Recessive (Short)</div>
+          </div>
+        </div>
+        <div class="ratio-display" id="calcPhenoDisplay" style="margin-top:12px;">
+          <div class="ratio-item"><div class="ratio-value">3</div><div class="ratio-label">Tall (Dominant)</div></div>
+          <div class="ratio-item"><div class="ratio-value">:</div><div class="ratio-label">&nbsp;</div></div>
+          <div class="ratio-item"><div class="ratio-value">1</div><div class="ratio-label">Short (Recessive)</div></div>
+        </div>
+      </div>
+
+      <!-- Probability Table -->
+      <div id="calcProbTable" style="margin-top:20px;">
+        <h4 style="color:#457b9d; margin-bottom:12px; text-align:center;">Probability Breakdown</h4>
+        <table style="width:100%; max-width:460px; margin:0 auto; border-collapse:collapse; font-size:0.92rem;">
+          <thead>
+            <tr style="background:#457b9d; color:#fff;">
+              <th style="padding:10px 14px; border-radius:8px 0 0 0; text-align:left;">Genotype</th>
+              <th style="padding:10px 14px; text-align:center;">Count</th>
+              <th style="padding:10px 14px; text-align:center;">Probability</th>
+              <th style="padding:10px 14px; border-radius:0 8px 0 0; text-align:center;">Phenotype</th>
+            </tr>
+          </thead>
+          <tbody id="calcProbBody">
+            <tr style="background:#d6eaf8;"><td style="padding:10px 14px; font-family:'JetBrains Mono'; font-weight:700;">TT</td><td style="padding:10px 14px; text-align:center;">1</td><td style="padding:10px 14px; text-align:center;">25%</td><td style="padding:10px 14px; text-align:center;">Tall</td></tr>
+            <tr style="background:#eef5fa;"><td style="padding:10px 14px; font-family:'JetBrains Mono'; font-weight:700;">Tt</td><td style="padding:10px 14px; text-align:center;">2</td><td style="padding:10px 14px; text-align:center;">50%</td><td style="padding:10px 14px; text-align:center;">Tall</td></tr>
+            <tr style="background:#fadbd8;"><td style="padding:10px 14px; font-family:'JetBrains Mono'; font-weight:700;">tt</td><td style="padding:10px 14px; text-align:center;">1</td><td style="padding:10px 14px; text-align:center;">25%</td><td style="padding:10px 14px; text-align:center;">Short</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FLASHCARD DECK ===== -->
+<section class="section" id="flashcards">
+  <div class="container">
+    <h2 style="text-align:center; margin-bottom:8px;">Flashcard Deck</h2>
+    <p style="text-align:center; color:#6b6355; margin-bottom:28px;">Click a card to flip. Use arrow keys or buttons to navigate. Shuffle for a random order.</p>
+
+    <div class="flashcard-deck">
+      <div class="flashcard-wrapper" id="flashcardWrapper">
+        <div class="flashcard" id="flashcard" onclick="flipCard()">
+          <div class="flashcard-face flashcard-front">
+            <h4>Question</h4>
+            <p id="fcQuestion">What is heredity?</p>
+          </div>
+          <div class="flashcard-face flashcard-back">
+            <h4>Answer</h4>
+            <p id="fcAnswer">Transmission of traits from parents to offspring through genes.</p>
+          </div>
+        </div>
+      </div>
+      <div class="fc-controls">
+        <button class="fc-btn outline" onclick="prevCard()">&larr; Prev</button>
+        <span class="fc-counter" id="fcCounter">1 / 10</span>
+        <button class="fc-btn outline" onclick="nextCard()">Next &rarr;</button>
+        <button class="fc-btn shuffle" onclick="shuffleCards()">Shuffle</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CHAPTER QUIZ ===== -->
+<section class="section" id="quiz">
+  <div class="container">
+    <h2 style="text-align:center; margin-bottom:8px;">Chapter Quiz</h2>
+    <p style="text-align:center; color:#6b6355; margin-bottom:28px;">Test your understanding with 9 multiple-choice questions at varying difficulty levels.</p>
+
+    <div class="quiz-container" id="quizContainer">
+      <div class="quiz-progress" id="quizProgress"></div>
+      <div class="quiz-question" id="quizQuestion"></div>
+      <div class="quiz-nav" id="quizNav"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SUMMARY ===== -->
+<section class="section" id="summary">
+  <div class="container">
+    <h2 style="text-align:center; margin-bottom:24px;">Key Takeaways</h2>
+    <ul class="summary-list">
+      <li><strong>Heredity</strong> is the transmission of traits from parents to offspring through genes located on chromosomes.</li>
+      <li><strong>Variation</strong> among individuals is the raw material for evolution. It arises from sexual reproduction, mutations, and environmental factors.</li>
+      <li><strong>Mendel's Laws:</strong> Law of Dominance, Law of Segregation, and Law of Independent Assortment explain how traits are inherited. Monohybrid cross gives a 3:1 ratio; dihybrid cross gives 9:3:3:1.</li>
+      <li><strong>Sex in humans</strong> is determined by the father's sperm: X sperm gives a girl (XX), Y sperm gives a boy (XY).</li>
+      <li><strong>Evolution</strong> occurs through accumulation of variations over generations, driven by natural selection, genetic drift, and geographical isolation.</li>
+      <li><strong>Acquired traits</strong> (from environment) are NOT inherited. Only <strong>inherited traits</strong> (gene-based) pass to offspring.</li>
+      <li><strong>Homologous organs</strong> (same structure, different function) indicate common ancestry. <strong>Analogous organs</strong> (different structure, same function) indicate convergent evolution.</li>
+      <li><strong>Fossils</strong> provide direct evidence of evolution, showing extinct and transitional organisms.</li>
+      <li>All humans belong to a single species, <em>Homo sapiens</em>, originating from Africa.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    <p style="margin-bottom:10px;"><a href="../index.html">&larr; Back to Biology Home</a></p>
+    <p style="font-size:0.85rem;">Class 10 NCERT &mdash; Chapter 8: Heredity and Evolution</p>
+    <p style="font-size:0.78rem; margin-top:8px; opacity:0.7;">Content based on NCERT Science textbook for Class 10.</p>
+  </div>
+</footer>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+// ===== READING PROGRESS BAR =====
+(function() {
+  const bar = document.getElementById('progress-bar');
+  window.addEventListener('scroll', function() {
+    const h = document.documentElement;
+    const scrollTop = h.scrollTop || document.body.scrollTop;
+    const scrollHeight = h.scrollHeight - h.clientHeight;
+    const pct = (scrollTop / scrollHeight) * 100;
+    bar.style.width = pct + '%';
+  });
+})();
+
+// ===== STICKY NAV SCROLL EFFECT + ACTIVE LINKS =====
+(function() {
+  const nav = document.getElementById('stickyNav');
+  const links = document.querySelectorAll('.nav-links a');
+  const sections = [];
+  links.forEach(function(a) {
+    const id = a.getAttribute('href').replace('#', '');
+    const el = document.getElementById(id);
+    if (el) sections.push({ id: id, el: el, link: a });
+  });
+
+  window.addEventListener('scroll', function() {
+    const scrollY = window.scrollY;
+    nav.classList.toggle('scrolled', scrollY > 20);
+
+    let current = '';
+    sections.forEach(function(s) {
+      if (s.el.offsetTop - 120 <= scrollY) current = s.id;
+    });
+    links.forEach(function(a) { a.classList.remove('active'); });
+    sections.forEach(function(s) {
+      if (s.id === current) s.link.classList.add('active');
+    });
+  });
+
+  // Mobile toggle
+  document.getElementById('navToggle').addEventListener('click', function() {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+
+  // Close nav on link click (mobile)
+  links.forEach(function(a) {
+    a.addEventListener('click', function() {
+      document.getElementById('navLinks').classList.remove('open');
+    });
+  });
+})();
+
+// ===== SCROLL-TRIGGERED REVEALS =====
+(function() {
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.section').forEach(function(s) {
+    observer.observe(s);
+  });
+})();
+
+// ===== MINI QUIZ =====
+function checkMini(btn, isCorrect) {
+  const quiz = btn.closest('.mini-quiz');
+  const buttons = quiz.querySelectorAll('.mq-btn');
+  const feedback = quiz.querySelector('.mq-feedback');
+  buttons.forEach(function(b) {
+    b.disabled = true;
+    b.style.pointerEvents = 'none';
+  });
+  if (isCorrect) {
+    btn.classList.add('correct');
+    feedback.textContent = 'Correct! Well done!';
+    feedback.style.color = '#27ae60';
+  } else {
+    btn.classList.add('wrong');
+    feedback.textContent = 'Not quite. Try reviewing the section above.';
+    feedback.style.color = '#e63946';
+    // Highlight correct
+    buttons.forEach(function(b) {
+      if (b.getAttribute('onclick') && b.getAttribute('onclick').includes('true')) {
+        b.classList.add('correct');
+      }
+    });
+  }
+}
+
+// ===== PUNNETT SQUARE LOGIC =====
+function getGametes(genotype) {
+  if (genotype === 'TT') return ['T', 'T'];
+  if (genotype === 'Tt') return ['T', 't'];
+  if (genotype === 'tt') return ['t', 't'];
+  return ['T', 't'];
+}
+
+function normalizeGenotype(a1, a2) {
+  if (a1 === a1.toUpperCase() && a2 === a2.toLowerCase()) return a1 + a2;
+  if (a2 === a2.toUpperCase() && a1 === a1.toLowerCase()) return a2 + a1;
+  return a1 + a2;
+}
+
+function isDominant(geno) {
+  return geno.charAt(0) === geno.charAt(0).toUpperCase();
+}
+
+function computeCross(p1, p2) {
+  var g1 = getGametes(p1);
+  var g2 = getGametes(p2);
+  var cells = [];
+  for (var i = 0; i < 2; i++) {
+    for (var j = 0; j < 2; j++) {
+      cells.push(normalizeGenotype(g2[i], g1[j]));
+    }
+  }
+  return { gametes1: g1, gametes2: g2, cells: cells };
+}
+
+function countGenotypes(cells) {
+  var counts = {};
+  cells.forEach(function(c) {
+    counts[c] = (counts[c] || 0) + 1;
+  });
+  return counts;
+}
+
+function animateCell(el, text, isDom, delay) {
+  setTimeout(function() {
+    el.textContent = text;
+    el.className = 'punnett-cell punnett-result ' + (isDom ? 'dominant' : 'recessive') + ' fill-animate';
+  }, delay);
+}
+
+// Topic 2 Punnett Square
+function runTopicPunnett() {
+  var p1 = document.getElementById('parent1-topic').value;
+  var p2 = document.getElementById('parent2-topic').value;
+  var result = computeCross(p1, p2);
+
+  document.getElementById('tp-h1').textContent = result.gametes1[0];
+  document.getElementById('tp-h2').textContent = result.gametes1[1];
+  document.getElementById('tp-v1').textContent = result.gametes2[0];
+  document.getElementById('tp-v2').textContent = result.gametes2[1];
+
+  var cellIds = ['tp-c1', 'tp-c2', 'tp-c3', 'tp-c4'];
+  cellIds.forEach(function(id, idx) {
+    var el = document.getElementById(id);
+    el.textContent = '';
+    el.className = 'punnett-cell punnett-result';
+    animateCell(el, result.cells[idx], isDominant(result.cells[idx]), (idx + 1) * 300);
+  });
+
+  // Update ratio
+  setTimeout(function() {
+    var counts = countGenotypes(result.cells);
+    var domCount = 0, recCount = 0;
+    Object.keys(counts).forEach(function(g) {
+      if (isDominant(g)) domCount += counts[g]; else recCount += counts[g];
+    });
+
+    var domPct = Math.round((domCount / 4) * 100);
+    var recPct = 100 - domPct;
+
+    var barHtml = '';
+    if (domPct > 0) barHtml += '<div class="bar-segment bar-dominant" style="width:' + domPct + '%">' + domPct + '% Tall</div>';
+    if (recPct > 0) barHtml += '<div class="bar-segment bar-recessive" style="width:' + recPct + '%">' + recPct + '% Short</div>';
+    document.getElementById('topicRatioBar').querySelector('.ratio-bar').innerHTML = barHtml;
+
+    var ratioHtml = '';
+    if (domCount > 0) ratioHtml += '<div class="ratio-item"><div class="ratio-value">' + domCount + '</div><div class="ratio-label">Tall (Dominant)</div></div>';
+    if (domCount > 0 && recCount > 0) ratioHtml += '<div class="ratio-item"><div class="ratio-value">:</div><div class="ratio-label">&nbsp;</div></div>';
+    if (recCount > 0) ratioHtml += '<div class="ratio-item"><div class="ratio-value">' + recCount + '</div><div class="ratio-label">Short (Recessive)</div></div>';
+    if (domCount === 4) ratioHtml = '<div class="ratio-item"><div class="ratio-value">All</div><div class="ratio-label">Tall (Dominant)</div></div>';
+    if (recCount === 4) ratioHtml = '<div class="ratio-item"><div class="ratio-value">All</div><div class="ratio-label">Short (Recessive)</div></div>';
+    document.getElementById('topicRatioDisplay').innerHTML = ratioHtml;
+  }, 1400);
+}
+
+// Calculator Punnett Square
+function runCalcPunnett() {
+  var p1 = document.getElementById('calc-p1').value;
+  var p2 = document.getElementById('calc-p2').value;
+  var result = computeCross(p1, p2);
+
+  document.getElementById('cp-h1').textContent = result.gametes1[0];
+  document.getElementById('cp-h2').textContent = result.gametes1[1];
+  document.getElementById('cp-v1').textContent = result.gametes2[0];
+  document.getElementById('cp-v2').textContent = result.gametes2[1];
+
+  var cellIds = ['cp-c1', 'cp-c2', 'cp-c3', 'cp-c4'];
+  cellIds.forEach(function(id, idx) {
+    var el = document.getElementById(id);
+    el.textContent = '';
+    el.className = 'punnett-cell punnett-result';
+    animateCell(el, result.cells[idx], isDominant(result.cells[idx]), (idx + 1) * 300);
+  });
+
+  setTimeout(function() {
+    var counts = countGenotypes(result.cells);
+    var domCount = 0, recCount = 0;
+    var genoKeys = [];
+    Object.keys(counts).forEach(function(g) {
+      genoKeys.push(g);
+      if (isDominant(g)) domCount += counts[g]; else recCount += counts[g];
+    });
+
+    // Sort: uppercase first
+    genoKeys.sort(function(a, b) {
+      var aDom = isDominant(a) ? 0 : 1;
+      var bDom = isDominant(b) ? 0 : 1;
+      if (aDom !== bDom) return aDom - bDom;
+      return a.localeCompare(b);
+    });
+
+    // Genotype ratio
+    var genoHtml = '';
+    genoKeys.forEach(function(g, i) {
+      if (i > 0) genoHtml += '<div class="ratio-item"><div class="ratio-value">:</div><div class="ratio-label">&nbsp;</div></div>';
+      genoHtml += '<div class="ratio-item"><div class="ratio-value">' + counts[g] + '</div><div class="ratio-label">' + g + '</div></div>';
+    });
+    document.getElementById('calcGenoDisplay').innerHTML = genoHtml;
+
+    // Phenotype ratio bar
+    var domPct = Math.round((domCount / 4) * 100);
+    var recPct = 100 - domPct;
+    var barHtml = '';
+    if (domPct > 0) barHtml += '<div class="bar-segment bar-dominant" style="width:' + domPct + '%">' + domPct + '% Dominant (Tall)</div>';
+    if (recPct > 0) barHtml += '<div class="bar-segment bar-recessive" style="width:' + recPct + '%">' + recPct + '% Recessive (Short)</div>';
+    document.getElementById('calcBar').innerHTML = barHtml;
+
+    // Phenotype ratio display
+    var phenoHtml = '';
+    if (domCount > 0) phenoHtml += '<div class="ratio-item"><div class="ratio-value">' + domCount + '</div><div class="ratio-label">Tall (Dominant)</div></div>';
+    if (domCount > 0 && recCount > 0) phenoHtml += '<div class="ratio-item"><div class="ratio-value">:</div><div class="ratio-label">&nbsp;</div></div>';
+    if (recCount > 0) phenoHtml += '<div class="ratio-item"><div class="ratio-value">' + recCount + '</div><div class="ratio-label">Short (Recessive)</div></div>';
+    if (domCount === 4) phenoHtml = '<div class="ratio-item"><div class="ratio-value">All</div><div class="ratio-label">Tall (Dominant)</div></div>';
+    if (recCount === 4) phenoHtml = '<div class="ratio-item"><div class="ratio-value">All</div><div class="ratio-label">Short (Recessive)</div></div>';
+    document.getElementById('calcPhenoDisplay').innerHTML = phenoHtml;
+
+    // Probability table
+    var tableHtml = '';
+    genoKeys.forEach(function(g, i) {
+      var pct = Math.round((counts[g] / 4) * 100);
+      var pheno = isDominant(g) ? 'Tall' : 'Short';
+      var bg = isDominant(g) ? (i % 2 === 0 ? '#d6eaf8' : '#eef5fa') : '#fadbd8';
+      tableHtml += '<tr style="background:' + bg + ';">';
+      tableHtml += '<td style="padding:10px 14px; font-family:\'JetBrains Mono\'; font-weight:700;">' + g + '</td>';
+      tableHtml += '<td style="padding:10px 14px; text-align:center;">' + counts[g] + '</td>';
+      tableHtml += '<td style="padding:10px 14px; text-align:center;">' + pct + '%</td>';
+      tableHtml += '<td style="padding:10px 14px; text-align:center;">' + pheno + '</td>';
+      tableHtml += '</tr>';
+    });
+    document.getElementById('calcProbBody').innerHTML = tableHtml;
+  }, 1400);
+}
+
+// ===== FLASHCARD DECK =====
+var flashcards = [
+  { q: "What is heredity?", a: "Transmission of traits from parents to offspring through genes." },
+  { q: "What is a dominant trait?", a: "A trait that expresses itself even when present in a single copy (one allele). Represented by a capital letter." },
+  { q: "State the Law of Segregation.", a: "Each individual has two alleles for each trait; they segregate during gamete formation so each gamete carries only one allele." },
+  { q: "What is the F2 phenotype ratio in a monohybrid cross (Tt \u00d7 Tt)?", a: "3:1 (Tall : Short)." },
+  { q: "How is sex determined in humans?", a: "Males are XY; females are XX. The father determines the child\u2019s sex \u2014 X from father \u2192 girl, Y from father \u2192 boy." },
+  { q: "What is variation?", a: "Differences in characteristics among individuals of the same species." },
+  { q: "What are homologous organs?", a: "Organs with similar structure (common origin/ancestry) but different functions. e.g. human arm, bat wing, whale flipper." },
+  { q: "What are analogous organs?", a: "Organs with different structures but similar functions. e.g. wings of bird and insect." },
+  { q: "What is speciation?", a: "Formation of new species from existing ones due to isolation and accumulation of variation over generations." },
+  { q: "What is the difference between acquired and inherited traits?", a: "Acquired traits develop during an organism\u2019s lifetime due to environment; they are NOT passed to offspring. Inherited traits come from genes and are passed on." }
+];
+var fcIndex = 0;
+var fcOrder = [];
+
+function initFlashcards() {
+  fcOrder = [];
+  for (var i = 0; i < flashcards.length; i++) fcOrder.push(i);
+  fcIndex = 0;
+  showCard();
+}
+
+function showCard() {
+  var card = document.getElementById('flashcard');
+  card.classList.remove('flipped');
+  var idx = fcOrder[fcIndex];
+  document.getElementById('fcQuestion').textContent = flashcards[idx].q;
+  document.getElementById('fcAnswer').textContent = flashcards[idx].a;
+  document.getElementById('fcCounter').textContent = (fcIndex + 1) + ' / ' + flashcards.length;
+}
+
+function flipCard() {
+  document.getElementById('flashcard').classList.toggle('flipped');
+}
+
+function nextCard() {
+  fcIndex = (fcIndex + 1) % flashcards.length;
+  showCard();
+}
+
+function prevCard() {
+  fcIndex = (fcIndex - 1 + flashcards.length) % flashcards.length;
+  showCard();
+}
+
+function shuffleCards() {
+  for (var i = fcOrder.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = fcOrder[i]; fcOrder[i] = fcOrder[j]; fcOrder[j] = temp;
+  }
+  fcIndex = 0;
+  showCard();
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowRight') nextCard();
+  else if (e.key === 'ArrowLeft') prevCard();
+  else if (e.key === ' ' || e.key === 'Enter') {
+    // Only flip if flashcards section is in view
+    var fcSection = document.getElementById('flashcards');
+    var rect = fcSection.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      e.preventDefault();
+      flipCard();
+    }
+  }
+});
+
+initFlashcards();
+
+// ===== CHAPTER QUIZ =====
+var quizQuestions = [
+  {
+    difficulty: 'Easy',
+    question: 'Who is the father of genetics?',
+    options: ['Darwin', 'Mendel', 'Watson', 'Lamarck'],
+    correct: 1,
+    explanation: 'Gregor Johann Mendel is known as the "Father of Genetics" for his pioneering work on pea plant inheritance.'
+  },
+  {
+    difficulty: 'Easy',
+    question: 'In the genotype Tt, what does "T" represent?',
+    options: ['Recessive allele', 'Dominant allele', 'Gene', 'Chromosome'],
+    correct: 1,
+    explanation: 'Capital letters represent dominant alleles. T (dominant) for tall, t (recessive) for short.'
+  },
+  {
+    difficulty: 'Easy',
+    question: 'In humans, the sex of the child is determined by:',
+    options: ['Mother only', 'Father only', 'Both parents equally', 'Environment'],
+    correct: 1,
+    explanation: 'The father\'s sperm determines the sex \u2014 X sperm gives a girl (XX), Y sperm gives a boy (XY).'
+  },
+  {
+    difficulty: 'Medium',
+    question: 'A cross between Tt \u00d7 tt gives offspring in the ratio:',
+    options: ['3:1', '1:1', 'All Tt', 'All tt'],
+    correct: 1,
+    explanation: 'Tt \u00d7 tt gives 2 Tt (tall) and 2 tt (short) = 1:1 ratio of tall to short.'
+  },
+  {
+    difficulty: 'Medium',
+    question: 'Fossils are evidence for evolution because:',
+    options: ['They show living organisms', 'They show extinct organisms and transitional forms', 'They tell us the future', 'They are living organisms'],
+    correct: 1,
+    explanation: 'Fossils show organisms that no longer exist and transitional forms linking different groups, providing direct evidence of evolutionary changes.'
+  },
+  {
+    difficulty: 'Medium',
+    question: 'Homologous organs suggest:',
+    options: ['Convergent evolution', 'Common ancestry (divergent evolution)', 'Similar environment', 'Similar function'],
+    correct: 1,
+    explanation: 'Homologous organs have the same structure but different functions, indicating they evolved from a common ancestor (divergent evolution).'
+  },
+  {
+    difficulty: 'Medium',
+    question: 'If a father has blood group AB and mother is OO, children can have:',
+    options: ['Only O', 'A or B only', 'AB only', 'A, B, or AB'],
+    correct: 1,
+    explanation: 'Father AB gives either A or B allele. Mother OO gives O allele. Children get AO (blood group A) or BO (blood group B).'
+  },
+  {
+    difficulty: 'Hard',
+    question: 'In a dihybrid cross (RRYY \u00d7 rryy), the F2 phenotype ratio is:',
+    options: ['9:3:3:1', '1:1:1:1', '3:1', '1:2:1'],
+    correct: 0,
+    explanation: 'The dihybrid cross gives 9 Round Yellow : 3 Round Green : 3 Wrinkled Yellow : 1 Wrinkled Green in F2.'
+  },
+  {
+    difficulty: 'Hard',
+    question: 'Genetic drift is:',
+    options: ['Mutation by chemicals', 'Random change in allele frequency in small isolated populations', 'Gene flow between populations', 'Directed natural selection'],
+    correct: 1,
+    explanation: 'Genetic drift is the random fluctuation in allele frequencies that occurs in small, isolated populations, unrelated to natural selection.'
+  }
+];
+
+var quizState = {
+  current: 0,
+  answers: new Array(quizQuestions.length).fill(-1),
+  locked: new Array(quizQuestions.length).fill(false),
+  score: 0,
+  finished: false
+};
+
+function initQuiz() {
+  renderQuizProgress();
+  renderQuizQuestion();
+  renderQuizNav();
+}
+
+function renderQuizProgress() {
+  var html = '';
+  for (var i = 0; i < quizQuestions.length; i++) {
+    var cls = 'quiz-dot';
+    if (i === quizState.current) cls += ' active';
+    if (quizState.locked[i]) {
+      cls += quizState.answers[i] === quizQuestions[i].correct ? ' answered' : ' wrong-dot';
+    }
+    html += '<div class="' + cls + '" onclick="goToQuestion(' + i + ')"></div>';
+  }
+  document.getElementById('quizProgress').innerHTML = html;
+}
+
+function renderQuizQuestion() {
+  if (quizState.finished) {
+    renderQuizScore();
+    return;
+  }
+  var q = quizQuestions[quizState.current];
+  var diffClass = q.difficulty === 'Easy' ? 'q-easy' : (q.difficulty === 'Medium' ? 'q-medium' : 'q-hard');
+  var html = '<span class="q-num ' + diffClass + '">' + q.difficulty + ' &bull; Q' + (quizState.current + 1) + '/' + quizQuestions.length + '</span>';
+  html += '<h4>' + q.question + '</h4>';
+  html += '<div class="quiz-options">';
+  var labels = ['A', 'B', 'C', 'D'];
+  for (var i = 0; i < q.options.length; i++) {
+    var cls = 'quiz-opt';
+    var disabled = '';
+    if (quizState.locked[quizState.current]) {
+      disabled = 'disabled';
+      if (i === q.correct) cls += ' q-correct';
+      else if (i === quizState.answers[quizState.current] && i !== q.correct) cls += ' q-wrong';
+    } else if (quizState.answers[quizState.current] === i) {
+      cls += ' selected';
+    }
+    html += '<button class="' + cls + '" ' + disabled + ' onclick="selectQuizAnswer(' + i + ')">' + labels[i] + ') ' + q.options[i] + '</button>';
+  }
+  html += '</div>';
+  html += '<div class="quiz-feedback" id="quizFeedback">';
+  if (quizState.locked[quizState.current]) {
+    var isCorrect = quizState.answers[quizState.current] === q.correct;
+    html += '<span style="color:' + (isCorrect ? '#27ae60' : '#e63946') + ';">';
+    html += isCorrect ? 'Correct! ' : 'Incorrect. ';
+    html += q.explanation + '</span>';
+  }
+  html += '</div>';
+  document.getElementById('quizQuestion').innerHTML = html;
+}
+
+function renderQuizNav() {
+  var html = '';
+  if (quizState.finished) {
+    html = '<button class="quiz-nav-btn" onclick="retryQuiz()">Retry Quiz</button>';
+  } else {
+    if (quizState.current > 0) html += '<button class="quiz-nav-btn outline" onclick="prevQuestion()">&larr; Previous</button>';
+    if (!quizState.locked[quizState.current] && quizState.answers[quizState.current] >= 0) {
+      html += '<button class="quiz-nav-btn" onclick="submitAnswer()">Submit</button>';
+    }
+    if (quizState.locked[quizState.current]) {
+      if (quizState.current < quizQuestions.length - 1) {
+        html += '<button class="quiz-nav-btn" onclick="nextQuestion()">Next &rarr;</button>';
+      } else {
+        html += '<button class="quiz-nav-btn" onclick="finishQuiz()">See Score</button>';
+      }
+    }
+  }
+  document.getElementById('quizNav').innerHTML = html;
+}
+
+function selectQuizAnswer(idx) {
+  if (quizState.locked[quizState.current]) return;
+  quizState.answers[quizState.current] = idx;
+  renderQuizQuestion();
+  renderQuizNav();
+}
+
+function submitAnswer() {
+  quizState.locked[quizState.current] = true;
+  if (quizState.answers[quizState.current] === quizQuestions[quizState.current].correct) {
+    quizState.score++;
+  }
+  renderQuizProgress();
+  renderQuizQuestion();
+  renderQuizNav();
+}
+
+function nextQuestion() {
+  if (quizState.current < quizQuestions.length - 1) {
+    quizState.current++;
+    renderQuizProgress();
+    renderQuizQuestion();
+    renderQuizNav();
+  }
+}
+
+function prevQuestion() {
+  if (quizState.current > 0) {
+    quizState.current--;
+    renderQuizProgress();
+    renderQuizQuestion();
+    renderQuizNav();
+  }
+}
+
+function goToQuestion(idx) {
+  quizState.current = idx;
+  renderQuizProgress();
+  renderQuizQuestion();
+  renderQuizNav();
+}
+
+function finishQuiz() {
+  quizState.finished = true;
+  renderQuizProgress();
+  renderQuizQuestion();
+  renderQuizNav();
+}
+
+function renderQuizScore() {
+  var pct = Math.round((quizState.score / quizQuestions.length) * 100);
+  var msg = pct >= 80 ? 'Excellent work!' : (pct >= 50 ? 'Good effort! Review the topics you missed.' : 'Keep studying! Review the chapter and try again.');
+  var html = '<div class="quiz-score">';
+  html += '<h3>Quiz Complete!</h3>';
+  html += '<div class="score-num">' + quizState.score + '/' + quizQuestions.length + '</div>';
+  html += '<p>' + pct + '% &mdash; ' + msg + '</p>';
+  html += '</div>';
+  document.getElementById('quizQuestion').innerHTML = html;
+}
+
+function retryQuiz() {
+  quizState.current = 0;
+  quizState.answers = new Array(quizQuestions.length).fill(-1);
+  quizState.locked = new Array(quizQuestions.length).fill(false);
+  quizState.score = 0;
+  quizState.finished = false;
+  renderQuizProgress();
+  renderQuizQuestion();
+  renderQuizNav();
+}
+
+initQuiz();
+</script>
+</body>
+</html>

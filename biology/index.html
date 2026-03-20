@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biology — Class 10 NCERT</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#fdfaf5;--card:#ffffff;--text:#2b2b2b;--muted:#6b6b6b;
+    --green:#2d6a4f;--purple:#7b2d8b;--violet:#c77dff;--blue:#457b9d;
+  }
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);
+    overflow-x:hidden;line-height:1.6;
+  }
+  h1,h2,h3,h4{font-family:'Lora',serif}
+
+  /* ---------- floating background ---------- */
+  .bg-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0}
+
+  /* ---------- header ---------- */
+  header{
+    position:relative;z-index:2;text-align:center;
+    padding:2.5rem 1rem 1rem;
+  }
+  header h1{
+    font-size:clamp(1.8rem,4vw,2.8rem);color:var(--green);
+    letter-spacing:.5px;
+  }
+  header p{font-size:1.05rem;color:var(--muted);margin-top:.35rem}
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;z-index:2;display:flex;justify-content:center;
+    align-items:center;padding:1rem 1rem 2rem;
+  }
+  .hero svg{width:min(420px,90vw);height:auto}
+
+  /* DNA helix animation */
+  @keyframes helixSpin{0%{transform:rotateY(0)}100%{transform:rotateY(360deg)}}
+  @keyframes floatA{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(12px,-18px) scale(1.08)}}
+  @keyframes floatB{0%,100%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(-14px,14px) rotate(15deg)}}
+  @keyframes floatC{0%,100%{transform:translate(0,0)}50%{transform:translate(8px,12px)}}
+  @keyframes pulse{0%,100%{opacity:.7;r:6}50%{opacity:1;r:8}}
+  .helix-group{animation:helixSpin 8s linear infinite;transform-origin:center}
+  .leaf-float{animation:floatA 6s ease-in-out infinite}
+  .cell-float-1{animation:floatB 7s ease-in-out infinite}
+  .cell-float-2{animation:floatC 5s ease-in-out infinite}
+  .cell-pulse circle.nucleus{animation:pulse 3s ease-in-out infinite}
+
+  /* ---------- cards grid ---------- */
+  .cards{
+    position:relative;z-index:2;
+    display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;
+    max-width:960px;margin:0 auto 3rem;padding:0 1.5rem;
+  }
+  @media(max-width:680px){.cards{grid-template-columns:1fr;max-width:440px}}
+
+  .card{
+    background:var(--card);border-radius:18px;overflow:hidden;
+    box-shadow:0 4px 24px rgba(0,0,0,.06);
+    display:flex;flex-direction:column;
+    text-decoration:none;color:inherit;
+    transform:translateY(60px);opacity:0;
+    transition:transform .65s cubic-bezier(.22,1,.36,1),opacity .65s ease,box-shadow .3s;
+    cursor:pointer;
+  }
+  .card.visible{transform:translateY(0);opacity:1}
+  .card:hover{box-shadow:0 12px 40px rgba(0,0,0,.12);transform:translateY(-6px)}
+  .card.visible:hover{transform:translateY(-6px)}
+
+  .card-accent{height:6px;width:100%}
+  .card-body{padding:1.6rem 1.5rem 1.4rem;flex:1;display:flex;flex-direction:column;gap:.6rem}
+
+  .card-top{display:flex;align-items:center;gap:.85rem}
+  .card-badge{
+    font-family:'Lora',serif;font-weight:700;font-size:.82rem;
+    color:#fff;border-radius:10px;padding:.3rem .65rem;
+    flex-shrink:0;letter-spacing:.3px;
+  }
+  .card-icon svg{width:44px;height:44px;flex-shrink:0}
+
+  .card h3{font-size:1.18rem;font-weight:700;line-height:1.3}
+  .card .desc{font-size:.92rem;color:var(--muted);line-height:1.55;flex:1}
+  .card .link-hint{
+    font-size:.82rem;font-weight:700;letter-spacing:.4px;
+    margin-top:.4rem;display:flex;align-items:center;gap:.3rem;
+  }
+  .card .link-hint span{transition:transform .3s}
+  .card:hover .link-hint span{transform:translateX(4px)}
+
+  /* ---------- footer ---------- */
+  footer{
+    position:relative;z-index:2;text-align:center;
+    padding:2rem 1rem 2.5rem;color:var(--muted);font-size:.85rem;
+    border-top:1px solid #e8e2d9;max-width:700px;margin:0 auto;
+  }
+  footer a{color:var(--green);text-decoration:none;font-weight:600}
+  footer a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+<!-- ============ FLOATING BACKGROUND ============ -->
+<svg class="bg-canvas" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs>
+    <radialGradient id="cellG" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#2d6a4f" stop-opacity=".12"/><stop offset="100%" stop-color="#2d6a4f" stop-opacity="0"/></radialGradient>
+    <radialGradient id="cellP" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#7b2d8b" stop-opacity=".10"/><stop offset="100%" stop-color="#7b2d8b" stop-opacity="0"/></radialGradient>
+  </defs>
+  <!-- JS will populate floating shapes here -->
+</svg>
+
+<!-- ============ HEADER ============ -->
+<header>
+  <h1>Biology &mdash; Class 10 NCERT</h1>
+  <p>Explore the science of life, one chapter at a time</p>
+</header>
+
+<!-- ============ HERO SVG ============ -->
+<section class="hero">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 340" aria-label="Biology hero illustration">
+    <defs>
+      <linearGradient id="dnaA" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2d6a4f"/><stop offset="100%" stop-color="#457b9d"/></linearGradient>
+      <linearGradient id="dnaB" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7b2d8b"/><stop offset="100%" stop-color="#c77dff"/></linearGradient>
+      <linearGradient id="leafG" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#52b788"/><stop offset="100%" stop-color="#2d6a4f"/></linearGradient>
+    </defs>
+
+    <!-- DNA Double Helix -->
+    <g class="helix-group" style="transform-origin:250px 170px">
+      <!-- strand A -->
+      <path d="M210 30 Q250 80 210 120 Q170 160 210 200 Q250 240 210 280 Q170 320 210 340" fill="none" stroke="url(#dnaA)" stroke-width="4" stroke-linecap="round"/>
+      <!-- strand B -->
+      <path d="M290 30 Q250 80 290 120 Q330 160 290 200 Q250 240 290 280 Q330 320 290 340" fill="none" stroke="url(#dnaB)" stroke-width="4" stroke-linecap="round"/>
+      <!-- rungs -->
+      <line x1="218" y1="55" x2="282" y2="55" stroke="#a7c4a0" stroke-width="2.5" opacity=".6"/>
+      <line x1="195" y1="90" x2="305" y2="90" stroke="#d4a5d8" stroke-width="2.5" opacity=".6"/>
+      <line x1="210" y1="120" x2="290" y2="120" stroke="#a7c4a0" stroke-width="2.5" opacity=".6"/>
+      <line x1="195" y1="150" x2="305" y2="150" stroke="#d4a5d8" stroke-width="2.5" opacity=".6"/>
+      <line x1="218" y1="180" x2="282" y2="180" stroke="#a7c4a0" stroke-width="2.5" opacity=".6"/>
+      <line x1="195" y1="210" x2="305" y2="210" stroke="#d4a5d8" stroke-width="2.5" opacity=".6"/>
+      <line x1="210" y1="240" x2="290" y2="240" stroke="#a7c4a0" stroke-width="2.5" opacity=".6"/>
+      <line x1="195" y1="270" x2="305" y2="270" stroke="#d4a5d8" stroke-width="2.5" opacity=".6"/>
+      <line x1="218" y1="300" x2="282" y2="300" stroke="#a7c4a0" stroke-width="2.5" opacity=".6"/>
+      <!-- base pair dots -->
+      <circle cx="218" cy="55" r="4" fill="#2d6a4f"/><circle cx="282" cy="55" r="4" fill="#7b2d8b"/>
+      <circle cx="195" cy="90" r="4" fill="#2d6a4f"/><circle cx="305" cy="90" r="4" fill="#7b2d8b"/>
+      <circle cx="210" cy="120" r="4" fill="#2d6a4f"/><circle cx="290" cy="120" r="4" fill="#7b2d8b"/>
+      <circle cx="195" cy="150" r="4" fill="#2d6a4f"/><circle cx="305" cy="150" r="4" fill="#7b2d8b"/>
+      <circle cx="218" cy="180" r="4" fill="#2d6a4f"/><circle cx="282" cy="180" r="4" fill="#7b2d8b"/>
+      <circle cx="195" cy="210" r="4" fill="#2d6a4f"/><circle cx="305" cy="210" r="4" fill="#7b2d8b"/>
+      <circle cx="210" cy="240" r="4" fill="#2d6a4f"/><circle cx="290" cy="240" r="4" fill="#7b2d8b"/>
+      <circle cx="195" cy="270" r="4" fill="#2d6a4f"/><circle cx="305" cy="270" r="4" fill="#7b2d8b"/>
+      <circle cx="218" cy="300" r="4" fill="#2d6a4f"/><circle cx="282" cy="300" r="4" fill="#7b2d8b"/>
+    </g>
+
+    <!-- Floating Leaf 1 -->
+    <g class="leaf-float" transform="translate(60,60)">
+      <path d="M0 40 Q20 0 40 10 Q60 20 50 50 Q40 70 20 60 Q0 55 0 40Z" fill="url(#leafG)" opacity=".85"/>
+      <path d="M8 42 Q25 28 42 18" fill="none" stroke="#1b4332" stroke-width="1.2" opacity=".5"/>
+      <path d="M14 50 Q25 38 36 28" fill="none" stroke="#1b4332" stroke-width=".8" opacity=".35"/>
+    </g>
+
+    <!-- Floating Leaf 2 -->
+    <g class="leaf-float" transform="translate(390,230)" style="animation-delay:-2s">
+      <path d="M0 30 Q15 0 35 8 Q50 16 42 40 Q34 56 16 48 Q0 42 0 30Z" fill="url(#leafG)" opacity=".7" transform="rotate(30,25,28)"/>
+      <path d="M6 32 Q20 20 36 14" fill="none" stroke="#1b4332" stroke-width="1" opacity=".4" transform="rotate(30,25,28)"/>
+    </g>
+
+    <!-- Floating Cell 1 -->
+    <g class="cell-float-1 cell-pulse" transform="translate(80,220)">
+      <ellipse cx="30" cy="30" rx="30" ry="26" fill="#c77dff" opacity=".18" stroke="#7b2d8b" stroke-width="1.5" opacity=".4"/>
+      <circle class="nucleus" cx="30" cy="30" r="8" fill="#7b2d8b" opacity=".3"/>
+      <circle cx="20" cy="22" r="3" fill="#7b2d8b" opacity=".15"/>
+      <circle cx="40" cy="36" r="2.5" fill="#7b2d8b" opacity=".15"/>
+    </g>
+
+    <!-- Floating Cell 2 -->
+    <g class="cell-float-2 cell-pulse" transform="translate(380,60)">
+      <ellipse cx="28" cy="28" rx="28" ry="24" fill="#457b9d" opacity=".15" stroke="#457b9d" stroke-width="1.3" opacity=".35"/>
+      <circle class="nucleus" cx="28" cy="28" r="7" fill="#457b9d" opacity=".25"/>
+      <circle cx="18" cy="20" r="2.5" fill="#457b9d" opacity=".12"/>
+      <circle cx="36" cy="34" r="2" fill="#457b9d" opacity=".12"/>
+    </g>
+
+    <!-- Small decorative circles -->
+    <circle cx="140" cy="170" r="5" fill="#2d6a4f" opacity=".15">
+      <animate attributeName="cy" values="170;158;170" dur="4s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="370" cy="160" r="4" fill="#c77dff" opacity=".2">
+      <animate attributeName="cy" values="160;172;160" dur="5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="430" cy="300" r="3.5" fill="#2d6a4f" opacity=".18">
+      <animate attributeName="cx" values="430;440;430" dur="6s" repeatCount="indefinite"/>
+    </circle>
+  </svg>
+</section>
+
+<!-- ============ CHAPTER CARDS ============ -->
+<section class="cards">
+
+  <!-- Card 1 — Life Processes -->
+  <a href="ch05-life-processes.html" class="card" data-delay="0">
+    <div class="card-accent" style="background:var(--green)"></div>
+    <div class="card-body">
+      <div class="card-top">
+        <span class="card-badge" style="background:var(--green)">Ch 05</span>
+        <span class="card-icon">
+          <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22 38 C22 38 10 28 10 18 Q10 6 22 6 Q34 6 34 18 C34 28 22 38 22 38Z" fill="#b7e4c7" stroke="#2d6a4f" stroke-width="2"/>
+            <path d="M22 12 L22 32" stroke="#2d6a4f" stroke-width="1.8"/>
+            <path d="M22 18 Q16 14 14 18" stroke="#2d6a4f" stroke-width="1.4" fill="none"/>
+            <path d="M22 23 Q28 19 30 23" stroke="#2d6a4f" stroke-width="1.4" fill="none"/>
+            <path d="M22 28 Q17 25 15 28" stroke="#2d6a4f" stroke-width="1.4" fill="none"/>
+          </svg>
+        </span>
+      </div>
+      <h3>Life Processes</h3>
+      <p class="desc">Nutrition, respiration, transportation &amp; excretion in living organisms</p>
+      <div class="link-hint" style="color:var(--green)">Explore chapter <span>&rarr;</span></div>
+    </div>
+  </a>
+
+  <!-- Card 2 — Control & Coordination -->
+  <a href="ch06-control-coordination.html" class="card" data-delay="1">
+    <div class="card-accent" style="background:var(--purple)"></div>
+    <div class="card-body">
+      <div class="card-top">
+        <span class="card-badge" style="background:var(--purple)">Ch 06</span>
+        <span class="card-icon">
+          <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- brain / neuron icon -->
+            <circle cx="22" cy="20" r="10" fill="#e0c3fc" stroke="#7b2d8b" stroke-width="2"/>
+            <path d="M16 18 Q18 14 22 14 Q26 14 28 18" stroke="#7b2d8b" stroke-width="1.4" fill="none"/>
+            <path d="M16 22 Q18 26 22 26 Q26 26 28 22" stroke="#7b2d8b" stroke-width="1.4" fill="none"/>
+            <line x1="22" y1="30" x2="22" y2="38" stroke="#7b2d8b" stroke-width="1.8"/>
+            <line x1="22" y1="34" x2="16" y2="38" stroke="#7b2d8b" stroke-width="1.4"/>
+            <line x1="22" y1="34" x2="28" y2="38" stroke="#7b2d8b" stroke-width="1.4"/>
+            <!-- synaptic dots -->
+            <circle cx="14" cy="14" r="2" fill="#7b2d8b" opacity=".4"/>
+            <circle cx="30" cy="14" r="2" fill="#7b2d8b" opacity=".4"/>
+            <circle cx="11" cy="22" r="1.5" fill="#7b2d8b" opacity=".3"/>
+            <circle cx="33" cy="22" r="1.5" fill="#7b2d8b" opacity=".3"/>
+          </svg>
+        </span>
+      </div>
+      <h3>Control &amp; Coordination</h3>
+      <p class="desc">Nervous system, hormones &amp; plant responses</p>
+      <div class="link-hint" style="color:var(--purple)">Explore chapter <span>&rarr;</span></div>
+    </div>
+  </a>
+
+  <!-- Card 3 — Reproduction -->
+  <a href="ch07-reproduction.html" class="card" data-delay="2">
+    <div class="card-accent" style="background:var(--violet)"></div>
+    <div class="card-body">
+      <div class="card-top">
+        <span class="card-badge" style="background:var(--violet)">Ch 07</span>
+        <span class="card-icon">
+          <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- cell dividing -->
+            <ellipse cx="16" cy="22" rx="11" ry="13" fill="#f0dbff" stroke="#c77dff" stroke-width="2"/>
+            <ellipse cx="28" cy="22" rx="11" ry="13" fill="#f0dbff" stroke="#c77dff" stroke-width="2"/>
+            <circle cx="14" cy="22" r="4" fill="#c77dff" opacity=".4"/>
+            <circle cx="30" cy="22" r="4" fill="#c77dff" opacity=".4"/>
+            <!-- division line -->
+            <line x1="22" y1="10" x2="22" y2="34" stroke="#7b2d8b" stroke-width="1.2" stroke-dasharray="2 2" opacity=".5"/>
+          </svg>
+        </span>
+      </div>
+      <h3>How Do Organisms Reproduce?</h3>
+      <p class="desc">Asexual &amp; sexual reproduction in plants and animals</p>
+      <div class="link-hint" style="color:var(--violet)">Explore chapter <span>&rarr;</span></div>
+    </div>
+  </a>
+
+  <!-- Card 4 — Heredity & Evolution -->
+  <a href="ch08-heredity.html" class="card" data-delay="3">
+    <div class="card-accent" style="background:var(--blue)"></div>
+    <div class="card-body">
+      <div class="card-top">
+        <span class="card-badge" style="background:var(--blue)">Ch 08</span>
+        <span class="card-icon">
+          <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- DNA icon -->
+            <path d="M14 6 Q22 14 14 22 Q6 30 14 38" stroke="#457b9d" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+            <path d="M30 6 Q22 14 30 22 Q38 30 30 38" stroke="#457b9d" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+            <line x1="16" y1="10" x2="28" y2="10" stroke="#a8dadc" stroke-width="1.8"/>
+            <line x1="10" y1="16" x2="34" y2="16" stroke="#a8dadc" stroke-width="1.8"/>
+            <line x1="14" y1="22" x2="30" y2="22" stroke="#a8dadc" stroke-width="1.8"/>
+            <line x1="10" y1="28" x2="34" y2="28" stroke="#a8dadc" stroke-width="1.8"/>
+            <line x1="16" y1="34" x2="28" y2="34" stroke="#a8dadc" stroke-width="1.8"/>
+            <circle cx="16" cy="10" r="2.5" fill="#457b9d"/><circle cx="28" cy="10" r="2.5" fill="#1d3557"/>
+            <circle cx="10" cy="16" r="2.5" fill="#457b9d"/><circle cx="34" cy="16" r="2.5" fill="#1d3557"/>
+            <circle cx="14" cy="22" r="2.5" fill="#457b9d"/><circle cx="30" cy="22" r="2.5" fill="#1d3557"/>
+            <circle cx="10" cy="28" r="2.5" fill="#457b9d"/><circle cx="34" cy="28" r="2.5" fill="#1d3557"/>
+            <circle cx="16" cy="34" r="2.5" fill="#457b9d"/><circle cx="28" cy="34" r="2.5" fill="#1d3557"/>
+          </svg>
+        </span>
+      </div>
+      <h3>Heredity &amp; Evolution</h3>
+      <p class="desc">Mendel's laws, genetics, sex determination &amp; evolution</p>
+      <div class="link-hint" style="color:var(--blue)">Explore chapter <span>&rarr;</span></div>
+    </div>
+  </a>
+
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <p>Biology &mdash; Class 10 NCERT &bull; Built with care for curious minds</p>
+  <p style="margin-top:.35rem">Content based on NCERT Science textbook &bull; <a href="../index.html">Back to all subjects</a></p>
+</footer>
+
+<!-- ============ JAVASCRIPT ============ -->
+<script>
+(function(){
+  /* ---- Floating background particles ---- */
+  const canvas = document.querySelector('.bg-canvas');
+  const ns = 'http://www.w3.org/2000/svg';
+  const shapes = [];
+  const palette = [
+    {fill:'#2d6a4f',op:.07},{fill:'#7b2d8b',op:.06},
+    {fill:'#c77dff',op:.06},{fill:'#457b9d',op:.06},
+    {fill:'#52b788',op:.07}
+  ];
+
+  function rand(a,b){return Math.random()*(b-a)+a}
+
+  for(let i=0;i<18;i++){
+    const c = palette[i%palette.length];
+    const isLeaf = i%3===0;
+    let el;
+    if(isLeaf){
+      el = document.createElementNS(ns,'path');
+      const s = rand(18,36);
+      el.setAttribute('d',`M0 ${s*.6} Q${s*.3} 0 ${s*.6} ${s*.15} Q${s} ${s*.3} ${s*.8} ${s*.7} Q${s*.6} ${s} ${s*.3} ${s*.85} Q0 ${s*.75} 0 ${s*.6}Z`);
+      el.setAttribute('fill',c.fill);
+      el.setAttribute('opacity',c.op);
+    } else {
+      el = document.createElementNS(ns,'circle');
+      el.setAttribute('r',rand(8,22));
+      el.setAttribute('fill',c.fill);
+      el.setAttribute('opacity',c.op);
+    }
+    const x = rand(0,window.innerWidth);
+    const y = rand(0,window.innerHeight);
+    el.setAttribute('transform',`translate(${x},${y})`);
+    canvas.appendChild(el);
+    shapes.push({
+      el, x, y,
+      vx:rand(-.15,.15), vy:rand(-.1,.1),
+      rot:0, vr:rand(-.3,.3)
+    });
+  }
+
+  function animateBG(){
+    const w=window.innerWidth, h=window.innerHeight;
+    for(const s of shapes){
+      s.x+=s.vx; s.y+=s.vy; s.rot+=s.vr;
+      if(s.x<-60)s.x=w+60; if(s.x>w+60)s.x=-60;
+      if(s.y<-60)s.y=h+60; if(s.y>h+60)s.y=-60;
+      s.el.setAttribute('transform',`translate(${s.x.toFixed(1)},${s.y.toFixed(1)}) rotate(${s.rot.toFixed(1)})`);
+    }
+    requestAnimationFrame(animateBG);
+  }
+  animateBG();
+
+  /* ---- Scroll-reveal cards ---- */
+  const cards = document.querySelectorAll('.card');
+  const observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        const delay = parseInt(entry.target.dataset.delay)||0;
+        setTimeout(function(){entry.target.classList.add('visible')}, delay*120);
+        observer.unobserve(entry.target);
+      }
+    });
+  },{threshold:0.15});
+  cards.forEach(function(c){observer.observe(c)});
+})();
+</script>
+</body>
+</html>

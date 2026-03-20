@@ -1,0 +1,2142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 7: How Do Organisms Reproduce? | Class 10 NCERT Biology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ========== RESET & BASE ========== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+body {
+  font-family: 'Nunito', sans-serif;
+  background: #fdfaf5;
+  color: #1a1612;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+h1, h2, h3, h4, h5 { font-family: 'Lora', serif; line-height: 1.3; }
+code, .formula { font-family: 'JetBrains Mono', monospace; }
+a { color: #c77dff; text-decoration: none; transition: color .2s; }
+a:hover { color: #a855f7; }
+img, svg { max-width: 100%; }
+button { cursor: pointer; font-family: 'Nunito', sans-serif; }
+
+/* ========== READING PROGRESS BAR ========== */
+#progress-bar {
+  position: fixed; top: 0; left: 0; height: 4px; width: 0%;
+  background: linear-gradient(90deg, #c77dff, #48cae4);
+  z-index: 10000; transition: width .1s linear;
+}
+
+/* ========== STICKY NAV ========== */
+.sticky-nav {
+  position: sticky; top: 0; z-index: 9999;
+  background: rgba(253,250,245,.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(107,99,85,.12);
+  padding: 0 1rem;
+}
+.nav-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; align-items: center; gap: 1rem;
+  height: 56px; overflow-x: auto;
+}
+.nav-inner::-webkit-scrollbar { height: 0; }
+.nav-brand {
+  font-family: 'Lora', serif; font-weight: 700; font-size: .95rem;
+  white-space: nowrap; color: #c77dff;
+}
+.nav-links { display: flex; gap: .25rem; list-style: none; }
+.nav-links a {
+  display: block; padding: .35rem .65rem; border-radius: 8px;
+  font-size: .82rem; font-weight: 600; white-space: nowrap;
+  color: #6b6355; transition: all .2s;
+}
+.nav-links a:hover, .nav-links a.active {
+  background: #c77dff22; color: #c77dff;
+}
+
+/* ========== HERO ========== */
+.hero {
+  min-height: 92vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center;
+  padding: 2rem 1.5rem 3rem; position: relative;
+}
+.hero-badge {
+  display: inline-block; padding: .3rem 1rem; border-radius: 50px;
+  background: #c77dff18; color: #c77dff; font-weight: 700;
+  font-size: .85rem; margin-bottom: 1rem; letter-spacing: .5px;
+}
+.hero h1 {
+  font-size: clamp(2.2rem, 5.5vw, 3.6rem); font-weight: 700;
+  margin-bottom: .5rem;
+  background: linear-gradient(135deg, #c77dff 0%, #48cae4 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero p { font-size: 1.15rem; color: #6b6355; max-width: 540px; margin: .5rem auto 2rem; }
+.hero-svg-wrap { width: 260px; height: 160px; margin: 1rem auto 2rem; }
+.scroll-indicator {
+  position: absolute; bottom: 2rem;
+  animation: bobble 2s ease-in-out infinite;
+}
+.scroll-indicator svg { width: 28px; height: 28px; stroke: #6b6355; }
+@keyframes bobble { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
+
+/* ========== SECTION / CARD UTILITIES ========== */
+.container { max-width: 900px; margin: 0 auto; padding: 0 1.25rem; }
+.section { padding: 4rem 0; }
+.section-label {
+  display: inline-block; padding: .25rem .85rem; border-radius: 50px;
+  font-size: .78rem; font-weight: 700; letter-spacing: .6px; text-transform: uppercase;
+  margin-bottom: .75rem;
+}
+.label-violet { background: #c77dff18; color: #c77dff; }
+.label-cyan { background: #48cae418; color: #0096c7; }
+.section-title { font-size: 1.8rem; margin-bottom: .5rem; }
+.section-subtitle { color: #6b6355; font-size: 1.05rem; margin-bottom: 2rem; }
+.card {
+  background: #fff; border-radius: 16px; padding: 2rem;
+  box-shadow: 0 2px 16px rgba(26,22,18,.06);
+  margin-bottom: 1.5rem;
+  opacity: 0; transform: translateY(30px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.card.visible { opacity: 1; transform: translateY(0); }
+.card h3 { font-size: 1.25rem; margin-bottom: .75rem; }
+.card h4 { font-size: 1.05rem; margin-bottom: .5rem; color: #c77dff; }
+.card ul, .card ol { padding-left: 1.4rem; margin-bottom: 1rem; }
+.card li { margin-bottom: .4rem; }
+.highlight-box {
+  background: #f4f0e8; border-left: 4px solid #c77dff;
+  border-radius: 0 10px 10px 0; padding: 1rem 1.25rem; margin: 1rem 0;
+}
+.highlight-box.cyan { border-left-color: #48cae4; }
+.formula-box {
+  background: #f4f0e8; padding: .75rem 1.25rem; border-radius: 10px;
+  font-family: 'JetBrains Mono', monospace; font-size: .92rem;
+  margin: 1rem 0; overflow-x: auto;
+}
+
+/* Fun fact */
+.fun-fact {
+  background: linear-gradient(135deg, #c77dff12, #48cae412);
+  border-radius: 12px; padding: 1rem 1.25rem; margin: 1.25rem 0;
+  display: flex; gap: .75rem; align-items: flex-start;
+}
+.fun-fact-icon {
+  flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%;
+  background: #c77dff22; display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+}
+.fun-fact p { font-size: .93rem; }
+
+/* Mini quiz */
+.mini-quiz {
+  background: #fff; border: 2px solid #c77dff30; border-radius: 14px;
+  padding: 1.5rem; margin: 1.5rem 0;
+}
+.mini-quiz h4 { color: #c77dff; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: .75rem; }
+.mini-quiz .mq-options { display: flex; flex-direction: column; gap: .5rem; }
+.mini-quiz .mq-opt {
+  padding: .6rem 1rem; border-radius: 10px; border: 2px solid #e8e4dc;
+  background: #fdfaf5; font-size: .92rem; text-align: left;
+  transition: all .2s; font-weight: 500;
+}
+.mini-quiz .mq-opt:hover:not(.chosen) { border-color: #c77dff; background: #c77dff08; }
+.mini-quiz .mq-opt.correct { border-color: #38b000; background: #38b00012; color: #2d6a00; }
+.mini-quiz .mq-opt.wrong { border-color: #e5383b; background: #e5383b12; color: #a4161a; }
+.mini-quiz .mq-explanation {
+  margin-top: .75rem; padding: .75rem 1rem; border-radius: 8px;
+  font-size: .88rem; display: none;
+}
+.mini-quiz .mq-explanation.show { display: block; background: #f4f0e8; }
+
+/* ========== INTERACTIVE FLOWER ========== */
+.flower-diagram { text-align: center; margin: 2rem 0; }
+.flower-diagram svg { max-width: 420px; cursor: pointer; }
+.flower-popup {
+  position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  background: #fff; border-radius: 16px; padding: 1.5rem 2rem;
+  box-shadow: 0 8px 40px rgba(0,0,0,.18); z-index: 10001;
+  max-width: 340px; width: 90%; display: none; text-align: left;
+}
+.flower-popup.show { display: block; }
+.flower-popup h4 { color: #c77dff; margin-bottom: .4rem; }
+.flower-popup-close {
+  position: absolute; top: .75rem; right: 1rem;
+  background: none; border: none; font-size: 1.3rem; color: #6b6355;
+}
+.flower-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,.25);
+  z-index: 10000; display: none;
+}
+.flower-overlay.show { display: block; }
+
+/* ========== MATCHING GAME ========== */
+.match-game { margin: 2rem 0; }
+.match-columns {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+.match-col h4 { text-align: center; margin-bottom: .75rem; font-size: .95rem; color: #6b6355; }
+.match-item {
+  padding: .6rem 1rem; margin-bottom: .5rem; border-radius: 10px;
+  border: 2px solid #e8e4dc; background: #fdfaf5;
+  text-align: center; font-size: .9rem; font-weight: 600;
+  cursor: pointer; transition: all .2s; user-select: none;
+}
+.match-item:hover { border-color: #c77dff; }
+.match-item.selected { border-color: #c77dff; background: #c77dff15; }
+.match-item.matched-correct { border-color: #38b000; background: #38b00012; color: #2d6a00; cursor: default; }
+.match-item.matched-wrong { border-color: #e5383b; background: #e5383b12; animation: shake .4s; }
+@keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+.match-score { text-align: center; font-weight: 700; margin: 1rem 0; font-size: 1.05rem; }
+.match-reset {
+  display: block; margin: .75rem auto; padding: .5rem 1.5rem;
+  border-radius: 10px; border: 2px solid #c77dff;
+  background: transparent; color: #c77dff; font-weight: 700;
+  transition: all .2s;
+}
+.match-reset:hover { background: #c77dff; color: #fff; }
+
+/* ========== FLASHCARDS ========== */
+.flashcard-deck { perspective: 1200px; margin: 2rem auto; max-width: 520px; }
+.flashcard-container { position: relative; width: 100%; height: 300px; }
+.flashcard {
+  position: absolute; inset: 0; border-radius: 18px;
+  transform-style: preserve-3d; transition: transform .6s ease;
+  cursor: pointer;
+}
+.flashcard.flipped { transform: rotateY(180deg); }
+.flashcard-face {
+  position: absolute; inset: 0; border-radius: 18px;
+  backface-visibility: hidden; display: flex;
+  flex-direction: column; align-items: center; justify-content: center;
+  padding: 2rem; text-align: center;
+}
+.flashcard-front {
+  background: linear-gradient(135deg, #c77dff, #a855f7);
+  color: #fff;
+}
+.flashcard-front .fc-label { font-size: .8rem; opacity: .8; margin-bottom: .5rem; text-transform: uppercase; letter-spacing: 1px; }
+.flashcard-front .fc-question { font-size: 1.1rem; font-weight: 600; line-height: 1.5; }
+.flashcard-back {
+  background: #fff; border: 2px solid #c77dff30;
+  color: #1a1612; transform: rotateY(180deg);
+}
+.flashcard-back .fc-label { font-size: .8rem; color: #c77dff; margin-bottom: .5rem; text-transform: uppercase; letter-spacing: 1px; }
+.flashcard-back .fc-answer { font-size: 1rem; line-height: 1.6; }
+.fc-controls {
+  display: flex; align-items: center; justify-content: center; gap: 1rem;
+  margin-top: 1.25rem;
+}
+.fc-btn {
+  width: 44px; height: 44px; border-radius: 50%; border: 2px solid #c77dff;
+  background: transparent; color: #c77dff; font-size: 1.2rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .2s;
+}
+.fc-btn:hover { background: #c77dff; color: #fff; }
+.fc-btn:disabled { opacity: .35; cursor: not-allowed; }
+.fc-counter { font-weight: 700; color: #6b6355; font-size: .95rem; min-width: 70px; text-align: center; }
+.fc-shuffle {
+  padding: .4rem 1rem; border-radius: 10px; border: 2px solid #48cae4;
+  background: transparent; color: #0096c7; font-weight: 700; font-size: .85rem;
+  transition: all .2s;
+}
+.fc-shuffle:hover { background: #48cae4; color: #fff; }
+
+/* ========== CHAPTER QUIZ ========== */
+.quiz-container { max-width: 680px; margin: 0 auto; }
+.quiz-question {
+  background: #fff; border-radius: 16px; padding: 2rem;
+  box-shadow: 0 2px 16px rgba(26,22,18,.06);
+  display: none;
+}
+.quiz-question.active { display: block; }
+.qq-number {
+  display: inline-block; padding: .2rem .7rem; border-radius: 50px;
+  font-size: .78rem; font-weight: 700; margin-bottom: .75rem;
+}
+.qq-number.easy { background: #38b00018; color: #2d6a00; }
+.qq-number.medium { background: #f9a82618; color: #b87a00; }
+.qq-number.hard { background: #e5383b18; color: #a4161a; }
+.qq-text { font-size: 1.08rem; font-weight: 600; margin-bottom: 1.25rem; }
+.qq-options { display: flex; flex-direction: column; gap: .5rem; }
+.qq-opt {
+  padding: .65rem 1.1rem; border-radius: 10px; border: 2px solid #e8e4dc;
+  background: #fdfaf5; font-size: .95rem; text-align: left;
+  transition: all .2s; font-weight: 500;
+}
+.qq-opt:hover:not(.chosen) { border-color: #c77dff; }
+.qq-opt.correct { border-color: #38b000; background: #38b00012; }
+.qq-opt.wrong { border-color: #e5383b; background: #e5383b12; }
+.qq-feedback { margin-top: 1rem; font-size: .9rem; display: none; padding: .75rem 1rem; border-radius: 8px; }
+.qq-feedback.show { display: block; background: #f4f0e8; }
+.quiz-nav {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 1.5rem;
+}
+.quiz-nav-btn {
+  padding: .5rem 1.25rem; border-radius: 10px; border: 2px solid #c77dff;
+  background: transparent; color: #c77dff; font-weight: 700;
+  transition: all .2s;
+}
+.quiz-nav-btn:hover { background: #c77dff; color: #fff; }
+.quiz-nav-btn:disabled { opacity: .35; cursor: not-allowed; }
+.quiz-progress { font-weight: 700; color: #6b6355; font-size: .9rem; }
+.quiz-result {
+  text-align: center; padding: 2rem; display: none;
+}
+.quiz-result.show { display: block; }
+.quiz-result h3 { font-size: 1.5rem; margin-bottom: .5rem; }
+.quiz-result .score-big {
+  font-size: 3rem; font-weight: 700; color: #c77dff;
+  margin: .5rem 0;
+}
+.quiz-retry {
+  margin-top: 1rem; padding: .6rem 1.5rem; border-radius: 12px;
+  border: none; background: #c77dff; color: #fff;
+  font-weight: 700; font-size: 1rem; transition: background .2s;
+}
+.quiz-retry:hover { background: #a855f7; }
+
+/* ========== SUMMARY ========== */
+.summary-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+  gap: 1rem; margin-top: 1.5rem;
+}
+.summary-card {
+  background: #fff; border-radius: 14px; padding: 1.25rem;
+  box-shadow: 0 2px 12px rgba(26,22,18,.05);
+  border-top: 3px solid #c77dff;
+}
+.summary-card h4 { font-size: 1rem; margin-bottom: .5rem; color: #c77dff; }
+.summary-card p { font-size: .9rem; color: #6b6355; }
+
+/* ========== FOOTER ========== */
+.site-footer {
+  text-align: center; padding: 3rem 1rem; color: #6b6355; font-size: .9rem;
+  border-top: 1px solid #e8e4dc; margin-top: 2rem;
+}
+.site-footer a { font-weight: 700; }
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 640px) {
+  .nav-inner { gap: .5rem; }
+  .nav-brand { display: none; }
+  .card { padding: 1.25rem; }
+  .match-columns { grid-template-columns: 1fr; }
+  .flashcard-container { height: 320px; }
+  .hero h1 { font-size: 2rem; }
+}
+
+/* ========== ANIMATION HELPERS ========== */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* SVG part hover */
+.flower-part { cursor: pointer; transition: opacity .2s; }
+.flower-part:hover { opacity: .8; }
+
+/* Fertilisation animation */
+.fert-svg { display: block; margin: 1.5rem auto; max-width: 480px; }
+</style>
+</head>
+<body>
+
+<!-- ========== PROGRESS BAR ========== -->
+<div id="progress-bar"></div>
+
+<!-- ========== STICKY NAV ========== -->
+<nav class="sticky-nav">
+  <div class="nav-inner">
+    <span class="nav-brand">Ch 7 &middot; Reproduction</span>
+    <ul class="nav-links">
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#topic1">Why Reproduce</a></li>
+      <li><a href="#topic2">Asexual</a></li>
+      <li><a href="#topic3">Plants</a></li>
+      <li><a href="#topic4">Humans</a></li>
+      <li><a href="#topic5">Health</a></li>
+      <li><a href="#matching">Matching</a></li>
+      <li><a href="#flashcards">Flashcards</a></li>
+      <li><a href="#quiz">Quiz</a></li>
+      <li><a href="#summary">Summary</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ========== HERO ========== -->
+<header class="hero" id="hero">
+  <span class="hero-badge">Class 10 NCERT &middot; Chapter 7</span>
+  <h1>How Do Organisms Reproduce?</h1>
+  <p>Explore the fascinating mechanisms organisms use to create new life and ensure the continuity of their species.</p>
+
+  <!-- Animated Cell Division SVG -->
+  <div class="hero-svg-wrap">
+    <svg viewBox="0 0 260 120" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="cellGrad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#e0c3fc"/>
+          <stop offset="100%" stop-color="#c77dff"/>
+        </radialGradient>
+      </defs>
+      <!-- Cell division animation: one cell pinches into two -->
+      <g id="cellDivision">
+        <!-- Left cell -->
+        <ellipse cx="95" cy="60" fill="url(#cellGrad)" opacity=".9">
+          <animate attributeName="rx" values="40;35;25;22;22" dur="4s" repeatCount="indefinite"/>
+          <animate attributeName="ry" values="40;38;35;22;22" dur="4s" repeatCount="indefinite"/>
+          <animate attributeName="cx" values="130;120;105;90;90" dur="4s" repeatCount="indefinite"/>
+        </ellipse>
+        <!-- Right cell (appears as split) -->
+        <ellipse cx="170" cy="60" fill="url(#cellGrad)" opacity=".9">
+          <animate attributeName="rx" values="0;5;18;22;22" dur="4s" repeatCount="indefinite"/>
+          <animate attributeName="ry" values="0;8;28;22;22" dur="4s" repeatCount="indefinite"/>
+          <animate attributeName="cx" values="130;140;158;170;170" dur="4s" repeatCount="indefinite"/>
+        </ellipse>
+        <!-- Nucleus left -->
+        <circle r="6" fill="#7b2ff7" opacity=".7">
+          <animate attributeName="cx" values="130;120;105;90;90" dur="4s" repeatCount="indefinite"/>
+          <animate attributeName="cy" values="60;60;60;60;60" dur="4s" repeatCount="indefinite"/>
+          <animate attributeName="r" values="8;7;6;6;6" dur="4s" repeatCount="indefinite"/>
+        </circle>
+        <!-- Nucleus right -->
+        <circle r="6" fill="#7b2ff7" opacity=".7">
+          <animate attributeName="cx" values="130;140;158;170;170" dur="4s" repeatCount="indefinite"/>
+          <animate attributeName="cy" values="60;60;60;60;60" dur="4s" repeatCount="indefinite"/>
+          <animate attributeName="r" values="0;3;5;6;6" dur="4s" repeatCount="indefinite"/>
+        </circle>
+        <!-- Pinch line -->
+        <line x1="130" y1="20" x2="130" y2="100" stroke="#fdfaf5" stroke-width="2" stroke-linecap="round">
+          <animate attributeName="opacity" values="0;0;.6;0;0" dur="4s" repeatCount="indefinite"/>
+        </line>
+      </g>
+    </svg>
+  </div>
+
+  <div class="scroll-indicator">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 5v14M5 12l7 7 7-7"/>
+    </svg>
+  </div>
+</header>
+
+<!-- ========== CHAPTER OVERVIEW ========== -->
+<section class="section" id="overview">
+  <div class="container">
+    <span class="section-label label-violet">Chapter Overview</span>
+    <h2 class="section-title">What You'll Learn</h2>
+    <p class="section-subtitle">A complete exploration of reproduction in organisms, from simple cell division to complex human reproductive systems.</p>
+
+    <div class="card reveal">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1.25rem;">
+        <div>
+          <h4>Topics Covered</h4>
+          <ul>
+            <li>Why organisms reproduce</li>
+            <li>DNA copying &amp; variation</li>
+            <li>Asexual reproduction types</li>
+            <li>Sexual reproduction in plants</li>
+            <li>Human reproductive systems</li>
+            <li>Reproductive health</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Interactive Features</h4>
+          <ul>
+            <li>Animated SVG diagrams</li>
+            <li>Clickable flower anatomy</li>
+            <li>Reproduction matching game</li>
+            <li>10 flip flashcards</li>
+            <li>9-question chapter quiz</li>
+            <li>Mini-quizzes per topic</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== TOPIC 1: WHY DO ORGANISMS REPRODUCE? ========== -->
+<section class="section" id="topic1">
+  <div class="container">
+    <span class="section-label label-violet">Topic 1</span>
+    <h2 class="section-title">Why Do Organisms Reproduce?</h2>
+    <p class="section-subtitle">Reproduction is essential for the continuity of species and the maintenance of life on Earth.</p>
+
+    <div class="card reveal">
+      <h3>Reproduction &mdash; Not for Survival, but for Continuity</h3>
+      <p>Reproduction is not necessary for the survival of an individual organism. Instead, it is essential for the survival of the <strong>species</strong> as a whole. No individual organism lives forever; therefore, organisms must create new individuals of their kind to ensure the population continues.</p>
+      <p style="margin-top:.75rem;">At its core, reproduction involves creating copies of the <strong>blueprints of body design</strong> &mdash; the DNA inside the cell nucleus.</p>
+    </div>
+
+    <div class="card reveal">
+      <h3>The Importance of DNA Copying</h3>
+      <p>The DNA (Deoxyribonucleic Acid) in the cell nucleus is the information source for making proteins. These proteins control the body design and cellular chemistry of an organism.</p>
+      <div class="highlight-box">
+        <strong>Key Idea:</strong> Reproduction is essentially the creation of a copy of DNA, accompanied by the creation of additional cellular apparatus (organelles, membranes) so the new DNA copy can be housed in a new cell.
+      </div>
+      <p style="margin-top:.75rem;">The DNA copying mechanism involves certain biochemical reactions. These reactions build up a <strong>complementary strand</strong> of DNA using the existing strand as a template.</p>
+    </div>
+
+    <div class="card reveal">
+      <h3>Variations During DNA Copying</h3>
+      <p>DNA copying is not perfectly accurate every time. The biochemical reactions involved in DNA replication can sometimes introduce minor <strong>errors</strong> or <strong>variations</strong>.</p>
+      <ul>
+        <li>These variations arise because DNA replication is not 100% faithful.</li>
+        <li>Some variations may be beneficial, some may be harmful, and some may have no effect.</li>
+        <li>Variations are the basis of <strong>evolution</strong> &mdash; they allow populations to adapt to changing environments over time.</li>
+        <li>If the environment changes drastically, organisms with useful variations are more likely to survive.</li>
+      </ul>
+      <div class="highlight-box cyan">
+        <strong>Example:</strong> A population of bacteria living in temperate water &mdash; if water temperature rises, most bacteria may die, but those with heat-resistant variations will survive and reproduce, creating a heat-tolerant population.
+      </div>
+    </div>
+
+    <!-- Fun Fact -->
+    <div class="fun-fact reveal">
+      <div class="fun-fact-icon">&#128300;</div>
+      <div>
+        <p><strong>Fun Fact:</strong> Human DNA replication has an error rate of about 1 in every 10 billion nucleotides copied, thanks to proofreading enzymes. Even this tiny rate produces enough variation for evolution over thousands of generations!</p>
+      </div>
+    </div>
+
+    <!-- Mini Quiz -->
+    <div class="mini-quiz reveal" data-answer="1">
+      <h4>Quick Check</h4>
+      <p style="margin-bottom:.75rem;">Why is DNA copying essential during reproduction?</p>
+      <div class="mq-options">
+        <button class="mq-opt" data-idx="0">To increase the size of the organism</button>
+        <button class="mq-opt" data-idx="1">To transmit genetic information to offspring and ensure body design continuity</button>
+        <button class="mq-opt" data-idx="2">To produce energy for the cell</button>
+        <button class="mq-opt" data-idx="3">To break down food molecules</button>
+      </div>
+      <div class="mq-explanation">DNA copying transmits the genetic blueprint to the next generation, ensuring that offspring have the information needed to develop the same body design and functions as the parent.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== TOPIC 2: ASEXUAL REPRODUCTION ========== -->
+<section class="section" id="topic2">
+  <div class="container">
+    <span class="section-label label-cyan">Topic 2</span>
+    <h2 class="section-title">Asexual Reproduction</h2>
+    <p class="section-subtitle">Reproduction involving only one parent, producing offspring genetically identical to the parent.</p>
+
+    <div class="card reveal">
+      <h3>Fission</h3>
+      <h4>Binary Fission (Amoeba, Bacteria)</h4>
+      <p>The parent organism splits into <strong>two equal halves</strong>, each of which becomes a complete new organism. In Amoeba, the cell divides into two daughter cells. The plane of division can be in any direction.</p>
+      <h4 style="margin-top:1rem;">Multiple Fission (Plasmodium)</h4>
+      <p>In unfavourable conditions, the organism forms a protective <strong>cyst</strong> around itself. Inside the cyst, the cell divides into <strong>many daughter cells</strong> simultaneously. When conditions improve, the cyst breaks open, releasing the daughter cells. Plasmodium (the malaria parasite) reproduces this way inside the human body.</p>
+
+      <!-- Binary Fission SVG Diagram -->
+      <div style="text-align:center; margin:1.5rem 0;">
+        <svg viewBox="0 0 520 200" style="max-width:520px;width:100%;" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="arrowBF" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+              <path d="M0,0 L10,3.5 L0,7 Z" fill="#6b6355"/>
+            </marker>
+          </defs>
+          <text x="260" y="18" text-anchor="middle" font-size="13" fill="#1a1612" font-family="Lora" font-weight="700">Binary Fission in Amoeba</text>
+
+          <!-- Stage 1: Parent Amoeba (irregular blob with pseudopods) -->
+          <g transform="translate(70,100)">
+            <!-- Irregular amoeba body -->
+            <path d="M-30,0 C-35,-18 -15,-35 0,-30 C10,-38 28,-25 32,-12 C40,-5 38,10 30,18 C25,30 10,32 0,28 C-12,35 -28,22 -32,10 C-38,5 -35,8 -30,0 Z" fill="#c77dff30" stroke="#c77dff" stroke-width="2"/>
+            <!-- Pseudopods -->
+            <path d="M32,-12 C42,-18 48,-8 40,-5" fill="#c77dff30" stroke="#c77dff" stroke-width="1.5"/>
+            <path d="M-32,10 C-44,14 -42,0 -35,-2" fill="#c77dff30" stroke="#c77dff" stroke-width="1.5"/>
+            <path d="M0,-30 C2,-42 12,-40 14,-32" fill="#c77dff30" stroke="#c77dff" stroke-width="1.5"/>
+            <!-- Nucleus -->
+            <ellipse cx="0" cy="0" rx="10" ry="8" fill="#c77dff66" stroke="#9b59b6" stroke-width="1"/>
+            <!-- Food vacuole -->
+            <circle cx="-14" cy="10" r="4" fill="#48cae433" stroke="#48cae4" stroke-width="0.8"/>
+            <!-- Contractile vacuole -->
+            <circle cx="14" cy="-8" r="3.5" fill="#fff" stroke="#c77dff" stroke-width="0.8" stroke-dasharray="2,1"/>
+            <!-- Labels -->
+            <line x1="0" y1="-8" x2="0" y2="-48" stroke="#6b6355" stroke-width="0.6"/>
+            <text x="0" y="-50" text-anchor="middle" font-size="8" fill="#6b6355" font-family="Nunito">Nucleus</text>
+            <line x1="-14" y1="14" x2="-14" y2="38" stroke="#6b6355" stroke-width="0.6"/>
+            <text x="-14" y="46" text-anchor="middle" font-size="7" fill="#6b6355" font-family="Nunito">Food vacuole</text>
+            <line x1="14" y1="-11" x2="28" y2="-42" stroke="#6b6355" stroke-width="0.6"/>
+            <text x="28" y="-45" text-anchor="middle" font-size="7" fill="#6b6355" font-family="Nunito">Contractile</text>
+            <text x="28" y="-37" text-anchor="middle" font-size="7" fill="#6b6355" font-family="Nunito">vacuole</text>
+          </g>
+          <text x="70" y="172" text-anchor="middle" font-size="10" fill="#6b6355" font-family="Nunito" font-weight="600">(1) Parent Amoeba</text>
+
+          <!-- Arrow 1 -->
+          <path d="M120,100 C140,100 145,100 160,100" fill="none" stroke="#6b6355" stroke-width="1.5" marker-end="url(#arrowBF)"/>
+
+          <!-- Stage 2: Nucleus elongating, cell pinching -->
+          <g transform="translate(250,100)">
+            <!-- Upper half bulging -->
+            <path d="M-5,-8 C-20,-30 -35,-22 -30,-8 C-35,0 -28,4 -10,2 Z" fill="#c77dff30" stroke="#c77dff" stroke-width="2"/>
+            <!-- Lower half bulging -->
+            <path d="M5,8 C20,30 35,22 30,8 C35,0 28,-4 10,-2 Z" fill="#c77dff30" stroke="#c77dff" stroke-width="2"/>
+            <!-- Pinching constriction -->
+            <path d="M-10,2 C-5,-2 5,2 10,-2" fill="none" stroke="#c77dff" stroke-width="2"/>
+            <path d="M-10,2 C-5,6 5,2 10,-2" fill="none" stroke="#c77dff" stroke-width="1.5" stroke-dasharray="2,2"/>
+            <!-- Two elongating nuclei -->
+            <ellipse cx="-16" cy="-12" rx="7" ry="5" fill="#c77dff66" stroke="#9b59b6" stroke-width="1"/>
+            <ellipse cx="16" cy="12" rx="7" ry="5" fill="#c77dff66" stroke="#9b59b6" stroke-width="1"/>
+            <!-- Food vacuoles split -->
+            <circle cx="-22" cy="-4" r="3" fill="#48cae433" stroke="#48cae4" stroke-width="0.6"/>
+            <circle cx="22" cy="4" r="3" fill="#48cae433" stroke="#48cae4" stroke-width="0.6"/>
+          </g>
+          <text x="250" y="172" text-anchor="middle" font-size="10" fill="#6b6355" font-family="Nunito" font-weight="600">(2) Nucleus divides,</text>
+          <text x="250" y="184" text-anchor="middle" font-size="10" fill="#6b6355" font-family="Nunito" font-weight="600">cell pinches</text>
+
+          <!-- Arrow 2 -->
+          <path d="M300,100 C320,100 325,100 340,100" fill="none" stroke="#6b6355" stroke-width="1.5" marker-end="url(#arrowBF)"/>
+
+          <!-- Stage 3: Two daughter cells -->
+          <g transform="translate(430,68)">
+            <!-- Daughter cell 1 -->
+            <path d="M-28,0 C-32,-14 -12,-28 0,-22 C8,-30 24,-18 26,-6 C32,0 28,14 18,18 C10,24 -8,22 -16,14 C-26,10 -30,6 -28,0 Z" fill="#48cae430" stroke="#48cae4" stroke-width="2"/>
+            <ellipse cx="0" cy="0" rx="7" ry="5.5" fill="#48cae466" stroke="#0096c7" stroke-width="0.8"/>
+            <circle cx="-10" cy="8" r="3" fill="#48cae433" stroke="#48cae4" stroke-width="0.5"/>
+            <path d="M26,-6 C34,-10 36,-2 30,0" fill="#48cae430" stroke="#48cae4" stroke-width="1.2"/>
+          </g>
+          <g transform="translate(430,132)">
+            <!-- Daughter cell 2 -->
+            <path d="M-26,0 C-30,-12 -14,-26 0,-20 C10,-28 22,-16 24,-6 C30,2 26,16 16,18 C8,24 -10,20 -18,12 C-24,6 -28,4 -26,0 Z" fill="#48cae430" stroke="#48cae4" stroke-width="2"/>
+            <ellipse cx="0" cy="0" rx="7" ry="5.5" fill="#48cae466" stroke="#0096c7" stroke-width="0.8"/>
+            <circle cx="10" cy="-8" r="3" fill="#48cae433" stroke="#48cae4" stroke-width="0.5"/>
+            <path d="M-26,0 C-34,4 -34,-6 -28,-4" fill="#48cae430" stroke="#48cae4" stroke-width="1.2"/>
+          </g>
+          <text x="430" y="172" text-anchor="middle" font-size="10" fill="#6b6355" font-family="Nunito" font-weight="600">(3) Two daughter</text>
+          <text x="430" y="184" text-anchor="middle" font-size="10" fill="#6b6355" font-family="Nunito" font-weight="600">Amoebae</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <h3>Budding</h3>
+      <h4>Hydra &amp; Yeast</h4>
+      <p>A small <strong>bud</strong> (outgrowth) develops on the parent organism. The bud grows, develops, and eventually <strong>detaches</strong> to become a new independent organism. In Hydra, the bud develops tentacles and a mouth before separating. In yeast (a single-celled fungus), a small bud appears on the cell surface and pinches off.</p>
+
+      <!-- Budding SVG -->
+      <div style="text-align:center; margin:1.5rem 0;">
+        <svg viewBox="0 0 600 210" style="max-width:600px;width:100%;" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="arrowHydra" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+              <path d="M0,0 L10,3.5 L0,7 Z" fill="#6b6355"/>
+            </marker>
+          </defs>
+          <text x="300" y="18" text-anchor="middle" font-size="13" fill="#1a1612" font-family="Lora" font-weight="700">Budding in Hydra</text>
+
+          <!-- Stage 1: Parent Hydra (tubular body with tentacles) -->
+          <g transform="translate(65,30)">
+            <!-- Body (tubular, slightly tapered) -->
+            <path d="M-10,40 C-12,50 -14,90 -12,120 C-10,130 10,130 12,120 C14,90 12,50 10,40 Z" fill="#c77dff30" stroke="#c77dff" stroke-width="2"/>
+            <!-- Mouth opening -->
+            <ellipse cx="0" cy="40" rx="10" ry="3" fill="#c77dff20" stroke="#c77dff" stroke-width="1.5"/>
+            <!-- Tentacles (wavy) -->
+            <path d="M-8,40 C-16,28 -24,20 -30,12 C-32,8 -28,6 -26,10" fill="none" stroke="#c77dff" stroke-width="2" stroke-linecap="round"/>
+            <path d="M-5,38 C-10,24 -14,14 -16,4 C-16,0 -12,-2 -12,2" fill="none" stroke="#c77dff" stroke-width="2" stroke-linecap="round"/>
+            <path d="M0,37 C0,22 2,10 2,2 C2,-2 6,-2 5,2" fill="none" stroke="#c77dff" stroke-width="2" stroke-linecap="round"/>
+            <path d="M5,38 C10,24 14,14 16,4 C16,0 20,0 18,4" fill="none" stroke="#c77dff" stroke-width="2" stroke-linecap="round"/>
+            <path d="M8,40 C16,28 24,20 30,12 C32,8 36,10 34,14" fill="none" stroke="#c77dff" stroke-width="2" stroke-linecap="round"/>
+            <!-- Basal disc -->
+            <ellipse cx="0" cy="132" rx="14" ry="4" fill="#c77dff40" stroke="#c77dff" stroke-width="1.5"/>
+          </g>
+          <text x="65" y="182" text-anchor="middle" font-size="10" fill="#6b6355" font-family="Nunito" font-weight="600">(1) Parent Hydra</text>
+
+          <!-- Arrow 1 -->
+          <path d="M105,95 Q120,95 130,95" fill="none" stroke="#6b6355" stroke-width="1.5" marker-end="url(#arrowHydra)"/>
+
+          <!-- Stage 2: Bud forming (small outgrowth on body) -->
+          <g transform="translate(195,30)">
+            <!-- Body -->
+            <path d="M-10,40 C-12,50 -14,90 -12,120 C-10,130 10,130 12,120 C14,90 12,50 10,40 Z" fill="#c77dff30" stroke="#c77dff" stroke-width="2"/>
+            <ellipse cx="0" cy="40" rx="10" ry="3" fill="#c77dff20" stroke="#c77dff" stroke-width="1.5"/>
+            <!-- Tentacles -->
+            <path d="M-8,40 C-16,28 -24,20 -30,12" fill="none" stroke="#c77dff" stroke-width="2" stroke-linecap="round"/>
+            <path d="M-5,38 C-10,24 -14,14 -16,4" fill="none" stroke="#c77dff" stroke-width="2" stroke-linecap="round"/>
+            <path d="M0,37 C0,22 2,10 2,2" fill="none" stroke="#c77dff" stroke-width="2" stroke-linecap="round"/>
+            <path d="M5,38 C10,24 14,14 16,4" fill="none" stroke="#c77dff" stroke-width="2" stroke-linecap="round"/>
+            <path d="M8,40 C16,28 24,20 30,12" fill="none" stroke="#c77dff" stroke-width="2" stroke-linecap="round"/>
+            <!-- Bud (small rounded outgrowth) -->
+            <path d="M12,75 C20,70 28,68 30,74 C32,82 26,88 18,86 C14,84 12,80 12,75 Z" fill="#48cae430" stroke="#48cae4" stroke-width="2"/>
+            <!-- Basal disc -->
+            <ellipse cx="0" cy="132" rx="14" ry="4" fill="#c77dff40" stroke="#c77dff" stroke-width="1.5"/>
+            <!-- Label for bud -->
+            <line x1="28" y1="72" x2="42" y2="58" stroke="#6b6355" stroke-width="0.6"/>
+            <text x="44" y="56" font-size="8" fill="#48cae4" font-family="Nunito" font-weight="600">Bud</text>
+          </g>
+          <text x="195" y="182" text-anchor="middle" font-size="10" fill="#6b6355" font-family="Nunito" font-weight="600">(2) Bud forming</text>
+
+          <!-- Arrow 2 -->
+          <path d="M245,95 Q260,95 270,95" fill="none" stroke="#6b6355" stroke-width="1.5" marker-end="url(#arrowHydra)"/>
+
+          <!-- Stage 3: Bud developing tentacles -->
+          <g transform="translate(335,30)">
+            <!-- Body -->
+            <path d="M-10,40 C-12,50 -14,90 -12,120 C-10,130 10,130 12,120 C14,90 12,50 10,40 Z" fill="#c77dff30" stroke="#c77dff" stroke-width="2"/>
+            <ellipse cx="0" cy="40" rx="10" ry="3" fill="#c77dff20" stroke="#c77dff" stroke-width="1.5"/>
+            <!-- Parent tentacles -->
+            <path d="M-8,40 C-16,28 -24,20 -30,12" fill="none" stroke="#c77dff" stroke-width="2" stroke-linecap="round"/>
+            <path d="M-5,38 C-10,24 -14,14 -16,4" fill="none" stroke="#c77dff" stroke-width="2" stroke-linecap="round"/>
+            <path d="M0,37 C0,22 2,10 2,2" fill="none" stroke="#c77dff" stroke-width="2" stroke-linecap="round"/>
+            <path d="M5,38 C10,24 14,14 16,4" fill="none" stroke="#c77dff" stroke-width="2" stroke-linecap="round"/>
+            <path d="M8,40 C16,28 24,20 30,12" fill="none" stroke="#c77dff" stroke-width="2" stroke-linecap="round"/>
+            <!-- Larger bud with developing tentacles -->
+            <path d="M12,68 C18,58 34,54 38,64 C42,72 38,88 28,92 C20,94 12,86 12,78 Z" fill="#48cae430" stroke="#48cae4" stroke-width="2"/>
+            <!-- Bud tentacles (small) -->
+            <path d="M26,58 C24,50 22,44 20,40" fill="none" stroke="#48cae4" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M30,56 C32,48 34,42 34,38" fill="none" stroke="#48cae4" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M36,58 C40,50 44,44 46,40" fill="none" stroke="#48cae4" stroke-width="1.5" stroke-linecap="round"/>
+            <!-- Basal disc -->
+            <ellipse cx="0" cy="132" rx="14" ry="4" fill="#c77dff40" stroke="#c77dff" stroke-width="1.5"/>
+          </g>
+          <text x="335" y="182" text-anchor="middle" font-size="10" fill="#6b6355" font-family="Nunito" font-weight="600">(3) Bud develops</text>
+          <text x="335" y="194" text-anchor="middle" font-size="10" fill="#6b6355" font-family="Nunito" font-weight="600">tentacles</text>
+
+          <!-- Arrow 3 -->
+          <path d="M395,95 Q410,95 420,95" fill="none" stroke="#6b6355" stroke-width="1.5" marker-end="url(#arrowHydra)"/>
+
+          <!-- Stage 4: Detached - parent + new small Hydra -->
+          <g transform="translate(475,30)">
+            <!-- Parent body -->
+            <path d="M-10,40 C-12,50 -14,90 -12,120 C-10,130 10,130 12,120 C14,90 12,50 10,40 Z" fill="#c77dff30" stroke="#c77dff" stroke-width="2"/>
+            <ellipse cx="0" cy="40" rx="10" ry="3" fill="#c77dff20" stroke="#c77dff" stroke-width="1.5"/>
+            <!-- Parent tentacles -->
+            <path d="M-8,40 C-16,28 -22,22 -26,16" fill="none" stroke="#c77dff" stroke-width="2" stroke-linecap="round"/>
+            <path d="M-4,38 C-8,26 -10,18 -12,10" fill="none" stroke="#c77dff" stroke-width="2" stroke-linecap="round"/>
+            <path d="M0,37 C0,24 1,14 1,6" fill="none" stroke="#c77dff" stroke-width="2" stroke-linecap="round"/>
+            <path d="M4,38 C8,26 10,18 12,10" fill="none" stroke="#c77dff" stroke-width="2" stroke-linecap="round"/>
+            <path d="M8,40 C16,28 22,22 26,16" fill="none" stroke="#c77dff" stroke-width="2" stroke-linecap="round"/>
+            <ellipse cx="0" cy="132" rx="14" ry="4" fill="#c77dff40" stroke="#c77dff" stroke-width="1.5"/>
+          </g>
+          <!-- New detached baby Hydra -->
+          <g transform="translate(530,60)">
+            <path d="M-6,20 C-8,26 -8,48 -7,58 C-6,62 6,62 7,58 C8,48 8,26 6,20 Z" fill="#48cae430" stroke="#48cae4" stroke-width="1.8"/>
+            <ellipse cx="0" cy="20" rx="6" ry="2" fill="#48cae420" stroke="#48cae4" stroke-width="1.2"/>
+            <!-- Tiny tentacles -->
+            <path d="M-5,20 C-10,14 -14,10 -16,6" fill="none" stroke="#48cae4" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M-2,18 C-4,12 -4,6 -4,2" fill="none" stroke="#48cae4" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M0,18 C0,10 0,4 0,0" fill="none" stroke="#48cae4" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M2,18 C4,12 4,6 4,2" fill="none" stroke="#48cae4" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M5,20 C10,14 14,10 16,6" fill="none" stroke="#48cae4" stroke-width="1.5" stroke-linecap="round"/>
+            <ellipse cx="0" cy="64" rx="8" ry="3" fill="#48cae440" stroke="#48cae4" stroke-width="1.2"/>
+          </g>
+          <text x="475" y="182" text-anchor="middle" font-size="10" fill="#6b6355" font-family="Nunito" font-weight="600">(4) Parent</text>
+          <text x="540" y="182" text-anchor="middle" font-size="10" fill="#48cae4" font-family="Nunito" font-weight="600">New Hydra</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <h3>Fragmentation</h3>
+      <h4>Spirogyra</h4>
+      <p>The organism <strong>breaks up</strong> into two or more fragments (pieces), and each fragment grows into a complete new organism. Spirogyra (a filamentous alga) simply breaks into shorter filaments, each of which grows into a new individual.</p>
+      <div class="highlight-box">
+        <strong>Note:</strong> Fragmentation works only in simple, multicellular organisms. Complex organisms cannot simply be cut into pieces and regenerate, because their body design depends on specialised organs.
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <h3>Regeneration</h3>
+      <h4>Planaria (Flatworm)</h4>
+      <p>Some organisms can re-grow lost parts. In Planaria, if the body is cut into several pieces, each piece can grow into a <strong>complete organism</strong>. This is possible because Planaria possesses <strong>specialised cells (neoblasts)</strong> that can differentiate into various cell types.</p>
+      <div class="highlight-box cyan">
+        <strong>Important Distinction:</strong> Regeneration is NOT the same as reproduction. In nature, organisms don't normally get cut into pieces. Regeneration is a survival ability; reproduction is a deliberate process for creating offspring.
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <h3>Vegetative Propagation</h3>
+      <p>In plants, new individuals can grow from <strong>vegetative parts</strong> (roots, stems, leaves) rather than from seeds. This is widely used in agriculture and horticulture.</p>
+      <ul>
+        <li><strong>Tubers:</strong> Potato tubers have "eyes" (buds) that sprout into new plants.</li>
+        <li><strong>Cuttings:</strong> Rose stems can be planted in soil; roots develop and a new plant grows.</li>
+        <li><strong>Leaves:</strong> Bryophyllum (sprout-leaf plant) develops buds on the margins of its leaves. These buds fall off and grow into new plants.</li>
+        <li><strong>Runners:</strong> Strawberry plants produce horizontal stems that root at nodes.</li>
+      </ul>
+      <div class="highlight-box">
+        <strong>Advantages of vegetative propagation:</strong> Plants that have lost the ability to produce seeds can reproduce. All offspring are genetically identical (clones) to the parent, which is useful for maintaining desirable traits (taste, colour, fragrance).
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <h3>Spore Formation</h3>
+      <h4>Rhizopus (Bread Mould)</h4>
+      <p>The fungus Rhizopus develops thread-like structures called <strong>hyphae</strong>. Some hyphae grow upward and form knob-like structures called <strong>sporangia</strong> at their tips. Inside the sporangia, <strong>spores</strong> are produced. When the sporangium bursts, spores are released into the air and germinate in favourable conditions to form new fungi.</p>
+      <p style="margin-top:.75rem;">Spores are tiny, lightweight, and covered by a protective wall &mdash; making them ideal for dispersal over long distances.</p>
+    </div>
+
+    <!-- Fun Fact -->
+    <div class="fun-fact reveal">
+      <div class="fun-fact-icon">&#127793;</div>
+      <div>
+        <p><strong>Fun Fact:</strong> A single puffball mushroom can release over 7 trillion spores! The spores are so tiny and light that they can float in the air for days and travel hundreds of kilometres.</p>
+      </div>
+    </div>
+
+    <!-- Mini Quiz -->
+    <div class="mini-quiz reveal" data-answer="2">
+      <h4>Quick Check</h4>
+      <p style="margin-bottom:.75rem;">Which of the following is an example of vegetative propagation?</p>
+      <div class="mq-options">
+        <button class="mq-opt" data-idx="0">Binary fission in Amoeba</button>
+        <button class="mq-opt" data-idx="1">Spore formation in Rhizopus</button>
+        <button class="mq-opt" data-idx="2">Bryophyllum growing new plants from leaf buds</button>
+        <button class="mq-opt" data-idx="3">Regeneration in Planaria</button>
+      </div>
+      <div class="mq-explanation">Bryophyllum reproduces through vegetative propagation &mdash; buds on the margins of its leaves grow into new plants. This is reproduction from a vegetative part (leaf) rather than from seeds or spores.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== TOPIC 3: SEXUAL REPRODUCTION IN FLOWERING PLANTS ========== -->
+<section class="section" id="topic3">
+  <div class="container">
+    <span class="section-label label-violet">Topic 3</span>
+    <h2 class="section-title">Sexual Reproduction in Flowering Plants</h2>
+    <p class="section-subtitle">Flowers are the reproductive organs of angiosperms, containing both male and female parts.</p>
+
+    <div class="card reveal">
+      <h3>Parts of a Flower</h3>
+      <p>A typical flower has four main whorls:</p>
+      <ul>
+        <li><strong>Sepals (Calyx):</strong> Green leaf-like structures that protect the flower bud.</li>
+        <li><strong>Petals (Corolla):</strong> Colourful parts that attract pollinators (insects, birds).</li>
+        <li><strong>Stamen (Male organ):</strong> Consists of the <strong>anther</strong> (produces pollen grains) and <strong>filament</strong> (supports the anther).</li>
+        <li><strong>Pistil/Carpel (Female organ):</strong> Consists of the <strong>stigma</strong> (receives pollen), <strong>style</strong> (tube connecting stigma to ovary), and <strong>ovary</strong> (contains <strong>ovules</strong> with egg cells).</li>
+      </ul>
+      <div class="highlight-box">
+        <strong>Bisexual flowers</strong> contain both stamen and pistil (e.g., Hibiscus, mustard). <strong>Unisexual flowers</strong> contain only one (e.g., papaya, watermelon).
+      </div>
+    </div>
+
+    <!-- Interactive Flower Diagram -->
+    <div class="card reveal">
+      <h3>Interactive Flower Cross-Section</h3>
+      <p style="margin-bottom:1rem; color:#6b6355;">Click on any part of the flower to learn about its function.</p>
+      <div class="flower-diagram">
+        <svg viewBox="0 0 480 420" style="max-width:480px;width:100%;" xmlns="http://www.w3.org/2000/svg" id="flowerSvg">
+          <text x="240" y="18" text-anchor="middle" font-size="13" fill="#1a1612" font-family="Lora" font-weight="700">L.S. of a Flower</text>
+
+          <!-- Stem / Pedicel -->
+          <rect x="226" y="340" width="18" height="65" rx="4" fill="#6aab3d" opacity=".7"/>
+
+          <!-- Thalamus / Receptacle (dome at top of stem) -->
+          <g class="flower-part" data-part="ovary">
+            <path d="M200,340 Q210,320 240,318 Q270,320 270,340 Z" fill="#6aab3d" stroke="#4a8a2a" stroke-width="1.5"/>
+          </g>
+
+          <!-- Sepals (pointed, green, curving outward) -->
+          <g class="flower-part" data-part="sepals">
+            <path d="M200,336 C188,340 162,348 148,338 C142,332 152,322 164,326 C176,330 192,332 200,336 Z" fill="#5a9e34" stroke="#4a8a2a" stroke-width="1.2" opacity=".9"/>
+            <path d="M270,336 C282,340 308,348 322,338 C328,332 318,322 306,326 C294,330 278,332 270,336 Z" fill="#5a9e34" stroke="#4a8a2a" stroke-width="1.2" opacity=".9"/>
+            <path d="M218,342 C210,350 198,362 186,358 C180,354 186,344 196,344 C206,344 214,342 218,342 Z" fill="#6aab3d" stroke="#4a8a2a" stroke-width="1" opacity=".85"/>
+            <path d="M252,342 C260,350 272,362 284,358 C290,354 284,344 274,344 C264,344 256,342 252,342 Z" fill="#6aab3d" stroke="#4a8a2a" stroke-width="1" opacity=".85"/>
+          </g>
+
+          <!-- Petals (proper petal shape, curving outward, overlapping) -->
+          <g class="flower-part" data-part="petals">
+            <path d="M196,320 C172,308 130,270 116,238 C110,222 126,216 138,228 C154,248 180,296 196,320 Z" fill="#f5a0c0" stroke="#e88aae" stroke-width="1.2" opacity=".85"/>
+            <path d="M274,320 C298,308 340,270 354,238 C360,222 344,216 332,228 C316,248 290,296 274,320 Z" fill="#f5a0c0" stroke="#e88aae" stroke-width="1.2" opacity=".85"/>
+            <path d="M208,316 C186,290 150,230 142,196 C138,180 156,178 162,192 C172,218 194,280 208,316 Z" fill="#f7b4cf" stroke="#e88aae" stroke-width="1" opacity=".8"/>
+            <path d="M262,316 C284,290 320,230 328,196 C332,180 314,178 308,192 C298,218 276,280 262,316 Z" fill="#f7b4cf" stroke="#e88aae" stroke-width="1" opacity=".8"/>
+            <path d="M224,314 C218,280 210,214 214,180 C216,166 238,166 240,180 C244,214 242,280 246,314 Z" fill="#f9c8dc" stroke="#e88aae" stroke-width="1" opacity=".8"/>
+          </g>
+
+          <!-- Ovary (inside thalamus, cut-away view showing ovules) -->
+          <g class="flower-part" data-part="ovary">
+            <ellipse cx="238" cy="322" rx="22" ry="16" fill="#ffdd57" stroke="#e6c300" stroke-width="1.5"/>
+            <!-- Placenta attachment -->
+            <line x1="238" y1="316" x2="238" y2="328" stroke="#e6c300" stroke-width="1" stroke-dasharray="2,1"/>
+            <!-- Ovules attached to placenta -->
+            <ellipse cx="230" cy="318" rx="5" ry="4" fill="#fff5cc" stroke="#e6c300" stroke-width="1"/>
+            <ellipse cx="246" cy="318" rx="5" ry="4" fill="#fff5cc" stroke="#e6c300" stroke-width="1"/>
+            <ellipse cx="238" cy="326" rx="5" ry="4" fill="#fff5cc" stroke="#e6c300" stroke-width="1"/>
+            <!-- Tiny embryo sac dots in ovules -->
+            <circle cx="230" cy="318" r="1.5" fill="#e6c300" opacity=".5"/>
+            <circle cx="246" cy="318" r="1.5" fill="#e6c300" opacity=".5"/>
+            <circle cx="238" cy="326" r="1.5" fill="#e6c300" opacity=".5"/>
+          </g>
+
+          <!-- Style (hollow tube from ovary to stigma) -->
+          <g class="flower-part" data-part="style">
+            <path d="M234,306 C234,280 234,254 234,232 L242,232 C242,254 242,280 242,306 Z" fill="#8dc76b" stroke="#6aab3d" stroke-width="1"/>
+            <!-- Hollow inside indication -->
+            <line x1="238" y1="302" x2="238" y2="236" stroke="#6aab3d" stroke-width="0.5" stroke-dasharray="3,2" opacity=".5"/>
+          </g>
+
+          <!-- Stigma (sticky, bifid/lobed top) -->
+          <g class="flower-part" data-part="stigma">
+            <path d="M224,232 C220,224 222,216 230,214 C234,212 238,210 242,212 C250,214 252,224 248,232 Z" fill="#a8e06c" stroke="#6aab3d" stroke-width="1.5"/>
+            <!-- Sticky papillae dots -->
+            <circle cx="230" cy="220" r="2" fill="#c4f08c" opacity=".8"/>
+            <circle cx="236" cy="216" r="1.8" fill="#c4f08c" opacity=".8"/>
+            <circle cx="244" cy="220" r="2" fill="#c4f08c" opacity=".8"/>
+            <circle cx="238" cy="224" r="1.5" fill="#c4f08c" opacity=".7"/>
+          </g>
+
+          <!-- Stamens (filament + bilobed anther with visible pollen) -->
+          <g class="flower-part" data-part="stamen">
+            <!-- Left stamen pair -->
+            <line x1="218" y1="310" x2="168" y2="238" stroke="#d4a843" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="210" y1="316" x2="148" y2="258" stroke="#d4a843" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- Right stamen pair -->
+            <line x1="254" y1="310" x2="302" y2="238" stroke="#d4a843" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="260" y1="316" x2="320" y2="258" stroke="#d4a843" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- Bilobed anthers (two lobes connected) -->
+            <!-- Left anther 1 -->
+            <ellipse cx="164" cy="234" rx="8" ry="5" fill="#ffb347" stroke="#d4a843" stroke-width="1.2" transform="rotate(-25,164,234)"/>
+            <ellipse cx="172" cy="230" rx="7" ry="5" fill="#ffc966" stroke="#d4a843" stroke-width="1.2" transform="rotate(-25,172,230)"/>
+            <line x1="166" y1="230" x2="170" y2="234" stroke="#d4a843" stroke-width="0.8"/>
+            <!-- Left anther 2 -->
+            <ellipse cx="144" cy="254" rx="8" ry="5" fill="#ffb347" stroke="#d4a843" stroke-width="1.2" transform="rotate(-25,144,254)"/>
+            <ellipse cx="152" cy="250" rx="7" ry="5" fill="#ffc966" stroke="#d4a843" stroke-width="1.2" transform="rotate(-25,152,250)"/>
+            <!-- Right anther 1 -->
+            <ellipse cx="306" cy="234" rx="8" ry="5" fill="#ffb347" stroke="#d4a843" stroke-width="1.2" transform="rotate(25,306,234)"/>
+            <ellipse cx="298" cy="230" rx="7" ry="5" fill="#ffc966" stroke="#d4a843" stroke-width="1.2" transform="rotate(25,298,230)"/>
+            <!-- Right anther 2 -->
+            <ellipse cx="324" cy="254" rx="8" ry="5" fill="#ffb347" stroke="#d4a843" stroke-width="1.2" transform="rotate(25,324,254)"/>
+            <ellipse cx="316" cy="250" rx="7" ry="5" fill="#ffc966" stroke="#d4a843" stroke-width="1.2" transform="rotate(25,316,250)"/>
+            <!-- Pollen grains (visible yellow dots) -->
+            <circle cx="160" cy="228" r="2.5" fill="#fff5cc" stroke="#e6c300" stroke-width=".5"/>
+            <circle cx="176" cy="226" r="2.2" fill="#fff5cc" stroke="#e6c300" stroke-width=".5"/>
+            <circle cx="168" cy="238" r="2" fill="#fff5cc" stroke="#e6c300" stroke-width=".5"/>
+            <circle cx="302" cy="228" r="2.5" fill="#fff5cc" stroke="#e6c300" stroke-width=".5"/>
+            <circle cx="294" cy="226" r="2.2" fill="#fff5cc" stroke="#e6c300" stroke-width=".5"/>
+            <circle cx="310" cy="238" r="2" fill="#fff5cc" stroke="#e6c300" stroke-width=".5"/>
+            <!-- Some pollen on left anther 2 -->
+            <circle cx="140" cy="248" r="2" fill="#fff5cc" stroke="#e6c300" stroke-width=".5"/>
+            <circle cx="156" cy="246" r="2.2" fill="#fff5cc" stroke="#e6c300" stroke-width=".5"/>
+            <!-- Some on right anther 2 -->
+            <circle cx="328" cy="248" r="2" fill="#fff5cc" stroke="#e6c300" stroke-width=".5"/>
+            <circle cx="312" cy="246" r="2.2" fill="#fff5cc" stroke="#e6c300" stroke-width=".5"/>
+          </g>
+
+          <!-- Labels with leader lines (all within viewBox) -->
+          <g font-size="10" font-family="Nunito" fill="#6b6355" font-weight="600">
+            <!-- Right side labels -->
+            <line x1="248" y1="222" x2="380" y2="168" stroke="#6b6355" stroke-width=".7"/>
+            <circle cx="248" cy="222" r="1.5" fill="#6b6355"/>
+            <text x="384" y="172">Stigma</text>
+
+            <line x1="246" y1="268" x2="380" y2="206" stroke="#6b6355" stroke-width=".7"/>
+            <circle cx="246" cy="268" r="1.5" fill="#6b6355"/>
+            <text x="384" y="210">Style</text>
+
+            <line x1="260" y1="322" x2="380" y2="248" stroke="#6b6355" stroke-width=".7"/>
+            <circle cx="260" cy="322" r="1.5" fill="#6b6355"/>
+            <text x="384" y="244">Ovary</text>
+            <text x="384" y="256" font-size="9" font-weight="400">(with ovules</text>
+            <text x="384" y="267" font-size="9" font-weight="400">on placenta)</text>
+
+            <line x1="270" y1="336" x2="380" y2="292" stroke="#6b6355" stroke-width=".7"/>
+            <circle cx="270" cy="336" r="1.5" fill="#6b6355"/>
+            <text x="384" y="296">Thalamus</text>
+            <text x="384" y="307" font-size="9" font-weight="400">(receptacle)</text>
+
+            <!-- Left side labels -->
+            <line x1="156" y1="234" x2="60" y2="190" stroke="#6b6355" stroke-width=".7"/>
+            <circle cx="156" cy="234" r="1.5" fill="#6b6355"/>
+            <text x="14" y="186">Anther</text>
+            <text x="14" y="197" font-size="9" font-weight="400">(with pollen)</text>
+
+            <line x1="200" y1="310" x2="60" y2="240" stroke="#6b6355" stroke-width=".7"/>
+            <circle cx="200" cy="310" r="1.5" fill="#6b6355"/>
+            <text x="14" y="244">Filament</text>
+
+            <line x1="140" y1="260" x2="60" y2="268" stroke="#6b6355" stroke-width=".7"/>
+            <circle cx="140" cy="260" r="1.5" fill="#6b6355"/>
+            <text x="14" y="272" fill="#d4a843" font-weight="700">Stamen</text>
+            <text x="14" y="283" font-size="8" fill="#6b6355" font-weight="400">(filament +</text>
+            <text x="14" y="293" font-size="8" fill="#6b6355" font-weight="400">anther)</text>
+
+            <line x1="138" y1="298" x2="60" y2="316" stroke="#6b6355" stroke-width=".7"/>
+            <circle cx="138" cy="298" r="1.5" fill="#6b6355"/>
+            <text x="14" y="320" fill="#f5a0c0" font-weight="700">Petals</text>
+
+            <line x1="170" y1="338" x2="60" y2="350" stroke="#6b6355" stroke-width=".7"/>
+            <circle cx="170" cy="338" r="1.5" fill="#6b6355"/>
+            <text x="14" y="354" fill="#5a9e34" font-weight="700">Sepals</text>
+
+            <!-- Stem label -->
+            <line x1="244" y1="370" x2="380" y2="340" stroke="#6b6355" stroke-width=".7"/>
+            <circle cx="244" cy="370" r="1.5" fill="#6b6355"/>
+            <text x="384" y="344">Pedicel</text>
+            <text x="384" y="355" font-size="9" font-weight="400">(flower stalk)</text>
+
+            <!-- Pistil bracket -->
+            <text x="400" y="172" font-size="8" fill="#6aab3d">&#125;</text>
+            <text x="430" y="222" fill="#6aab3d" font-weight="700" font-size="9">Pistil</text>
+            <line x1="410" y1="170" x2="410" y2="270" stroke="#6aab3d" stroke-width="0.8"/>
+            <line x1="410" y1="170" x2="418" y2="170" stroke="#6aab3d" stroke-width="0.8"/>
+            <line x1="410" y1="270" x2="418" y2="270" stroke="#6aab3d" stroke-width="0.8"/>
+            <text x="422" y="224" fill="#6aab3d" font-weight="700" font-size="9">Pistil</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Flower Part Popup -->
+    <div class="flower-overlay" id="flowerOverlay"></div>
+    <div class="flower-popup" id="flowerPopup">
+      <button class="flower-popup-close" id="flowerPopupClose">&times;</button>
+      <h4 id="flowerPopupTitle"></h4>
+      <p id="flowerPopupText"></p>
+    </div>
+
+    <div class="card reveal">
+      <h3>Pollination</h3>
+      <p>Pollination is the transfer of <strong>pollen grains</strong> from the anther to the stigma of a flower.</p>
+      <ul>
+        <li><strong>Self-pollination:</strong> Pollen transfers from anther to stigma of the <em>same flower</em> or another flower on the same plant. Produces less genetic variation.</li>
+        <li><strong>Cross-pollination:</strong> Pollen transfers from one flower to the stigma of a flower on a <em>different plant</em> of the same species. Agents include wind, water, insects, and birds. Produces greater genetic variation.</li>
+      </ul>
+    </div>
+
+    <div class="card reveal">
+      <h3>Fertilisation &amp; Seed Formation</h3>
+      <p>After pollination, the pollen grain germinates on the stigma and grows a <strong>pollen tube</strong> down through the style to the ovary. The male gamete (sperm) travels through this tube and fuses with the female gamete (egg cell) inside the ovule &mdash; this is <strong>fertilisation</strong>.</p>
+      <div class="formula-box">
+        Pollen grain &rarr; Pollen tube grows through style &rarr; Reaches ovule &rarr; Sperm + Egg = Zygote
+      </div>
+      <h4 style="margin-top:1rem;">Double Fertilisation (unique to angiosperms)</h4>
+      <ul>
+        <li>One sperm cell fuses with the egg cell &rarr; <strong>zygote</strong> (develops into embryo)</li>
+        <li>Another sperm cell fuses with the two polar nuclei &rarr; <strong>triploid endosperm</strong> (provides nutrition to developing embryo)</li>
+      </ul>
+      <h4 style="margin-top:1rem;">After fertilisation:</h4>
+      <ul>
+        <li>Ovule &rarr; Seed (contains embryo + food store)</li>
+        <li>Ovary &rarr; Fruit (protects and disperses seeds)</li>
+        <li>Petals, sepals, stamens, style, and stigma wither and fall off</li>
+      </ul>
+    </div>
+
+    <!-- Fun Fact -->
+    <div class="fun-fact reveal">
+      <div class="fun-fact-icon">&#127804;</div>
+      <div>
+        <p><strong>Fun Fact:</strong> The smallest flower in the world is Wolffia, a type of duckweed &mdash; the entire plant is only 0.1&ndash;0.2 mm wide, yet it still produces a tiny flower with a stamen and a pistil!</p>
+      </div>
+    </div>
+
+    <!-- Mini Quiz -->
+    <div class="mini-quiz reveal" data-answer="1">
+      <h4>Quick Check</h4>
+      <p style="margin-bottom:.75rem;">After fertilisation, the ovule develops into:</p>
+      <div class="mq-options">
+        <button class="mq-opt" data-idx="0">Fruit</button>
+        <button class="mq-opt" data-idx="1">Seed</button>
+        <button class="mq-opt" data-idx="2">Pollen grain</button>
+        <button class="mq-opt" data-idx="3">Petal</button>
+      </div>
+      <div class="mq-explanation">After fertilisation, the ovule develops into a seed (containing the embryo), while the ovary develops into a fruit that encloses and protects the seeds.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== TOPIC 4: REPRODUCTION IN HUMANS ========== -->
+<section class="section" id="topic4">
+  <div class="container">
+    <span class="section-label label-cyan">Topic 4</span>
+    <h2 class="section-title">Reproduction in Humans</h2>
+    <p class="section-subtitle">Humans reproduce sexually, involving specialised reproductive organs and hormonal regulation.</p>
+
+    <div class="card reveal">
+      <h3>Puberty &amp; Adolescence</h3>
+      <p>Sexual maturation begins at <strong>puberty</strong> (usually between ages 10&ndash;14). The body undergoes changes controlled by hormones:</p>
+      <ul>
+        <li><strong>In males:</strong> Testes begin producing sperm and testosterone. Changes include growth of facial hair, deeper voice, broadening of shoulders, and growth of reproductive organs.</li>
+        <li><strong>In females:</strong> Ovaries begin releasing eggs and producing oestrogen. Changes include breast development, widening of hips, beginning of menstruation, and growth of reproductive organs.</li>
+      </ul>
+    </div>
+
+    <div class="card reveal">
+      <h3>Male Reproductive System</h3>
+      <!-- Male system SVG -->
+      <div style="text-align:center; margin:1rem 0 1.5rem;">
+        <svg viewBox="0 0 500 340" style="max-width:500px;width:100%;" xmlns="http://www.w3.org/2000/svg">
+          <text x="250" y="20" text-anchor="middle" font-size="14" fill="#1a1612" font-family="Lora" font-weight="700">Male Reproductive System</text>
+
+          <!-- Urinary bladder -->
+          <ellipse cx="220" cy="68" rx="52" ry="36" fill="#48cae418" stroke="#48cae4" stroke-width="1.5"/>
+
+          <!-- Seminal vesicles (paired, coiled sac-like) -->
+          <path d="M266,82 C278,72 296,68 300,78 C304,88 292,96 280,90 C272,86 268,88 266,82 Z" fill="#c77dff22" stroke="#c77dff" stroke-width="1.5"/>
+          <path d="M174,82 C162,72 144,68 140,78 C136,88 148,96 160,90 C168,86 172,88 174,82 Z" fill="#c77dff22" stroke="#c77dff" stroke-width="1.5"/>
+
+          <!-- Prostate gland (surrounds urethra) -->
+          <ellipse cx="220" cy="118" rx="26" ry="16" fill="#ffdd5722" stroke="#d4a843" stroke-width="1.5"/>
+
+          <!-- Vas deferens (tubes from testes up to seminal vesicle) -->
+          <path d="M168,240 C168,220 160,180 164,150 C168,130 174,110 180,96" fill="none" stroke="#c77dff" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M272,240 C272,220 280,180 276,150 C272,130 266,110 260,96" fill="none" stroke="#c77dff" stroke-width="2.5" stroke-linecap="round"/>
+
+          <!-- Urethra (dashed, runs through prostate and penis) -->
+          <path d="M220,104 L220,310" fill="none" stroke="#48cae4" stroke-width="2" stroke-dasharray="4,3"/>
+
+          <!-- Penis (tubular, elongated) -->
+          <path d="M204,160 C204,160 200,290 200,298 C200,308 240,308 240,298 C240,290 236,160 236,160 Z" fill="#f4f0e8" stroke="#c77dff" stroke-width="1.5"/>
+          <!-- Glans (rounded tip) -->
+          <path d="M200,298 C200,314 240,314 240,298" fill="#f4f0e8" stroke="#c77dff" stroke-width="1.5"/>
+          <!-- Urethral opening -->
+          <circle cx="220" cy="310" r="2" fill="#48cae4"/>
+
+          <!-- Scrotum (sac containing testes) -->
+          <path d="M152,220 C152,260 160,282 188,288 C200,290 204,280 220,280 C236,280 240,290 252,288 C280,282 288,260 288,220 C288,210 262,200 220,200 C178,200 152,210 152,220 Z" fill="#f4f0e822" stroke="#6b6355" stroke-width="1.5" stroke-dasharray="4,2"/>
+          <!-- Median septum -->
+          <line x1="220" y1="206" x2="220" y2="278" stroke="#6b6355" stroke-width="0.6" stroke-dasharray="2,2" opacity=".4"/>
+
+          <!-- Left testis (oval) -->
+          <ellipse cx="186" cy="244" rx="22" ry="28" fill="#c77dff22" stroke="#c77dff" stroke-width="2"/>
+          <!-- Seminiferous tubule pattern inside -->
+          <path d="M176,232 Q186,240 176,248" fill="none" stroke="#c77dff" stroke-width="0.6" opacity=".4"/>
+          <path d="M180,228 Q190,238 180,252" fill="none" stroke="#c77dff" stroke-width="0.6" opacity=".4"/>
+          <path d="M188,226 Q196,238 188,256" fill="none" stroke="#c77dff" stroke-width="0.6" opacity=".4"/>
+
+          <!-- Left epididymis (coiled structure on top/behind testis) -->
+          <path d="M186,216 C194,210 202,214 200,222 C198,228 192,230 188,226 C184,222 182,218 186,216 Z" fill="#c77dff44" stroke="#9b59b6" stroke-width="1.5"/>
+          <!-- Coil pattern -->
+          <path d="M190,218 Q194,216 196,220 Q194,224 190,222" fill="none" stroke="#9b59b6" stroke-width="0.6"/>
+
+          <!-- Right testis -->
+          <ellipse cx="254" cy="244" rx="22" ry="28" fill="#c77dff22" stroke="#c77dff" stroke-width="2"/>
+          <path d="M244,232 Q254,240 244,248" fill="none" stroke="#c77dff" stroke-width="0.6" opacity=".4"/>
+          <path d="M248,228 Q258,238 248,252" fill="none" stroke="#c77dff" stroke-width="0.6" opacity=".4"/>
+          <path d="M256,226 Q264,238 256,256" fill="none" stroke="#c77dff" stroke-width="0.6" opacity=".4"/>
+
+          <!-- Right epididymis -->
+          <path d="M254,216 C246,210 238,214 240,222 C242,228 248,230 252,226 C256,222 258,218 254,216 Z" fill="#c77dff44" stroke="#9b59b6" stroke-width="1.5"/>
+          <path d="M250,218 Q246,216 244,220 Q246,224 250,222" fill="none" stroke="#9b59b6" stroke-width="0.6"/>
+
+          <!-- Labels with leader lines (all on right side) -->
+          <g font-size="10" font-family="Nunito" fill="#6b6355" font-weight="600">
+            <!-- Bladder -->
+            <line x1="260" y1="56" x2="370" y2="40" stroke="#6b6355" stroke-width=".6"/>
+            <circle cx="260" cy="56" r="1.2" fill="#6b6355"/>
+            <text x="374" y="44">Urinary bladder</text>
+
+            <!-- Seminal vesicle -->
+            <line x1="300" y1="78" x2="370" y2="66" stroke="#6b6355" stroke-width=".6"/>
+            <circle cx="300" cy="78" r="1.2" fill="#6b6355"/>
+            <text x="374" y="64">Seminal</text>
+            <text x="374" y="75">vesicle</text>
+
+            <!-- Prostate -->
+            <line x1="246" y1="118" x2="370" y2="98" stroke="#6b6355" stroke-width=".6"/>
+            <circle cx="246" cy="118" r="1.2" fill="#6b6355"/>
+            <text x="374" y="96">Prostate</text>
+            <text x="374" y="107">gland</text>
+
+            <!-- Vas deferens -->
+            <line x1="276" y1="170" x2="370" y2="132" stroke="#6b6355" stroke-width=".6"/>
+            <circle cx="276" cy="170" r="1.2" fill="#6b6355"/>
+            <text x="374" y="130" fill="#c77dff">Vas deferens</text>
+
+            <!-- Urethra -->
+            <line x1="222" y1="200" x2="370" y2="158" stroke="#6b6355" stroke-width=".6"/>
+            <circle cx="222" cy="200" r="1.2" fill="#6b6355"/>
+            <text x="374" y="156" fill="#48cae4">Urethra</text>
+
+            <!-- Penis -->
+            <line x1="240" y1="250" x2="370" y2="186" stroke="#6b6355" stroke-width=".6"/>
+            <circle cx="240" cy="250" r="1.2" fill="#6b6355"/>
+            <text x="374" y="184">Penis</text>
+
+            <!-- Epididymis -->
+            <line x1="202" y1="218" x2="370" y2="214" stroke="#6b6355" stroke-width=".6"/>
+            <circle cx="202" cy="218" r="1.2" fill="#6b6355"/>
+            <text x="374" y="212" fill="#9b59b6">Epididymis</text>
+
+            <!-- Testis -->
+            <line x1="276" y1="244" x2="370" y2="240" stroke="#6b6355" stroke-width=".6"/>
+            <circle cx="276" cy="244" r="1.2" fill="#6b6355"/>
+            <text x="374" y="238" fill="#c77dff">Testis</text>
+
+            <!-- Scrotum -->
+            <line x1="288" y1="268" x2="370" y2="264" stroke="#6b6355" stroke-width=".6"/>
+            <circle cx="288" cy="268" r="1.2" fill="#6b6355"/>
+            <text x="374" y="262">Scrotum</text>
+          </g>
+        </svg>
+      </div>
+      <ul>
+        <li><strong>Testes:</strong> Paired organs located outside the body (in the scrotum) to maintain temperature 2&ndash;3&deg;C below body temperature, optimal for sperm production. Produce <strong>sperm</strong> and the hormone <strong>testosterone</strong>.</li>
+        <li><strong>Vas deferens:</strong> Tubes that carry sperm from the testes to the urethra.</li>
+        <li><strong>Seminal vesicles &amp; Prostate gland:</strong> Secrete fluids that nourish and help transport sperm. Sperm + these fluids = <strong>semen</strong>.</li>
+        <li><strong>Urethra:</strong> Common passage for both urine and semen (but never at the same time).</li>
+        <li><strong>Penis:</strong> Organ that delivers semen into the female reproductive tract.</li>
+      </ul>
+    </div>
+
+    <div class="card reveal">
+      <h3>Female Reproductive System</h3>
+      <!-- Female system SVG -->
+      <div style="text-align:center; margin:1rem 0 1.5rem;">
+        <svg viewBox="0 0 500 320" style="max-width:500px;width:100%;" xmlns="http://www.w3.org/2000/svg">
+          <text x="250" y="20" text-anchor="middle" font-size="14" fill="#1a1612" font-family="Lora" font-weight="700">Female Reproductive System</text>
+
+          <!-- Fallopian tubes (curved, wider at fimbriae end, narrower toward uterus) -->
+          <!-- Left fallopian tube -->
+          <path d="M190,110 C176,100 148,78 128,72 C114,68 100,70 92,78" fill="none" stroke="#c77dff" stroke-width="3" stroke-linecap="round"/>
+          <!-- Right fallopian tube -->
+          <path d="M280,110 C294,100 322,78 342,72 C356,68 370,70 378,78" fill="none" stroke="#c77dff" stroke-width="3" stroke-linecap="round"/>
+
+          <!-- Left fimbriae (finger-like projections cupping the ovary) -->
+          <path d="M92,78 C84,68 78,58 76,50" fill="none" stroke="#c77dff" stroke-width="2" stroke-linecap="round"/>
+          <path d="M92,78 C82,72 72,66 68,58" fill="none" stroke="#c77dff" stroke-width="2" stroke-linecap="round"/>
+          <path d="M92,78 C80,78 70,76 62,70" fill="none" stroke="#c77dff" stroke-width="2" stroke-linecap="round"/>
+          <path d="M92,78 C82,84 72,86 64,82" fill="none" stroke="#c77dff" stroke-width="2" stroke-linecap="round"/>
+          <path d="M92,78 C86,90 78,96 70,94" fill="none" stroke="#c77dff" stroke-width="2" stroke-linecap="round"/>
+          <path d="M92,78 C90,92 86,102 80,104" fill="none" stroke="#c77dff" stroke-width="2" stroke-linecap="round"/>
+
+          <!-- Right fimbriae -->
+          <path d="M378,78 C386,68 392,58 394,50" fill="none" stroke="#c77dff" stroke-width="2" stroke-linecap="round"/>
+          <path d="M378,78 C388,72 398,66 402,58" fill="none" stroke="#c77dff" stroke-width="2" stroke-linecap="round"/>
+          <path d="M378,78 C390,78 400,76 408,70" fill="none" stroke="#c77dff" stroke-width="2" stroke-linecap="round"/>
+          <path d="M378,78 C388,84 398,86 406,82" fill="none" stroke="#c77dff" stroke-width="2" stroke-linecap="round"/>
+          <path d="M378,78 C384,90 392,96 400,94" fill="none" stroke="#c77dff" stroke-width="2" stroke-linecap="round"/>
+          <path d="M378,78 C380,92 384,102 390,104" fill="none" stroke="#c77dff" stroke-width="2" stroke-linecap="round"/>
+
+          <!-- Left ovary (oval with follicles) -->
+          <ellipse cx="82" cy="100" rx="24" ry="18" fill="#c77dff28" stroke="#c77dff" stroke-width="2"/>
+          <!-- Follicles inside left ovary -->
+          <circle cx="72" cy="96" r="4.5" fill="#c77dff44" stroke="#c77dff" stroke-width="0.8"/>
+          <circle cx="84" cy="92" r="3.5" fill="#c77dff44" stroke="#c77dff" stroke-width="0.8"/>
+          <circle cx="90" cy="102" r="4" fill="#c77dff44" stroke="#c77dff" stroke-width="0.8"/>
+          <circle cx="78" cy="106" r="3" fill="#c77dff44" stroke="#c77dff" stroke-width="0.8"/>
+          <!-- Mature Graafian follicle (larger) -->
+          <circle cx="72" cy="96" r="4.5" fill="none" stroke="#9b59b6" stroke-width="1"/>
+          <circle cx="72" cy="96" r="2" fill="#9b59b6" opacity=".4"/>
+
+          <!-- Ovum being released near left fimbriae -->
+          <circle cx="82" cy="72" r="4" fill="#c77dff55" stroke="#9b59b6" stroke-width="1.2"/>
+          <circle cx="82" cy="72" r="1.5" fill="#9b59b6" opacity=".5"/>
+          <!-- Small arrow showing release direction -->
+          <path d="M82,68 C80,60 78,56 76,52" fill="none" stroke="#9b59b6" stroke-width="0.8" stroke-dasharray="2,1"/>
+
+          <!-- Right ovary -->
+          <ellipse cx="388" cy="100" rx="24" ry="18" fill="#c77dff28" stroke="#c77dff" stroke-width="2"/>
+          <circle cx="380" cy="96" r="4" fill="#c77dff44" stroke="#c77dff" stroke-width="0.8"/>
+          <circle cx="392" cy="92" r="3.5" fill="#c77dff44" stroke="#c77dff" stroke-width="0.8"/>
+          <circle cx="396" cy="104" r="4" fill="#c77dff44" stroke="#c77dff" stroke-width="0.8"/>
+          <circle cx="382" cy="106" r="3" fill="#c77dff44" stroke="#c77dff" stroke-width="0.8"/>
+
+          <!-- Uterus (inverted pear/triangle shape, muscular wall) -->
+          <path d="M190,110 C184,108 176,112 170,126 C162,148 160,174 166,196 C174,218 200,234 230,240 C240,242 248,238 256,234 C284,218 306,196 310,174 C314,148 308,126 300,112 C294,108 286,108 280,110 Z" fill="#f5a0c028" stroke="#e77da0" stroke-width="2.5"/>
+          <!-- Myometrium (outer muscle) indicated by slight inner path -->
+          <path d="M192,118 C186,120 180,130 176,148 C172,168 172,186 178,204 C186,220 206,232 230,236 C254,232 274,220 282,204 C288,186 288,168 284,148 C280,130 274,120 268,118" fill="none" stroke="#e77da0" stroke-width="0.8" opacity=".4"/>
+          <!-- Endometrium (thick inner lining) -->
+          <path d="M200,136 C196,150 194,170 196,190 C200,210 216,224 234,226 C252,224 264,210 268,190 C270,170 268,150 264,136" fill="#f5a0c018" stroke="#e77da0" stroke-width="1.2" stroke-dasharray="3,2"/>
+          <!-- Uterine cavity -->
+          <path d="M216,144 C214,162 214,182 218,200 C224,214 240,214 246,200 C250,182 250,162 248,144" fill="#f5a0c010" stroke="#e77da066" stroke-width="0.6"/>
+
+          <!-- Cervix (narrow lower opening) -->
+          <path d="M220,240 C216,244 214,252 216,258 C220,264 240,264 244,258 C246,252 244,244 240,240" fill="#e77da033" stroke="#e77da0" stroke-width="2"/>
+          <!-- Cervical os -->
+          <ellipse cx="230" cy="254" rx="5" ry="3" fill="#e77da044"/>
+
+          <!-- Vagina (canal) -->
+          <path d="M216,258 C214,270 212,288 214,302 C216,308 244,308 246,302 C248,288 246,270 244,258" fill="#f4f0e8" stroke="#e77da0" stroke-width="1.8"/>
+
+          <!-- Labels with leader lines -->
+          <g font-size="10" font-family="Nunito" fill="#6b6355" font-weight="600">
+            <!-- Left side labels -->
+            <line x1="58" y1="100" x2="20" y2="116" stroke="#6b6355" stroke-width=".6"/>
+            <circle cx="58" cy="100" r="1.2" fill="#6b6355"/>
+            <text x="4" y="112" fill="#c77dff">Ovary</text>
+            <text x="4" y="123" font-size="8" font-weight="400">(with follicles)</text>
+
+            <line x1="82" y1="68" x2="20" y2="48" stroke="#6b6355" stroke-width=".6"/>
+            <circle cx="82" cy="68" r="1.2" fill="#6b6355"/>
+            <text x="4" y="44" fill="#9b59b6">Ovum released</text>
+
+            <line x1="72" y1="78" x2="20" y2="78" stroke="#6b6355" stroke-width=".6"/>
+            <circle cx="72" cy="78" r="1.2" fill="#6b6355"/>
+            <text x="4" y="74" fill="#c77dff">Fimbriae</text>
+
+            <line x1="128" y1="72" x2="20" y2="148" stroke="#6b6355" stroke-width=".6"/>
+            <circle cx="128" cy="72" r="1.2" fill="#6b6355"/>
+            <text x="4" y="148">Fallopian tube</text>
+            <text x="4" y="159" font-size="8" font-weight="400">(oviduct)</text>
+
+            <!-- Right side labels -->
+            <line x1="310" y1="160" x2="410" y2="146" stroke="#6b6355" stroke-width=".6"/>
+            <circle cx="310" cy="160" r="1.2" fill="#6b6355"/>
+            <text x="414" y="144">Uterus</text>
+            <text x="414" y="155" font-size="8" font-weight="400">(womb)</text>
+
+            <line x1="270" y1="178" x2="410" y2="174" stroke="#6b6355" stroke-width=".6"/>
+            <circle cx="270" cy="178" r="1.2" fill="#6b6355"/>
+            <text x="414" y="172" fill="#e77da0">Endometrium</text>
+            <text x="414" y="183" font-size="8" font-weight="400">(uterine lining)</text>
+
+            <line x1="244" y1="254" x2="410" y2="210" stroke="#6b6355" stroke-width=".6"/>
+            <circle cx="244" cy="254" r="1.2" fill="#6b6355"/>
+            <text x="414" y="208">Cervix</text>
+
+            <line x1="246" y1="286" x2="410" y2="238" stroke="#6b6355" stroke-width=".6"/>
+            <circle cx="246" cy="286" r="1.2" fill="#6b6355"/>
+            <text x="414" y="236">Vagina</text>
+          </g>
+        </svg>
+      </div>
+      <ul>
+        <li><strong>Ovaries:</strong> Paired organs that produce <strong>egg cells (ova)</strong> and hormones (oestrogen, progesterone). One egg is usually released per month.</li>
+        <li><strong>Fallopian tubes (Oviducts):</strong> Tubes where the egg travels from the ovary to the uterus. <strong>Fertilisation usually occurs here</strong>.</li>
+        <li><strong>Uterus (Womb):</strong> Muscular organ where the fertilised egg implants and the foetus develops. Has a thick, blood-rich lining called the <strong>endometrium</strong>.</li>
+        <li><strong>Cervix:</strong> Narrow opening of the uterus leading to the vagina.</li>
+        <li><strong>Vagina:</strong> Canal that receives sperm and serves as the birth canal.</li>
+      </ul>
+    </div>
+
+    <div class="card reveal">
+      <h3>Menstrual Cycle</h3>
+      <p>The menstrual cycle is approximately <strong>28 days</strong> long and involves:</p>
+      <ol>
+        <li><strong>Days 1&ndash;5 (Menstruation):</strong> The uterine lining (endometrium) breaks down and is shed along with blood &mdash; this is the menstrual flow (period).</li>
+        <li><strong>Days 6&ndash;13 (Follicular phase):</strong> The uterine lining begins to rebuild. An egg matures in the ovary inside a follicle.</li>
+        <li><strong>Day 14 (Ovulation):</strong> The mature egg is released from the ovary into the fallopian tube. Triggered by a surge in <strong>LH (Luteinising Hormone)</strong>.</li>
+        <li><strong>Days 15&ndash;28 (Luteal phase):</strong> The uterine lining thickens further, preparing for possible implantation. If fertilisation does not occur, the lining breaks down &mdash; the cycle restarts.</li>
+      </ol>
+      <div class="highlight-box">
+        <strong>If fertilisation occurs:</strong> The fertilised egg (zygote) implants in the uterine wall. Menstruation stops. The thick lining is maintained throughout pregnancy.
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <h3>Fertilisation, Implantation &amp; Pregnancy</h3>
+      <p>When sperm is deposited in the vagina, sperm cells swim through the uterus to the fallopian tube. If an egg is present, one sperm may penetrate the egg &mdash; this is <strong>fertilisation</strong>.</p>
+      <ul>
+        <li>The fertilised egg (zygote) begins dividing as it moves down the fallopian tube.</li>
+        <li>After about 7 days, the ball of cells (now called a <strong>blastocyst</strong>) implants in the uterine wall &mdash; this is <strong>implantation</strong>.</li>
+        <li>The embryo develops over ~9 months (approximately 40 weeks).</li>
+      </ul>
+      <h4 style="margin-top:1rem;">Role of the Placenta</h4>
+      <p>The <strong>placenta</strong> is a disc-shaped tissue that develops in the uterine wall. It connects the mother's blood supply to the developing foetus via the <strong>umbilical cord</strong>.</p>
+      <ul>
+        <li>Supplies oxygen and nutrients from the mother to the foetus</li>
+        <li>Removes carbon dioxide and metabolic waste from the foetus</li>
+        <li>Acts as a barrier against many pathogens</li>
+        <li>Produces hormones (like progesterone and oestrogen) to maintain pregnancy</li>
+      </ul>
+    </div>
+
+    <!-- Animated Fertilisation SVG -->
+    <div class="card reveal">
+      <h3>Fertilisation Animation</h3>
+      <p style="margin-bottom:1rem; color:#6b6355;">Watch as the sperm cell approaches and fuses with the egg, forming a zygote that begins to divide.</p>
+      <svg class="fert-svg" viewBox="0 0 520 200" style="max-width:520px;width:100%;" xmlns="http://www.w3.org/2000/svg" id="fertSvg">
+        <!-- Total animation: 16s, 8 keyframes of 2s each -->
+        <!-- Phases: 0-2s sperm swimming, 2-4s approach, 4-6s penetration/fusion, 6-8s zygote, 8-10s 2-cell, 10-12s 4-cell, 12-14s 8-cell, 14-16s morula label -->
+
+        <!-- ===== EGG CELL (visible during sperm approach + fusion, phases 0-6s) ===== -->
+        <g>
+          <animate attributeName="opacity" values="1;1;1;1;0;0;0;0" dur="16s" repeatCount="indefinite"/>
+          <!-- Zona pellucida (outer layer) -->
+          <circle cx="360" cy="90" r="42" fill="none" stroke="#c77dff" stroke-width="2" stroke-dasharray="4,2" opacity=".6"/>
+          <!-- Egg cell membrane -->
+          <circle cx="360" cy="90" r="36" fill="#c77dff18" stroke="#c77dff" stroke-width="2"/>
+          <!-- Egg cytoplasm -->
+          <circle cx="360" cy="90" r="30" fill="#c77dff12"/>
+          <!-- Egg nucleus (with nucleolus) -->
+          <circle cx="360" cy="90" r="12" fill="#c77dff40" stroke="#9b59b6" stroke-width="1.2"/>
+          <circle cx="362" cy="88" r="4" fill="#9b59b6" opacity=".4"/>
+        </g>
+        <!-- Egg label -->
+        <text x="360" y="152" text-anchor="middle" font-size="10" fill="#6b6355" font-family="Nunito" font-weight="600">
+          <animate attributeName="opacity" values="1;1;0;0;0;0;0;0" dur="16s" repeatCount="indefinite"/>
+          Egg (Ovum)
+        </text>
+        <!-- Zona pellucida label -->
+        <g>
+          <animate attributeName="opacity" values="1;1;0;0;0;0;0;0" dur="16s" repeatCount="indefinite"/>
+          <line x1="390" y1="56" x2="420" y2="42" stroke="#6b6355" stroke-width=".5"/>
+          <text x="422" y="40" font-size="8" fill="#6b6355" font-family="Nunito">Zona pellucida</text>
+          <line x1="372" y1="78" x2="420" y2="58" stroke="#6b6355" stroke-width=".5"/>
+          <text x="422" y="56" font-size="8" fill="#6b6355" font-family="Nunito">Nucleus</text>
+        </g>
+
+        <!-- ===== SPERM CELL (animated swimming approach) ===== -->
+        <g>
+          <!-- Translate: swim from left toward egg -->
+          <animateTransform attributeName="transform" type="translate" values="0,0;0,0;240,0;280,0;280,0;280,0;280,0;280,0" dur="16s" repeatCount="indefinite"/>
+
+          <!-- Sperm tail (smooth sinusoidal wave) -->
+          <path fill="none" stroke="#48cae4" stroke-width="1.8" stroke-linecap="round">
+            <animate attributeName="d"
+              values="M58,90 C52,82 46,90 40,98 C34,90 28,82 22,90 C16,98 10,90 4,82;
+                      M58,90 C52,98 46,90 40,82 C34,90 28,98 22,90 C16,82 10,90 4,98;
+                      M58,90 C52,82 46,90 40,98 C34,90 28,82 22,90 C16,98 10,90 4,82"
+              dur=".3s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="1;1;1;0;0;0;0;0" dur="16s" repeatCount="indefinite"/>
+          </path>
+
+          <!-- Midpiece (slightly thicker region) -->
+          <rect x="58" y="87" width="10" height="6" rx="2" fill="#0096c7" opacity=".6">
+            <animate attributeName="opacity" values=".6;.6;.6;0;0;0;0;0" dur="16s" repeatCount="indefinite"/>
+          </rect>
+
+          <!-- Sperm head (pointed/oval with acrosome cap) -->
+          <ellipse cx="74" cy="90" rx="9" ry="6" fill="#48cae4">
+            <animate attributeName="opacity" values="1;1;1;0;0;0;0;0" dur="16s" repeatCount="indefinite"/>
+          </ellipse>
+          <!-- Acrosome (darker cap at front) -->
+          <path d="M80,84 C84,87 84,93 80,96 L78,90 Z" fill="#0096c7" opacity=".7">
+            <animate attributeName="opacity" values=".7;.7;.7;0;0;0;0;0" dur="16s" repeatCount="indefinite"/>
+          </path>
+          <!-- Sperm nucleus -->
+          <circle cx="72" cy="90" r="3" fill="#0096c7" opacity=".5">
+            <animate attributeName="opacity" values=".5;.5;.5;0;0;0;0;0" dur="16s" repeatCount="indefinite"/>
+          </circle>
+
+          <!-- Sperm labels -->
+          <g>
+            <animate attributeName="opacity" values="1;0;0;0;0;0;0;0" dur="16s" repeatCount="indefinite"/>
+            <line x1="74" y1="84" x2="74" y2="68" stroke="#6b6355" stroke-width=".5"/>
+            <text x="74" y="64" text-anchor="middle" font-size="8" fill="#6b6355" font-family="Nunito">Head</text>
+            <line x1="80" y1="84" x2="92" y2="68" stroke="#6b6355" stroke-width=".5"/>
+            <text x="92" y="64" text-anchor="middle" font-size="8" fill="#6b6355" font-family="Nunito">Acrosome</text>
+            <line x1="63" y1="87" x2="56" y2="72" stroke="#6b6355" stroke-width=".5"/>
+            <text x="56" y="68" text-anchor="middle" font-size="8" fill="#6b6355" font-family="Nunito">Midpiece</text>
+            <line x1="30" y1="90" x2="30" y2="76" stroke="#6b6355" stroke-width=".5"/>
+            <text x="30" y="72" text-anchor="middle" font-size="8" fill="#6b6355" font-family="Nunito">Tail</text>
+            <text x="50" y="112" text-anchor="middle" font-size="10" fill="#6b6355" font-family="Nunito" font-weight="600">Sperm</text>
+          </g>
+        </g>
+
+        <!-- ===== FUSION FLASH (brief glow at penetration) ===== -->
+        <circle cx="360" cy="90" r="44" fill="#c77dff" opacity="0">
+          <animate attributeName="opacity" values="0;0;0;0.3;0;0;0;0" dur="16s" repeatCount="indefinite"/>
+          <animate attributeName="r" values="44;44;44;50;44;44;44;44" dur="16s" repeatCount="indefinite"/>
+        </circle>
+
+        <!-- ===== ZYGOTE (nuclei fusing, single fused nucleus) ===== -->
+        <g>
+          <animate attributeName="opacity" values="0;0;0;0;1;1;0;0" dur="16s" repeatCount="indefinite"/>
+          <circle cx="360" cy="90" r="38" fill="#c77dff28" stroke="#c77dff" stroke-width="2"/>
+          <!-- Fused nucleus (larger, combined) -->
+          <circle cx="360" cy="90" r="14" fill="#c77dff44" stroke="#9b59b6" stroke-width="1.5"/>
+          <circle cx="357" cy="88" r="4" fill="#9b59b6" opacity=".35"/>
+          <circle cx="364" cy="92" r="3.5" fill="#48cae4" opacity=".35"/>
+          <text x="360" y="152" text-anchor="middle" font-size="11" fill="#c77dff" font-family="Nunito" font-weight="700">Zygote (nuclei fusing)</text>
+        </g>
+
+        <!-- ===== 2-CELL STAGE (each with nucleus) ===== -->
+        <g>
+          <animate attributeName="opacity" values="0;0;0;0;0;0;1;0" dur="16s" repeatCount="indefinite"/>
+          <!-- Outer membrane -->
+          <circle cx="360" cy="90" r="38" fill="none" stroke="#c77dff" stroke-width="1" stroke-dasharray="3,2" opacity=".4"/>
+          <!-- Cell 1 -->
+          <circle cx="345" cy="80" r="22" fill="#48cae418" stroke="#48cae4" stroke-width="1.8"/>
+          <circle cx="345" cy="80" r="6" fill="#48cae444" stroke="#0096c7" stroke-width="0.8"/>
+          <circle cx="346" cy="79" r="2" fill="#0096c7" opacity=".3"/>
+          <!-- Cell 2 -->
+          <circle cx="375" cy="100" r="22" fill="#48cae418" stroke="#48cae4" stroke-width="1.8"/>
+          <circle cx="375" cy="100" r="6" fill="#48cae444" stroke="#0096c7" stroke-width="0.8"/>
+          <circle cx="376" cy="99" r="2" fill="#0096c7" opacity=".3"/>
+          <text x="360" y="152" text-anchor="middle" font-size="11" fill="#48cae4" font-family="Nunito" font-weight="700">2-cell stage</text>
+        </g>
+
+        <!-- ===== 4-CELL STAGE (each with nucleus) ===== -->
+        <g>
+          <animate attributeName="opacity" values="0;0;0;0;0;0;0;1" dur="16s" repeatCount="indefinite"/>
+          <circle cx="360" cy="90" r="38" fill="none" stroke="#c77dff" stroke-width="1" stroke-dasharray="3,2" opacity=".4"/>
+          <!-- Cell 1 -->
+          <circle cx="345" cy="76" r="16" fill="#48cae418" stroke="#48cae4" stroke-width="1.5"/>
+          <circle cx="345" cy="76" r="4.5" fill="#48cae444" stroke="#0096c7" stroke-width="0.6"/>
+          <!-- Cell 2 -->
+          <circle cx="375" cy="76" r="16" fill="#48cae418" stroke="#48cae4" stroke-width="1.5"/>
+          <circle cx="375" cy="76" r="4.5" fill="#48cae444" stroke="#0096c7" stroke-width="0.6"/>
+          <!-- Cell 3 -->
+          <circle cx="345" cy="104" r="16" fill="#c77dff18" stroke="#c77dff" stroke-width="1.5"/>
+          <circle cx="345" cy="104" r="4.5" fill="#c77dff44" stroke="#9b59b6" stroke-width="0.6"/>
+          <!-- Cell 4 -->
+          <circle cx="375" cy="104" r="16" fill="#c77dff18" stroke="#c77dff" stroke-width="1.5"/>
+          <circle cx="375" cy="104" r="4.5" fill="#c77dff44" stroke="#9b59b6" stroke-width="0.6"/>
+          <text x="360" y="152" text-anchor="middle" font-size="11" fill="#c77dff" font-family="Nunito" font-weight="700">4-cell stage (Morula forming)</text>
+        </g>
+
+        <!-- Phase indicator at bottom -->
+        <g font-size="9" font-family="Nunito" fill="#6b6355" text-anchor="middle">
+          <text x="260" y="178" opacity=".5">Animation loops automatically (16s cycle)</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Fun Fact -->
+    <div class="fun-fact reveal">
+      <div class="fun-fact-icon">&#129516;</div>
+      <div>
+        <p><strong>Fun Fact:</strong> A human male produces approximately 1,500 sperm cells per second &mdash; around 500 billion in a lifetime! In contrast, a female is born with about 1&ndash;2 million eggs, of which only 300&ndash;400 will be released during her reproductive years.</p>
+      </div>
+    </div>
+
+    <!-- Mini Quiz -->
+    <div class="mini-quiz reveal" data-answer="2">
+      <h4>Quick Check</h4>
+      <p style="margin-bottom:.75rem;">Where does fertilisation normally occur in humans?</p>
+      <div class="mq-options">
+        <button class="mq-opt" data-idx="0">Uterus</button>
+        <button class="mq-opt" data-idx="1">Ovary</button>
+        <button class="mq-opt" data-idx="2">Fallopian tube (Oviduct)</button>
+        <button class="mq-opt" data-idx="3">Vagina</button>
+      </div>
+      <div class="mq-explanation">Fertilisation in humans normally occurs in the fallopian tube (oviduct). The fertilised egg then travels to the uterus, where it implants in the uterine wall.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== TOPIC 5: REPRODUCTIVE HEALTH ========== -->
+<section class="section" id="topic5">
+  <div class="container">
+    <span class="section-label label-violet">Topic 5</span>
+    <h2 class="section-title">Reproductive Health</h2>
+    <p class="section-subtitle">Understanding contraception, sexually transmitted diseases, and responsible choices.</p>
+
+    <div class="card reveal">
+      <h3>Contraception Methods</h3>
+      <p>Contraception refers to methods used to <strong>prevent unwanted pregnancy</strong>. These can be broadly classified as:</p>
+
+      <h4>1. Barrier Methods</h4>
+      <p>Prevent the sperm from reaching the egg physically.</p>
+      <ul>
+        <li><strong>Condoms</strong> (male and female): Thin rubber sheaths that prevent sperm from entering the female reproductive tract. Also protect against STDs.</li>
+        <li><strong>Diaphragm:</strong> A dome-shaped cap placed over the cervix.</li>
+      </ul>
+
+      <h4>2. Chemical Methods</h4>
+      <p>Use hormones to prevent ovulation or fertilisation.</p>
+      <ul>
+        <li><strong>Oral contraceptive pills:</strong> Contain synthetic hormones (oestrogen and progesterone) that prevent ovulation.</li>
+      </ul>
+
+      <h4>3. Intrauterine Devices (IUDs)</h4>
+      <ul>
+        <li><strong>Copper-T:</strong> A small device placed inside the uterus by a doctor. It prevents implantation and may also prevent fertilisation. Can remain in place for several years.</li>
+      </ul>
+
+      <h4>4. Surgical Methods (Permanent)</h4>
+      <ul>
+        <li><strong>Vasectomy</strong> (males): The vas deferens is cut and tied, preventing sperm from reaching the semen.</li>
+        <li><strong>Tubectomy</strong> (females): The fallopian tubes are cut and tied, preventing the egg from reaching the uterus.</li>
+      </ul>
+
+      <div class="highlight-box cyan">
+        <strong>Important:</strong> Among all contraceptive methods, only <strong>condoms</strong> provide protection against both pregnancy AND sexually transmitted diseases (STDs).
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <h3>Sexually Transmitted Diseases (STDs)</h3>
+      <p>STDs are infections that spread primarily through sexual contact. Common STDs include:</p>
+      <ul>
+        <li><strong>HIV/AIDS</strong> (Human Immunodeficiency Virus / Acquired Immunodeficiency Syndrome): Attacks the immune system (T-helper cells). No cure; manageable with antiretroviral therapy. Spreads through sexual contact, infected blood, and mother to child.</li>
+        <li><strong>Gonorrhoea:</strong> Bacterial infection causing painful urination and discharge. Treatable with antibiotics.</li>
+        <li><strong>Syphilis:</strong> Bacterial infection that progresses in stages (sores, rash, organ damage). Treatable with antibiotics if caught early.</li>
+        <li><strong>Genital warts/herpes:</strong> Caused by viruses (HPV, HSV). Manageable but not always curable.</li>
+      </ul>
+      <div class="highlight-box">
+        <strong>Prevention:</strong> Use of condoms, maintaining hygiene, avoiding multiple sexual partners, and getting regular health check-ups can help prevent STDs.
+      </div>
+    </div>
+
+    <!-- Fun Fact -->
+    <div class="fun-fact reveal">
+      <div class="fun-fact-icon">&#128218;</div>
+      <div>
+        <p><strong>Fun Fact:</strong> The World Health Organization estimates that more than 1 million new STD infections are acquired every day worldwide. Education and awareness are the most powerful tools in combating their spread.</p>
+      </div>
+    </div>
+
+    <!-- Mini Quiz -->
+    <div class="mini-quiz reveal" data-answer="0">
+      <h4>Quick Check</h4>
+      <p style="margin-bottom:.75rem;">Which contraceptive method also protects against STDs?</p>
+      <div class="mq-options">
+        <button class="mq-opt" data-idx="0">Condoms (barrier method)</button>
+        <button class="mq-opt" data-idx="1">Oral contraceptive pills</button>
+        <button class="mq-opt" data-idx="2">Copper-T (IUD)</button>
+        <button class="mq-opt" data-idx="3">Tubectomy</button>
+      </div>
+      <div class="mq-explanation">Condoms are the only contraceptive method that also provides protection against sexually transmitted diseases (STDs) by acting as a physical barrier preventing exchange of bodily fluids.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== MATCHING GAME ========== -->
+<section class="section" id="matching">
+  <div class="container">
+    <span class="section-label label-cyan">Interactive Activity</span>
+    <h2 class="section-title">Reproduction Type Matching</h2>
+    <p class="section-subtitle">Match each asexual reproduction type with the correct organism. Click one item from each column to make a match.</p>
+
+    <div class="card reveal">
+      <div class="match-game" id="matchGame">
+        <div class="match-columns">
+          <div class="match-col">
+            <h4>Reproduction Type</h4>
+            <div id="matchLeft"></div>
+          </div>
+          <div class="match-col">
+            <h4>Organism</h4>
+            <div id="matchRight"></div>
+          </div>
+        </div>
+        <div class="match-score" id="matchScore">Score: 0 / 6</div>
+        <button class="match-reset" id="matchReset">Reset Game</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FLASHCARDS ========== -->
+<section class="section" id="flashcards">
+  <div class="container">
+    <span class="section-label label-violet">Revision</span>
+    <h2 class="section-title">Flashcard Deck</h2>
+    <p class="section-subtitle">Click a card to flip it. Use arrow keys or buttons to navigate. Shuffle for a random order.</p>
+
+    <div class="flashcard-deck" id="flashcardDeck">
+      <div class="flashcard-container" id="flashcardContainer"></div>
+      <div class="fc-controls">
+        <button class="fc-btn" id="fcPrev" aria-label="Previous card">&#8592;</button>
+        <span class="fc-counter" id="fcCounter">1 / 10</span>
+        <button class="fc-btn" id="fcNext" aria-label="Next card">&#8594;</button>
+        <button class="fc-shuffle" id="fcShuffle">Shuffle</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CHAPTER QUIZ ========== -->
+<section class="section" id="quiz">
+  <div class="container">
+    <span class="section-label label-cyan">Test Yourself</span>
+    <h2 class="section-title">Chapter Quiz</h2>
+    <p class="section-subtitle">9 questions covering the entire chapter. Check your understanding!</p>
+
+    <div class="quiz-container" id="quizContainer">
+      <!-- Questions injected by JS -->
+    </div>
+    <div class="quiz-result" id="quizResult">
+      <h3>Quiz Complete!</h3>
+      <div class="score-big" id="quizScoreBig">0 / 9</div>
+      <p id="quizScoreMsg"></p>
+      <button class="quiz-retry" id="quizRetry">Try Again</button>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SUMMARY ========== -->
+<section class="section" id="summary">
+  <div class="container">
+    <span class="section-label label-violet">Recap</span>
+    <h2 class="section-title">Key Takeaways</h2>
+    <p class="section-subtitle">A quick recap of the most important points from the chapter.</p>
+
+    <div class="summary-grid">
+      <div class="summary-card reveal">
+        <h4>Why Reproduce?</h4>
+        <p>Reproduction ensures continuity of species. DNA copying creates blueprints for the next generation; minor errors introduce useful variations that drive evolution.</p>
+      </div>
+      <div class="summary-card reveal">
+        <h4>Asexual Reproduction</h4>
+        <p>Involves one parent. Methods include fission, budding, fragmentation, regeneration, vegetative propagation, and spore formation. Offspring are genetically identical to the parent.</p>
+      </div>
+      <div class="summary-card reveal">
+        <h4>Sexual Reproduction in Plants</h4>
+        <p>Flowers contain male (stamen) and female (pistil) organs. Pollination, fertilisation, and seed/fruit formation are key steps. Double fertilisation is unique to angiosperms.</p>
+      </div>
+      <div class="summary-card reveal">
+        <h4>Human Reproduction</h4>
+        <p>Involves male (testes, vas deferens, penis) and female (ovaries, fallopian tubes, uterus) systems. The menstrual cycle prepares the uterus monthly. Fertilisation occurs in the fallopian tube.</p>
+      </div>
+      <div class="summary-card reveal">
+        <h4>Pregnancy &amp; Placenta</h4>
+        <p>The zygote implants in the uterine wall. The placenta nourishes the foetus, supplies oxygen, and removes waste via the umbilical cord over ~9 months.</p>
+      </div>
+      <div class="summary-card reveal">
+        <h4>Reproductive Health</h4>
+        <p>Contraception methods include barrier (condoms), chemical (pills), IUDs, and surgical (vasectomy/tubectomy). Only condoms protect against both pregnancy and STDs like HIV/AIDS.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="site-footer">
+  <p><a href="index.html">&larr; Back to Biology Home</a></p>
+  <p style="margin-top:.5rem;">Chapter 7: How Do Organisms Reproduce? &mdash; Class 10 NCERT Biology</p>
+</footer>
+
+<!-- ========================================================================
+     JAVASCRIPT
+     ======================================================================== -->
+<script>
+(function() {
+  'use strict';
+
+  /* ---------- READING PROGRESS BAR ---------- */
+  const progressBar = document.getElementById('progress-bar');
+  function updateProgress() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progressBar.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+
+  /* ---------- ACTIVE NAV LINK ---------- */
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const sections = [];
+  navLinks.forEach(function(link) {
+    const id = link.getAttribute('href').replace('#', '');
+    const el = document.getElementById(id);
+    if (el) sections.push({ id: id, el: el, link: link });
+  });
+  function updateActiveNav() {
+    const scrollY = window.scrollY + 100;
+    let current = sections[0];
+    for (let i = 0; i < sections.length; i++) {
+      if (scrollY >= sections[i].el.offsetTop) current = sections[i];
+    }
+    navLinks.forEach(function(l) { l.classList.remove('active'); });
+    if (current) current.link.classList.add('active');
+  }
+  window.addEventListener('scroll', updateActiveNav, { passive: true });
+
+  /* ---------- SCROLL-TRIGGERED REVEALS ---------- */
+  const reveals = document.querySelectorAll('.reveal, .card');
+  const revealObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(function(el) { revealObserver.observe(el); });
+
+  /* ---------- MINI QUIZZES ---------- */
+  document.querySelectorAll('.mini-quiz').forEach(function(quiz) {
+    const correctIdx = parseInt(quiz.getAttribute('data-answer'));
+    const buttons = quiz.querySelectorAll('.mq-opt');
+    const explanation = quiz.querySelector('.mq-explanation');
+    buttons.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        if (quiz.classList.contains('answered')) return;
+        quiz.classList.add('answered');
+        const idx = parseInt(btn.getAttribute('data-idx'));
+        btn.classList.add('chosen');
+        if (idx === correctIdx) {
+          btn.classList.add('correct');
+        } else {
+          btn.classList.add('wrong');
+          buttons[correctIdx].classList.add('correct');
+        }
+        explanation.classList.add('show');
+      });
+    });
+  });
+
+  /* ---------- INTERACTIVE FLOWER DIAGRAM ---------- */
+  var flowerData = {
+    sepals: { title: 'Sepals (Calyx)', text: 'The outermost whorl of the flower. Sepals are usually green and leaf-like. They protect the flower bud before it opens. In some flowers (like lily), sepals are colourful and resemble petals.' },
+    petals: { title: 'Petals (Corolla)', text: 'The colourful parts of the flower that attract pollinators like insects, birds, and bats. Petals may also produce nectar and fragrance. The colour and shape of petals are adapted to their specific pollinators.' },
+    stamen: { title: 'Stamen (Male Reproductive Organ)', text: 'Consists of the anther (the pollen-producing tip) and the filament (the stalk supporting the anther). The anther contains pollen sacs where pollen grains (male gametophytes) develop. Each pollen grain contains two male gametes (sperm cells).' },
+    stigma: { title: 'Stigma', text: 'The sticky or feathery tip of the pistil that receives pollen grains during pollination. The stigma\'s surface is adapted to capture and hold pollen. After a pollen grain lands here, it germinates and grows a pollen tube down through the style.' },
+    style: { title: 'Style', text: 'The slender tube connecting the stigma to the ovary. The pollen tube grows through the style, carrying male gametes down to the ovules in the ovary for fertilisation.' },
+    ovary: { title: 'Ovary (with Ovules)', text: 'The swollen base of the pistil containing one or more ovules. Each ovule contains an egg cell (female gamete). After fertilisation, the ovule develops into a seed, and the ovary develops into a fruit. The ovary wall becomes the fruit wall (pericarp).' }
+  };
+  var popup = document.getElementById('flowerPopup');
+  var overlay = document.getElementById('flowerOverlay');
+  var popupTitle = document.getElementById('flowerPopupTitle');
+  var popupText = document.getElementById('flowerPopupText');
+  var popupClose = document.getElementById('flowerPopupClose');
+
+  document.querySelectorAll('.flower-part').forEach(function(part) {
+    part.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var key = part.getAttribute('data-part');
+      if (flowerData[key]) {
+        popupTitle.textContent = flowerData[key].title;
+        popupText.textContent = flowerData[key].text;
+        popup.classList.add('show');
+        overlay.classList.add('show');
+      }
+    });
+  });
+  function closeFlowerPopup() {
+    popup.classList.remove('show');
+    overlay.classList.remove('show');
+  }
+  popupClose.addEventListener('click', closeFlowerPopup);
+  overlay.addEventListener('click', closeFlowerPopup);
+
+  /* ---------- MATCHING GAME ---------- */
+  var matchPairs = [
+    { left: 'Binary fission', right: 'Amoeba' },
+    { left: 'Budding', right: 'Hydra' },
+    { left: 'Fragmentation', right: 'Spirogyra' },
+    { left: 'Regeneration', right: 'Planaria' },
+    { left: 'Spore formation', right: 'Rhizopus' },
+    { left: 'Vegetative propagation', right: 'Bryophyllum' }
+  ];
+  var matchScore = 0;
+  var selectedLeft = null;
+  var selectedRight = null;
+  var matchedPairs = new Set();
+
+  function shuffle(arr) {
+    for (var i = arr.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = arr[i]; arr[i] = arr[j]; arr[j] = temp;
+    }
+    return arr;
+  }
+
+  function renderMatch() {
+    matchScore = 0;
+    matchedPairs = new Set();
+    selectedLeft = null;
+    selectedRight = null;
+    document.getElementById('matchScore').textContent = 'Score: 0 / 6';
+
+    var leftItems = matchPairs.map(function(p, i) { return { text: p.left, idx: i }; });
+    var rightItems = matchPairs.map(function(p, i) { return { text: p.right, idx: i }; });
+    shuffle(leftItems);
+    shuffle(rightItems);
+
+    var leftDiv = document.getElementById('matchLeft');
+    var rightDiv = document.getElementById('matchRight');
+    leftDiv.innerHTML = '';
+    rightDiv.innerHTML = '';
+
+    leftItems.forEach(function(item) {
+      var el = document.createElement('div');
+      el.className = 'match-item';
+      el.textContent = item.text;
+      el.setAttribute('data-idx', item.idx);
+      el.setAttribute('data-side', 'left');
+      el.addEventListener('click', handleMatchClick);
+      leftDiv.appendChild(el);
+    });
+    rightItems.forEach(function(item) {
+      var el = document.createElement('div');
+      el.className = 'match-item';
+      el.textContent = item.text;
+      el.setAttribute('data-idx', item.idx);
+      el.setAttribute('data-side', 'right');
+      el.addEventListener('click', handleMatchClick);
+      rightDiv.appendChild(el);
+    });
+  }
+
+  function handleMatchClick(e) {
+    var el = e.currentTarget;
+    var side = el.getAttribute('data-side');
+    var idx = parseInt(el.getAttribute('data-idx'));
+    if (matchedPairs.has(idx) && el.classList.contains('matched-correct')) return;
+
+    if (side === 'left') {
+      if (selectedLeft) selectedLeft.el.classList.remove('selected');
+      selectedLeft = { el: el, idx: idx };
+      el.classList.add('selected');
+    } else {
+      if (selectedRight) selectedRight.el.classList.remove('selected');
+      selectedRight = { el: el, idx: idx };
+      el.classList.add('selected');
+    }
+
+    if (selectedLeft && selectedRight) {
+      checkMatch();
+    }
+  }
+
+  function checkMatch() {
+    if (selectedLeft.idx === selectedRight.idx) {
+      selectedLeft.el.classList.remove('selected');
+      selectedRight.el.classList.remove('selected');
+      selectedLeft.el.classList.add('matched-correct');
+      selectedRight.el.classList.add('matched-correct');
+      matchedPairs.add(selectedLeft.idx);
+      matchScore++;
+      document.getElementById('matchScore').textContent = 'Score: ' + matchScore + ' / 6';
+    } else {
+      selectedLeft.el.classList.remove('selected');
+      selectedRight.el.classList.remove('selected');
+      selectedLeft.el.classList.add('matched-wrong');
+      selectedRight.el.classList.add('matched-wrong');
+      var sl = selectedLeft.el;
+      var sr = selectedRight.el;
+      setTimeout(function() {
+        sl.classList.remove('matched-wrong');
+        sr.classList.remove('matched-wrong');
+      }, 500);
+    }
+    selectedLeft = null;
+    selectedRight = null;
+  }
+
+  document.getElementById('matchReset').addEventListener('click', renderMatch);
+  renderMatch();
+
+  /* ---------- FLASHCARDS ---------- */
+  var flashcards = [
+    { q: 'What is binary fission? Give an example.', a: 'Division of a single-celled organism into two equal halves. e.g. Amoeba, bacteria.' },
+    { q: 'What is budding?', a: 'A small outgrowth (bud) forms on the parent organism and eventually detaches. e.g. Hydra, yeast.' },
+    { q: 'What is regeneration?', a: 'Ability to regrow lost body parts. e.g. Planaria (flatworm) can regenerate a complete organism from any cut piece.' },
+    { q: 'Define pollination.', a: 'Transfer of pollen grains from anther to stigma of a flower.' },
+    { q: 'What is double fertilisation?', a: 'In flowering plants: one sperm fertilises the egg \u2192 zygote; another sperm fuses with polar nuclei \u2192 endosperm. Unique to angiosperms.' },
+    { q: 'What is the function of the placenta?', a: 'Connects mother and foetus; supplies oxygen and nutrients to foetus and removes waste.' },
+    { q: 'What is the menstrual cycle?', a: '~28-day cycle of uterine lining building up (in preparation for fertilisation) and shedding if fertilisation doesn\u2019t occur.' },
+    { q: 'What is vegetative propagation? Give examples.', a: 'Asexual reproduction in plants using roots, stems, or leaves. e.g. potato (tubers), rose (cuttings), Bryophyllum (leaves).' },
+    { q: 'What is contraception?', a: 'Methods to prevent unwanted pregnancy; includes barrier (condoms), chemical (pills), surgical (vasectomy/tubectomy).' },
+    { q: 'What are STDs?', a: 'Sexually transmitted diseases passed through sexual contact. e.g. HIV/AIDS, gonorrhoea, syphilis.' }
+  ];
+  var fcOrder = flashcards.map(function(_, i) { return i; });
+  var fcIndex = 0;
+
+  function renderFlashcard() {
+    var container = document.getElementById('flashcardContainer');
+    container.innerHTML = '';
+    var card = document.createElement('div');
+    card.className = 'flashcard';
+    card.id = 'currentFlashcard';
+
+    var front = document.createElement('div');
+    front.className = 'flashcard-face flashcard-front';
+    front.innerHTML = '<div class="fc-label">Question</div><div class="fc-question">' + flashcards[fcOrder[fcIndex]].q + '</div>';
+
+    var back = document.createElement('div');
+    back.className = 'flashcard-face flashcard-back';
+    back.innerHTML = '<div class="fc-label">Answer</div><div class="fc-answer">' + flashcards[fcOrder[fcIndex]].a + '</div>';
+
+    card.appendChild(front);
+    card.appendChild(back);
+    container.appendChild(card);
+
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+
+    document.getElementById('fcCounter').textContent = (fcIndex + 1) + ' / ' + flashcards.length;
+    document.getElementById('fcPrev').disabled = (fcIndex === 0);
+    document.getElementById('fcNext').disabled = (fcIndex === flashcards.length - 1);
+  }
+
+  document.getElementById('fcPrev').addEventListener('click', function() {
+    if (fcIndex > 0) { fcIndex--; renderFlashcard(); }
+  });
+  document.getElementById('fcNext').addEventListener('click', function() {
+    if (fcIndex < flashcards.length - 1) { fcIndex++; renderFlashcard(); }
+  });
+  document.getElementById('fcShuffle').addEventListener('click', function() {
+    shuffle(fcOrder);
+    fcIndex = 0;
+    renderFlashcard();
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowLeft') {
+      if (fcIndex > 0) { fcIndex--; renderFlashcard(); }
+    } else if (e.key === 'ArrowRight') {
+      if (fcIndex < flashcards.length - 1) { fcIndex++; renderFlashcard(); }
+    } else if (e.key === ' ' || e.key === 'Enter') {
+      var fc = document.getElementById('currentFlashcard');
+      if (fc) { fc.classList.toggle('flipped'); e.preventDefault(); }
+    }
+  });
+
+  renderFlashcard();
+
+  /* ---------- CHAPTER QUIZ ---------- */
+  var quizQuestions = [
+    {
+      difficulty: 'easy',
+      text: 'Spore formation occurs in:',
+      options: ['Amoeba', 'Rhizopus (bread mould)', 'Hydra', 'Planaria'],
+      answer: 1,
+      explanation: 'Rhizopus (bread mould) reproduces by forming spores inside sporangia. When the sporangia burst, spores are released and germinate into new fungi.'
+    },
+    {
+      difficulty: 'easy',
+      text: 'The male gametophyte in plants produces:',
+      options: ['Eggs', 'Pollen grains (containing sperm)', 'Seeds', 'Fruit'],
+      answer: 1,
+      explanation: 'The male gametophyte (pollen grain) produces sperm cells that travel through the pollen tube to fertilise the egg in the ovule.'
+    },
+    {
+      difficulty: 'easy',
+      text: 'Fertilisation in humans occurs in the:',
+      options: ['Uterus', 'Ovary', 'Fallopian tube', 'Cervix'],
+      answer: 2,
+      explanation: 'Fertilisation in humans normally occurs in the fallopian tube (oviduct), after which the zygote moves to the uterus for implantation.'
+    },
+    {
+      difficulty: 'medium',
+      text: 'In double fertilisation, the endosperm nucleus is:',
+      options: ['Diploid (2n)', 'Triploid (3n)', 'Haploid (n)', 'Polyploid'],
+      answer: 1,
+      explanation: 'In double fertilisation, one sperm (n) fuses with two polar nuclei (n + n) to form the triploid (3n) endosperm nucleus, which provides nutrition to the developing embryo.'
+    },
+    {
+      difficulty: 'medium',
+      text: 'Which hormone triggers ovulation?',
+      options: ['Progesterone', 'Oestrogen', 'LH (Luteinising Hormone)', 'FSH (Follicle-Stimulating Hormone)'],
+      answer: 2,
+      explanation: 'A surge in Luteinising Hormone (LH) around day 14 of the menstrual cycle triggers the release of the mature egg from the ovary (ovulation).'
+    },
+    {
+      difficulty: 'medium',
+      text: 'Budding in Hydra is a form of:',
+      options: ['Sexual reproduction', 'Asexual reproduction', 'Regeneration', 'Fragmentation'],
+      answer: 1,
+      explanation: 'Budding in Hydra is asexual reproduction \u2014 a bud (outgrowth) forms on the parent, develops into a miniature Hydra, and detaches. Only one parent is involved.'
+    },
+    {
+      difficulty: 'medium',
+      text: 'The function of the testis is to:',
+      options: ['Produce eggs', 'Produce sperm and testosterone', 'Produce progesterone', 'Store eggs'],
+      answer: 1,
+      explanation: 'The testes are the male gonads. They produce sperm cells (male gametes) and secrete the hormone testosterone, which is responsible for male secondary sexual characteristics.'
+    },
+    {
+      difficulty: 'hard',
+      text: 'If a cut piece of Planaria can regenerate a whole organism, this is possible because:',
+      options: [
+        'All its cells are stem cells',
+        'It uses sexual reproduction',
+        'Specialised cells called neoblasts (undifferentiated cells) can redifferentiate',
+        'Planaria has no specialised cells'
+      ],
+      answer: 2,
+      explanation: 'Planaria contains neoblasts \u2014 special undifferentiated cells that can proliferate and differentiate into all cell types needed to regenerate a complete organism from a body fragment.'
+    },
+    {
+      difficulty: 'hard',
+      text: 'Vegetative propagation is preferred in horticulture because:',
+      options: [
+        'It produces genetically diverse offspring',
+        'It produces genetically identical (cloned) offspring with desired traits',
+        'It is cheaper than any other method',
+        'It only works in soil'
+      ],
+      answer: 1,
+      explanation: 'Vegetative propagation produces clones (genetically identical copies) of the parent plant. This ensures desirable traits (taste, colour, disease resistance) are preserved exactly in every offspring.'
+    }
+  ];
+
+  var quizAnswered = [];
+  var quizCurrent = 0;
+
+  function renderQuiz() {
+    var container = document.getElementById('quizContainer');
+    container.innerHTML = '';
+    quizAnswered = new Array(quizQuestions.length).fill(null);
+    quizCurrent = 0;
+    document.getElementById('quizResult').classList.remove('show');
+
+    quizQuestions.forEach(function(q, qIdx) {
+      var div = document.createElement('div');
+      div.className = 'quiz-question' + (qIdx === 0 ? ' active' : '');
+      div.id = 'qq-' + qIdx;
+
+      var diffClass = q.difficulty;
+      var html = '<span class="qq-number ' + diffClass + '">' + q.difficulty.charAt(0).toUpperCase() + q.difficulty.slice(1) + ' \u00b7 Q' + (qIdx + 1) + '</span>';
+      html += '<p class="qq-text">' + q.text + '</p>';
+      html += '<div class="qq-options">';
+      q.options.forEach(function(opt, oIdx) {
+        html += '<button class="qq-opt" data-q="' + qIdx + '" data-o="' + oIdx + '">' + String.fromCharCode(65 + oIdx) + ') ' + opt + '</button>';
+      });
+      html += '</div>';
+      html += '<div class="qq-feedback" id="qqf-' + qIdx + '">' + q.explanation + '</div>';
+      html += '<div class="quiz-nav">';
+      html += '<button class="quiz-nav-btn" data-dir="prev"' + (qIdx === 0 ? ' disabled' : '') + '>Previous</button>';
+      html += '<span class="quiz-progress">' + (qIdx + 1) + ' / ' + quizQuestions.length + '</span>';
+      if (qIdx < quizQuestions.length - 1) {
+        html += '<button class="quiz-nav-btn" data-dir="next">Next</button>';
+      } else {
+        html += '<button class="quiz-nav-btn" data-dir="finish">Finish</button>';
+      }
+      html += '</div>';
+
+      div.innerHTML = html;
+      container.appendChild(div);
+    });
+
+    // Bind option clicks
+    container.querySelectorAll('.qq-opt').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var qIdx = parseInt(btn.getAttribute('data-q'));
+        var oIdx = parseInt(btn.getAttribute('data-o'));
+        if (quizAnswered[qIdx] !== null) return;
+        quizAnswered[qIdx] = oIdx;
+        btn.classList.add('chosen');
+
+        var questionDiv = document.getElementById('qq-' + qIdx);
+        var opts = questionDiv.querySelectorAll('.qq-opt');
+
+        if (oIdx === quizQuestions[qIdx].answer) {
+          btn.classList.add('correct');
+        } else {
+          btn.classList.add('wrong');
+          opts[quizQuestions[qIdx].answer].classList.add('correct');
+        }
+        document.getElementById('qqf-' + qIdx).classList.add('show');
+      });
+    });
+
+    // Bind nav clicks
+    container.querySelectorAll('.quiz-nav-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var dir = btn.getAttribute('data-dir');
+        if (dir === 'prev' && quizCurrent > 0) {
+          goToQuestion(quizCurrent - 1);
+        } else if (dir === 'next' && quizCurrent < quizQuestions.length - 1) {
+          goToQuestion(quizCurrent + 1);
+        } else if (dir === 'finish') {
+          showQuizResult();
+        }
+      });
+    });
+  }
+
+  function goToQuestion(idx) {
+    document.getElementById('qq-' + quizCurrent).classList.remove('active');
+    quizCurrent = idx;
+    document.getElementById('qq-' + quizCurrent).classList.add('active');
+  }
+
+  function showQuizResult() {
+    document.getElementById('qq-' + quizCurrent).classList.remove('active');
+    var score = 0;
+    quizAnswered.forEach(function(ans, i) {
+      if (ans === quizQuestions[i].answer) score++;
+    });
+    document.getElementById('quizScoreBig').textContent = score + ' / ' + quizQuestions.length;
+    var msg = '';
+    var pct = score / quizQuestions.length;
+    if (pct === 1) msg = 'Perfect score! Outstanding understanding of reproduction!';
+    else if (pct >= 0.7) msg = 'Great job! You have a solid grasp of the material.';
+    else if (pct >= 0.4) msg = 'Good effort! Review the topics you missed and try again.';
+    else msg = 'Keep studying! Go through the chapter notes and flashcards, then retry.';
+    document.getElementById('quizScoreMsg').textContent = msg;
+    document.getElementById('quizResult').classList.add('show');
+  }
+
+  document.getElementById('quizRetry').addEventListener('click', renderQuiz);
+  renderQuiz();
+
+})();
+</script>
+</body>
+</html>
